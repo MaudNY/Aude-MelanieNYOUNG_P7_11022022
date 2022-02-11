@@ -25,6 +25,9 @@ const User = sequelize.define('User', {
       is: /^[0-9a-f]{64}$/i
     }
   },
+  profileImageUrl: {
+    type: DataTypes.STRING
+  },
   department: {
     type: DataTypes.STRING
   },
@@ -38,7 +41,7 @@ const User = sequelize.define('User', {
     type: DataTypes.TEXT
   },
   tags: {
-    type: DataTypes.STRING
+    type: [DataTypes.STRING]
   }
 });
 

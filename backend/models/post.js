@@ -19,7 +19,7 @@ const Post = sequelize.define('Post', {
     type: [DataTypes.STRING]
   },
   reports: {
-    type: [DataTypes.INTEGER]
+    type: [DataTypes.STRING]
   }
 });
 
