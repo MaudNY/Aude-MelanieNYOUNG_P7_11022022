@@ -1,12 +1,26 @@
 @charset "UTF-8";
 /* RESPONSIVE */
 /* UTILS - Mixins */
+html {
+  height: 100%;
+  box-sizing: border-box;
+}
+
 body {
+  min-height: 100%;
   font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  box-sizing: border-box;
 }
 
 nav, h1, h2 {
   font-family: Triomphe, sans-serif;
+}
+
+p {
+  font-family: Arial, sans-serif;
 }
 
 a, ul {
@@ -17,6 +31,10 @@ a, ul {
 @font-face {
   font-family: "Triomphe";
   src: url(../font/triomphe-font/triomphe-regular-autoinstr.ttf);
+}
+@font-face {
+  font-family: "Triomphe-light";
+  src: url(../font/triomphe-font/triomphe-light-autoinstr.ttf);
 }
 .main-container {
   margin: 0 auto;
@@ -31,6 +49,59 @@ a, ul {
   .main-container {
     max-width: 1080px;
   }
+}
+
+header {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0px;
+  background-color: #F2F2F2;
+}
+header #page-title {
+  display: flex;
+  justify-content: center;
+  padding: 8px;
+  color: #2E405E;
+}
+header #page-title img {
+  padding: 0 10px 0 10px;
+}
+header #page-title h1 {
+  margin: 0;
+  padding-top: 2px;
+}
+
+nav {
+  width: 100%;
+  background-color: white;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 53px;
+}
+
+nav ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+h2 {
+  color: #2E405E;
+}
+
+footer {
+  background-color: #F2F2F2;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+footer #footer-img {
+  padding: 10px 0 5px 0;
+  text-align: center;
 }
 
 /*# sourceMappingURL=main.css.map */

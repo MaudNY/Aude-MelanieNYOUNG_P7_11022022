@@ -12,12 +12,14 @@
 <!-- CORPS de la page -->
 <body>
     <header>
-        <h1>InBetween</h1>
-        <p>Réseau social pour le groupe Groupomania</p>
+        <div id="page-title">
+            <img src="images/world-icon.png" alt="world icon" />
+            <h1>InBetween.</h1>
+        </div>       
     </header>
     <nav>
         <ul>
-            <li class="scroll"><a href="#">API InBetween</a>
+            <li class="scroll">
                 <ul class="subchapters">
                   <li><a href="#api-presentation-section">Présentation de l'API InBetween</a></li>
                   <li><a href="#authentification-section">Authentification</a></li>
@@ -39,7 +41,10 @@
         <section id="api-presentation-section">
             <h2>Présentation de l'API InBetween</h2>
             <p>
-                Cette documentation comporte tous les appels API permettant d'obtenir les données relatives aux utilisateurs, aux posts créés sur l'aplication InBetween, aux thèmes de discussion abordés et aux départements du groupe Groupomania répertoriés sur l'application. Tous ces appels sont réalisables via des requêtes HTTP. La barre de navigation se situe en haut de la page (version mobile) ou à gauche de la page (version pour ordinateur).</br>
+                Cette documentation comporte tous les appels API permettant d'obtenir les données relatives aux utilisateurs, aux posts créés sur l'aplication InBetween, aux thèmes de discussion abordés et aux départements du groupe Groupomania répertoriés sur l'application.</br></br>
+                Tous ces appels sont réalisables via des requêtes HTTP.</br></br>
+                La barre de navigation se situe en haut de la page (version mobile) ou à gauche de la page (version pour ordinateur).</br></br>
+
                 La présentation des endpoints de chaque type de ressource sera constituée :</br>
                 <ul>
                     <li>d'une description de la requête ;</li>
@@ -58,8 +63,8 @@
         <section id="authorizations-section">
             <h2>Autorisations</h2>
             <p>
-                Le ou la responsable Développement du pôle IT Groupomania ainsi que son homologue CONNECT-E (agence sous-traitante), en charge de la création du réseau social InBetween, disposent des droits d'administrateur de la plateforme.</br>
-                Le ou la chargé(e) de communication Groupomania dispose de droits de modération des intéractions entre les salariés utilisateurs de la plateforme.</br>
+                Le ou la responsable Développement du pôle IT Groupomania ainsi que son homologue CONNECT-E (agence sous-traitante), en charge de la création du réseau social InBetween, disposent des droits d'administrateur de la plateforme.</br></br>
+                Le ou la chargé(e) de communication Groupomania dispose de droits de modération des intéractions entre les salariés utilisateurs de la plateforme.</br></br>
                 Tout salarié Groupomania dispose, au moment où il finalise son inscription, de droits utilisateurs et notamment des permissions suivantes :</br>
                 <ul>
                     <li>création de son profil, d'un post ou d'un forum de discussion ;</li>
@@ -75,5 +80,8 @@
         </section>
 
     </main>
+    <footer>
+        <div id="footer-img"><img src="images/icon-left-font-monochrome-black(2).png" alt="Groupomania" /></div>
+    </footer>
 </body>
 </html>
