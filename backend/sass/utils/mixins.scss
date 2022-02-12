@@ -1,0 +1,17 @@
+/* UTILS - Mixins */
+@mixin weblink-rules ($colour) {
+	text-decoration-line: none;
+	color: $colour;
+}
+
+@mixin tablet-only {
+	@media screen and (min-width: map-get($breakpoints, tablet)) {
+		@content;
+	}
+}
+
+@mixin desktop-only {
+	@media screen and (min-width: map-get($breakpoints, desktop)) {
+		@content;
+	}
+}

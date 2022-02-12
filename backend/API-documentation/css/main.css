@@ -1,0 +1,36 @@
+@charset "UTF-8";
+/* RESPONSIVE */
+/* UTILS - Mixins */
+body {
+  font-family: Arial, sans-serif;
+}
+
+nav, h1, h2 {
+  font-family: Triomphe, sans-serif;
+}
+
+a, ul {
+  text-decoration-line: none;
+}
+
+/* Police générique de la documentation de l'API InBetween */
+@font-face {
+  font-family: "Triomphe";
+  src: url(../font/triomphe-font/triomphe-regular-autoinstr.ttf);
+}
+.main-container {
+  margin: 0 auto;
+  max-width: 335px;
+}
+@media screen and (min-width: 768px) {
+  .main-container {
+    max-width: 708px;
+  }
+}
+@media screen and (min-width: 1140px) {
+  .main-container {
+    max-width: 1080px;
+  }
+}
+
+/*# sourceMappingURL=main.css.map */
