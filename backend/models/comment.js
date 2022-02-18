@@ -1,7 +1,7 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = new Sequelize('sqlite::memory:');
 
-const Post = sequelize.define('Post', {
+const Comment = sequelize.define('Comment', {
   author: {
     type: DataTypes.STRING,
     allowNull: false
@@ -10,22 +10,10 @@ const Post = sequelize.define('Post', {
     type: DataTypes.TEXT,
     allowNull: false
   },
-  imageUrl: {
-    type: DataTypes.STRING
-  },
   publicationDate: {
     type: DataTypes.DATE,
     allowNull: false
-  },
-  likesCount: {
-    type: DataTypes.INTEGER
-  },
-  commentsCount: {
-    type: DataTypes.INTEGER
-  },
-  usersWhoPutIntoFavorites: {
-    type: [DataTypes.STRING]
   }
 });
 
-module.exports = { Sequelize }.model('Post', Post);
+module.exports = { Sequelize }.model('Comment', Comment);
