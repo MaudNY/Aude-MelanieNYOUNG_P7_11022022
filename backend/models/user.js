@@ -34,10 +34,7 @@ const User = sequelize.define('User', {
   job: {
     type: DataTypes.STRING
   },
-  jobLocation: {
-    type: DataTypes.STRING
-  },
-  description: {
+  bio: {
     type: DataTypes.TEXT
   },
   tags: {
@@ -48,5 +45,3 @@ const User = sequelize.define('User', {
     allowNull: false
   }
 });
-
-module.exports = { Sequelize }.model('User', User);

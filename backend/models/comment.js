@@ -2,7 +2,7 @@ const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = new Sequelize('sqlite::memory:');
 
 const Comment = sequelize.define('Comment', {
-  author: {
+  user: {
     type: DataTypes.STRING,
     allowNull: false
   },
