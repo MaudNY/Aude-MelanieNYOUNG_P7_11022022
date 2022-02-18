@@ -4,8 +4,9 @@ const { Sequelize } = require('sequelize');
 const path = require('path');
 
 /*
-const sauceRoutes = require('./routes/sauce');
 const userRoutes = require('./routes/user');
+const postRoutes = require('.:routes/post');
+const commentRoutes = require('./routes/comment');
 */
 /*
 mongoose.connect('mongodb+srv://MaudNY:Piiquante1@cluster0.jrruo.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',

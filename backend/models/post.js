@@ -2,8 +2,8 @@ const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = new Sequelize('sqlite::memory:');
 
 const Post = sequelize.define('Post', {
-  user: {
-    type: DataTypes.STRING,
+  userId: {
+    type: DataTypes.INTEGER,
     allowNull: false
   },
   content: {
@@ -24,7 +24,7 @@ const Post = sequelize.define('Post', {
     type: DataTypes.INTEGER
   },
   usersWhoPutIntoFavorites: {
-    type: [DataTypes.STRING]
+    type: [DataTypes.INTEGER]
   }
 });
 
