@@ -1,24 +1,24 @@
-const { Sequelize } = require('sequelize');
+const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = new Sequelize('sqlite::memory:');
 
 const Post = sequelize.define('Post', {
   content: {
-    type: DataTypes.STRING,
+    type: DataTypes.TEXT,
     allowNull: false
   },
   imageUrl: {
     type: DataTypes.STRING
   },
-  likes: {
+  likesCount: {
     type: DataTypes.INTEGER
   },
-  comments: {
+  commentsCount: {
     type: DataTypes.INTEGER
   },
-  favorites: {
+  usersWhoPutIntoFavorites: {
     type: [DataTypes.STRING]
   },
-  reports: {
+  usersWhoReported: {
     type: [DataTypes.STRING]
   }
 });
