@@ -4,13 +4,14 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "sass": "sass --watch ./sass/main.scss:API-documentation/css/main.css",
+    "sass": "sass --watch ./API-documentation/sass/main.scss:API-documentation/css/main.css",
     "start": "node server.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.2",
-    "sass": "^1.49.7"
+    "sass": "^1.49.7",
+    "sequelize": "^6.16.1"
   }
 }
