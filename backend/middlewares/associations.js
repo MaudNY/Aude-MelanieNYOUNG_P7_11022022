@@ -4,19 +4,27 @@ const Comment = require('../models/comment');
 
 // USER ASSOCIATIONS
 User.hasMany(Post, {
-    foreignKey: 'userId'
+    foreignKey: {
+      name: 'userId',
+      allowNull: false
+    }
 });
 Post.belongsTo(User);
 
 User.hasMany(Comment, {
-    foreignKey: 'userId'
+    foreignKey: {
+      name: 'userId',
+      allowNull: false
+    }
 });
 Comment.belongsTo(User);
+
 
 // POST ASSOCIATIONS
 Post.hasOne(User, {
     foreignKey: 'userId'
 });
+
 
 // COMMENT ASSOCIATIONS
 Comment.hasOne(User, {

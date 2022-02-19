@@ -46,11 +46,4 @@ const User = sequelize.define('User', {
   }
 });
 
-
-
-User.hasMany(Player, {
-  foreignKey: 'clubId'
-});
-Player.belongsTo(Team);
-
 module.exports = { Sequelize }.model('User', User);
