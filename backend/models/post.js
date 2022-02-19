@@ -1,31 +1,36 @@
-const { Sequelize, DataTypes } = require('sequelize');
-const sequelize = new Sequelize('sqlite::memory:');
+'use strict';
+const {
+  Model
+} = require('sequelize');
+module.exports = (sequelize, DataTypes) => {
+  class Post extends Model {
+    static associate(models) {
+      // define association here
+      models.Post.belongsTo(models.User, {
+        foreignKey: {
+          name: 'userId',
+          allowNull: false
+        }
+      });
 
-const Post = sequelize.define('Post', {
-  userId: {
-    type: DataTypes.INTEGER,
-    allowNull: false
-  },
-  content: {
-    type: DataTypes.TEXT,
-    allowNull: false
-  },
-  imageUrl: {
-    type: DataTypes.STRING
-  },
-  publicationDate: {
-    type: DataTypes.DATE,
-    allowNull: false
-  },
-  likesCount: {
-    type: DataTypes.INTEGER
-  },
-  commentsCount: {
-    type: DataTypes.INTEGER
-  },
-  usersWhoPutIntoFavorites: {
-    type: [DataTypes.INTEGER]
+      models.Post.hasMany(models.Comment, {
+        foreignKey: {
+          name: 'postId',
+          allowNull: false
+        }
+      })
+    }
   }
-});
-
-module.exports = { Sequelize }.model('Post', Post);
+  Post.init({
+    userId: DataTypes.INTEGER,
+    content: DataTypes.TEXT,
+    imageUrl: DataTypes.STRING,
+    publicationDate: DataTypes.DATE,
+    likesCount: DataTypes.INTEGER,
+    commentsCount: DataTypes.INTEGER
+  }, {
+    sequelize,
+    modelName: 'Post',
+  });
+  return Post;
+};
