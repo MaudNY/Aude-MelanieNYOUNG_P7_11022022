@@ -1,4 +1,5 @@
 const { Sequelize } = require('sequelize');
+const CommentModelCreation = require('./models/comment');
 const PostModelCreation = require('./models2/post');
 const UserModelCreation = require('./models2/user');
 
@@ -18,6 +19,7 @@ async function run () {
 
     const User = UserModelCreation(sequelize);
     const Post = PostModelCreation(sequelize);
+    const Comment = CommentModelCreation(sequelize);
 
     User.hasMany(Post, {
         foreignKey: {
@@ -30,6 +32,18 @@ async function run () {
           name: 'userId',
           allowNull: false
         }
+    });
+    Comment.belongsTo(User, {
+      foreignKey: {
+        name: 'userId',
+        allowNull: false
+      }
+    });
+    Comment.belongsTo(Post, {
+      foreignKey: {
+        name: 'postId',
+        allowNull: false
+      }
     });
 
     await sequelize.sync({ force: true });

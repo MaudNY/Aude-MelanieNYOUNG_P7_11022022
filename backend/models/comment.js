@@ -1,34 +1,26 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
-module.exports = (sequelize, DataTypes) => {
-  class Comment extends Model {
-    static associate(models) {
-      // define association here
-      models.Comment.belongsTo(models.User, {
-        foreignKey: {
-          name: 'userId',
-          allowNull: false
-        }
-      });
+const { Sequelize, DataTypes } = require('sequelize');
 
-      models.Comment.belongsTo(models.Post, {
-        foreignKey: {
-          name: 'postId',
-          allowNull: false
-        }
-      });
+function CommentModelCreation(sequelize) {
+  const Comment = sequelize.define('Comment', {
+        
+    content: {
+      type: DataTypes.TEXT,
+      allowNull: false
+    },
+    likesCount: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      default: 0
+    },
+    commentsCount: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      default: 0
     }
-  }
-  Comment.init({
-    userId: DataTypes.INTEGER,
-    postId: DataTypes.INTEGER,
-    content: DataTypes.TEXT,
-    publicationDate: DataTypes.DATE
-  }, {
-    sequelize,
-    modelName: 'Comment',
+
   });
+
   return Comment;
 };
+
+module.exports = CommentModelCreation;
