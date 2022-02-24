@@ -2,21 +2,21 @@
   "development": {
     "username": "root",
     "password": "Inbetween-1",
-    "database": "database_development",
+    "database": "database_development_inbetween",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "test": {
     "username": "root",
     "password": "Inbetween-1",
-    "database": "database_test",
+    "database": "database_test_inbetween",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "production": {
     "username": "root",
     "password": "Inbetween-1",
-    "database": "database_production",
+    "database": "database_production_inbetween",
     "host": "127.0.0.1",
     "dialect": "mysql"
   }
