@@ -4,12 +4,6 @@ const { Sequelize } = require('sequelize');
 
 const path = require('path');
 
-/*
-const userRoutes = require('./routes/user');
-const postRoutes = require('.:routes/post');
-const commentRoutes = require('./routes/comment');
-*/
-
 // DATABASE CONFIGURATION
 const PostModelCreation = require('./models/post');
 const UserModelCreation = require('./models/user');
@@ -63,8 +57,10 @@ async function connectDatabase () {
 
 connectDatabase();
 
+// APPLICATION = EXPRESS
 const app = express();
 
+// HEADERS Definition
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*'); /*Autoriser les requêtes provenant de n'importe quelle origine ??*/
   res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
@@ -72,10 +68,20 @@ app.use((req, res, next) => {
   next();
 });
 
+// CONVERT ALL JS OBJECTS TO JSON OBJECTS
 app.use(bodyParser.json());
 
-//app.use('/images', express.static(path.join(__dirname, 'images')));
+// IMAGES PATH Definition
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
+// ROUTES Definition
+/*
+const userRoutes = require('./routes/user');
+const postRoutes = require('.:routes/post');
+const commentRoutes = require('./routes/comment');
+*/
+
+// ENDPOINTS Definition
 //app.use('/api/sauces', sauceRoutes);
 //app.use('/api/auth', userRoutes);
 
