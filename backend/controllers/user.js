@@ -1,27 +1,32 @@
-const cryptojs = require('crypto-js');
 const bcrypt = require('bcrypt');
+const sequelize = require('../sequelize');
 //const jwt = require('jsonwebtoken');
 
 const User = require('../models/user');
 
 exports.signup = (req, res) => {
-  const encryptedEmail = cryptojs.SHA256(req.body.email, "SECRET_KEY").toString();
-  console.log(encryptedEmail);
+  console.log(sequelize.models);
 
-  bcrypt.hash(req.body.password, 20)
+  bcrypt.hash(req.body.password, 10)
     .then(hash => {
-      const user = User.build({
-        email: encryptedEmail,
+      const user = sequelize.models.User.build({
+        email: req.body.email,
         password: hash,
         firstName: req.body.firstName,
         lastName: req.body.lastName
       })
       user.save()
         .then(() => res.status(201).json({ message: 'Utilisateur créé' }))
-        .catch(error => res.status(400).json({ message: 'Adresse mail déjà utilisée' }))
+        .catch(error => {
+          console.error(error);
+          res.status(400).json({ message: 'Adresse mail déjà utilisée' })
+        })
     })
-    .catch(error => res.status(500).json({ message: 'Erreur serveur, réessayez votre inscription plus tard...' }))
-};
+    .catch(error => {
+      console.error(error);
+      res.status(500).json({ message: 'Erreur SERVEUR' })
+    })
+  };
 
 /*exports.login = (req, res, next) => {
     User.findOne({ email: req.body.email })
