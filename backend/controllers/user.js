@@ -1,34 +1,26 @@
 const cryptojs = require('crypto-js');
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
+//const jwt = require('jsonwebtoken');
 
 const User = require('../models/user');
 
 exports.signup = (req, res) => {
   const encryptedEmail = cryptojs.SHA256(req.body.email, "SECRET_KEY").toString();
+  console.log(encryptedEmail);
 
   bcrypt.hash(req.body.password, 20)
     .then(hash => {
-      const user = new User ({
+      const user = User.build({
         email: encryptedEmail,
-        password: hash
+        password: hash,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName
       })
       user.save()
         .then(() => res.status(201).json({ message: 'Utilisateur créé' }))
         .catch(error => res.status(400).json({ message: 'Adresse mail déjà utilisée' }))
     })
     .catch(error => res.status(500).json({ message: 'Erreur serveur, réessayez votre inscription plus tard...' }))
-};
-
-exports.login = (req, res) => {
-  User.findOne({ email: req.body.email })
-    .then( user => {
-      if (!user) {
-
-        return res.status(401).json({ message: 'Adresse email non correcte' });
-      }
-    })
-    .catch()
 };
 
 /*exports.login = (req, res, next) => {
