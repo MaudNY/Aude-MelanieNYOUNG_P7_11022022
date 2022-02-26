@@ -1,5 +1,5 @@
-const bcrypt = require('bcrypt');
 const sequelize = require('../sequelize');
+const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 exports.signup = (req, res) => {
@@ -45,7 +45,7 @@ exports.login = (req, res) => {
             message: "Connexion réussie",
             userId: user.id,
             token: jwt.sign(
-              { userId: user._id },
+              { userId: user.id },
               'RANDOM_TOKEN_SECRET',
               { expiresIn: '24h' }
             )
@@ -62,61 +62,25 @@ exports.login = (req, res) => {
     })
 };
 
-/*exports.deleteAccount2 = (req, res) => {
-  sequelize.models.User.findOne({ id: req.params.id })
-    .then(user => {
-      // Vérifier que l'id du user voulant supprimer le compte est le même que l'id dans l'URL
-      if (!user) {
-        res.status(404).json({ message: 'Utilisateur non reconnu' });
-
-        return;
-      }/* else if (user.id !== req.auth.userId) {
-        res.status(403).json({ message: 'Requête non autorisée !' });
-
-        return;
-      }
-      console.log(user)
-
-      sequelize.models.Comment.destroy({ userId: req.params.id })
-        .then(
-          console.log({ message: "Tous les commentaires ont été supprimés" }),
-          sequelize.models.Post.destroy({ userId: req.params.id })
-            .then(
-              console.log({ message: "Tous les posts et commentaires ont été supprimés" }),
-              sequelize.models.User.destroy({ id: req.params.id })
-                .then(() => res.status(200).json({ message: "Utilisateur supprimé" }))
-                .catch(error => {
-                  console.error(error),
-                  res.status(500).json({ message: "Erreur SERVEUR" })
-                })
-            )
-            .catch(error => {
-              console.error(error),
-              res.status(500).json({ message: "Erreur SERVEUR" })
-            })
-        )
-        .catch(error => {
-          console.error(error);
-          res.status(500).json({ message: "Erreur SERVEUR" })
-        })
-    )
-    .catch(error => {
-      console.error(error);
-      res.status(500).json({ message: "Erreur SERVEUR" })
-    })
-  // Vérifier que le token d'authentification est le même que celui du user qui veut supprimer le compte
-};*/
-
 exports.deleteAccount = (req, res) => {
+  console.log(req.auth);
   sequelize.models.User.findOne({ id: req.params.id })
     .then(user => {
+      const userId = user.id;
+
+      console.log("User ID");
+      console.log(userId);
       // Vérifier que l'id du user voulant supprimer le compte est le même que l'id dans l'URL
       if (!user) {
         res.status(404).json({ message: "Utilisateur non reconnu" });
 
         return;
-      }
-      // Vérifier que le token d'authentification est le même que celui du user qui veut supprimer le compte
+        // Vérifier que l'id du token est le même que celui du user qui veut supprimer le compte
+      } /*else if (user.id != req.auth.userId) {
+          res.status(403).json({ message: 'Requête non autorisée !' });
+
+          return;
+      }*/
 
       console.log(user)
 
