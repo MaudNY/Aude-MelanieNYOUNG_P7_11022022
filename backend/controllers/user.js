@@ -14,7 +14,7 @@ exports.signup = (req, res) => {
         lastName: req.body.lastName
       })
       user.save()
-        .then(() => res.status(201).json({ message: "Félicitations ! Votre compte utilisateur a été créé." }))
+        .then(() => res.status(201).json({ message: "Félicitations ! Votre compte a été créé." }))
         .catch(error => {
           console.error(error);
           res.status(400).json({ message: "Cette adresse mail est déjà utilisée." })
@@ -153,60 +153,26 @@ exports.updateProfile = (req, res) => {
 };
 
 exports.deleteAccount = (req, res) => {
-
-  sequelize.models.User.findOne({ where: { 
-    id: req.body.id,
-    email: req.body.email
-  } })
-  .then(user => {
-    //console.log("user.id", user.id);
-    //console.log("req.auth.userId", user.id)
-    // Vérifier que l'id du user voulant supprimer le compte est le même que l'id dans l'URL
-    if (!user) {
-      res.status(404).json({ message: "Utilisateur non reconnu" });
-
-      return;
-    } else if (req.params.id !== req.auth) {
-      // Vérifier que le token d'authentification est le même que celui du user qui veut supprimer le compte
-      res.status(403).json({ message: "Requête non autorisée !" });
-
-      return;
-    }
-    
-    sequelize.models.User.destroy({ where: { id: req.body.id } })
-      .then(() => res.status(200).json({ message: "Le profil a été supprimé" }))
-      .catch(error => {
-        console.error(error);
-        res.status(500).json({ message: "Erreur SERVEUR" })
-      })     
-  })
-  .catch(error => {
-    console.error(error);
-    res.status(500).json({ message: "Erreur SERVEUR" })
-  })
-    
-};
-
-exports.deleteAccount2 = (req, res) => {
   console.log("req.body.id", req.body.id);
   console.log("req.params.id", req.params.id);
   console.log("req.auth", req.auth);
-  console.log("Test1", req.body.id != req.params.id);
 
 
   if (req.body.id !== req.params.id || req.body.id !== req.auth) {
-    res.status(403).json({message: "Forbidden"})
+    res.status(403).json({message: "Requête non autorisée"})
+
+    return;
   }
 
-  sequelize.models.User.destroy({ where: { id: req.params.id } })
+  sequelize.models.User.destroy({ where: { 
+    id: req.body.id,
+    email: req.body.email } })
     .then(() => {
-      res.status(200).json({ message : "profil supprimé" })
+      res.status(200).json({ message : "Votre compte a bien été supprimé" })
     })
     .catch(error => {
       console.log(error);
-      res.status(500).json({ message: "Server down" })
+      res.status(500).json({ message: "Erreur serveur, veuillez réessayer dans quelques minutes." })
     })
-
-  
 
 };
