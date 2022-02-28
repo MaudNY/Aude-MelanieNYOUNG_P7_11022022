@@ -3,6 +3,8 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const fs = require('fs');
 
+
+// CREER son profil
 exports.signup = (req, res) => {
   
   bcrypt.hash(req.body.password, 10)
@@ -27,11 +29,9 @@ exports.signup = (req, res) => {
 
 };
 
+// SE CONNECTER à son profil
 exports.login = (req, res) => {
 
-  const targetedEmail = req.body.email;
-  console.log(targetedEmail);
-  
   sequelize.models.User.findOne({ where: { email: req.body.email } })
     .then(user => {
       if (!user) {
@@ -65,6 +65,19 @@ exports.login = (req, res) => {
     })
 };
 
+// AFFICHER son profil
+exports.getOneProfile = (req, res) => {
+  sequelize.models.User.findOne({ where: { id: req.params.id } })
+    .then(user => {
+      res.status(200).json(user)
+    })
+    .catch(error => {
+      console.error(error);
+      res.status(500).json({ message: "Erreur serveur, veuillez réessayer dans quelques minutes." })
+    })
+};
+
+// METTRE A JOUR son profil
 exports.updateProfile = (req, res) => {
   console.log("req.params.id", req.params.id);
   console.log("req.auth", req.auth);
@@ -88,7 +101,8 @@ exports.updateProfile = (req, res) => {
       return user.save();
     })
     .then(() => {
-      res.status(200).json({ message: "Votre profil a bien été mis à jour" })
+      
+      return res.status(200).json({ message: "Votre profil a bien été mis à jour" });
     })
     .catch(error => {
       console.error(error);
@@ -96,6 +110,7 @@ exports.updateProfile = (req, res) => {
     })
 };
 
+// SUPPRIMER son profil
 exports.deleteAccount = (req, res) => {
   console.log("req.body.id", req.body.id);
   console.log("req.params.id", req.params.id);
