@@ -69,6 +69,7 @@ exports.updateProfile = (req, res) => {
   const newProfilePic = req.file;
   const userObject = req.file ?
   {
+    ...JSON.parse(req.body.user),
     ...JSON.parse(req.body),
     profileImageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
   } : { ...req.body };
@@ -76,23 +77,28 @@ exports.updateProfile = (req, res) => {
   console.log(userObject);
 
   sequelize.models.User.findOne({ where: { id: req.params.id } })
-    .then(user => {
-      if (newProfilePic) {
-        const fileToBeDeleted = user.profileImageUrl.split('/images')[1];
-        user.update({ ...userObject }, { where: { id: req.params.id } })
-          .then(() => {
-            res.status(200).json({ message: "Profil mis à jour" })
-            fs.unlink(`images/${fileToBeDeleted}`, (err) => {
-                if (err) {
-                    console.error(err);
-                }
-            })
+  .then(user => {
+    if (newProfilePic) {
+      const fileToBeDeleted = user.profileImageUrl.split('/images')[1];
+      user.update({ ...userObject }, { where: { id: req.params.id } })
+        .then(() => {
+          res.status(200).json({ message: "Profil mis à jour" })
+          fs.unlink(`images/${fileToBeDeleted}`, (err) => {
+              if (err) {
+                  console.error(err);
+              }
           })
-          .catch(error => res.status(400).json({ message: error }))
+        })
+        .catch(error => res.status(400).json({ message: error }))
 
-        return;
-      } else {
-        user.update({ ...userObject }, { where: { id: req.params.id } })
+      return;
+    } else {
+      bcrypt.hash(req.body.password, 10)
+        .then(hash => {
+          user.update({ 
+            ...userObject,
+            password: hash
+          }, { where: { id: req.params.id } })
             .then(user => {
               user.save()
                 .then(() => res.status(200).json({ message: "Profil mis à jour et sauvegardé" }))
@@ -102,15 +108,20 @@ exports.updateProfile = (req, res) => {
               console.error(error);
               res.status(500).json({ message: "Erreur SERVEUR" })
             });
-        
-        return;
-      }
+        })
+        .catch(error => {
+          console.error(error);
+          res.status(500).json({ message: "Erreur SERVEUR" })
+        })
+      
+      return;
+    }
 
-    })
-    .catch(error => {
-      console.error(error);
-      res.status(500).json({ message: "Erreur SERVEUR" })
-    })
+  })
+  .catch(error => {
+    console.error(error);
+    res.status(500).json({ message: "Erreur SERVEUR" })
+  })
 };
 
 exports.deleteAccount = (req, res) => {
