@@ -66,90 +66,34 @@ exports.login = (req, res) => {
 };
 
 exports.updateProfile = (req, res) => {
+  console.log("req.params.id", req.params.id);
+  console.log("req.auth", req.auth);
 
-  const newProfilePic = req.file;
-  console.log(newProfilePic)
-  const userObject = req.file ?
-  {
-    ...JSON.parse(req.body),
-    profileImageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-  } : { ...req.body };
-  console.log(userObject)
+  if (req.params.id !== req.auth) {
+    res.status(403).json({message: "Requête non autorisée"})
+
+    return;
+  }
+  
+  const userObject = { ...req.body };
+  console.log(userObject);
 
   sequelize.models.User.findOne({ where: { id: req.params.id } })
-  .then(user => {
-    if (newProfilePic) {
-      const fileToBeDeleted = user.profileImageUrl.split('/images')[1];
+    .then(user => {
+    
+      return user.update({ ...userObject }, { where: { id: req.params.id } });
+    })
+    .then(user => {
 
-      bcrypt.hash(req.body.password, 10)
-          .then(hash =>{
-            user.update({
-              ...userObject,
-              password: hash
-            }, { where: { id: req.params.id } })
-              .then(user => {
-                user.save()
-                .then(() => {
-                  res.status(200).json({ message: "Votre profil a été mis à jour et sauvegardé" })
-                  if (fileToBeDeleted) {
-                    fs.unlink(`images/${fileToBeDeleted}`, (err) => {
-                      if (err) {
-                          console.error(err);
-                      }
-                  })
-
-                  return;
-                  }
-                })
-                .catch(error => {
-                  console.error(error);
-                  res.status(500).json({ message: "Erreur SERVEUR" })
-                })
-              })
-              .catch(error => {
-                console.error(error);
-                res.status(500).json({ message: "Erreur SERVEUR" })
-              })
-          })
-          .catch(error => {
-            console.error(error);
-            res.status(500).json({ message: "Erreur SERVEUR" })
-          })
-
-      return;
-    } else {
-      bcrypt.hash(req.body.password, 10)
-        .then(hash => {
-          user.update({ 
-            ...userObject,
-            password: hash
-          }, { where: { id: req.params.id } })
-            .then(user => {
-              user.save()
-                .then(() => res.status(200).json({ message: "Votre profil a été mis à jour et sauvegardé" }))
-                .catch(error => {
-                  console.error(error);
-                  res.status(500).json({ message: "Erreur SERVEUR" })
-                })
-            })
-            .catch(error => {
-              console.error(error);
-              res.status(500).json({ message: "Erreur SERVEUR" })
-            });
-        })
-        .catch(error => {
-          console.error(error);
-          res.status(500).json({ message: "Erreur SERVEUR" })
-        })
-      
-      return;
-    }
-
-  })
-  .catch(error => {
-    console.error(error);
-    res.status(500).json({ message: "Erreur SERVEUR" })
-  })
+      return user.save();
+    })
+    .then(() => {
+      res.status(200).json({ message: "Votre profil a bien été mis à jour" })
+    })
+    .catch(error => {
+      console.error(error);
+      res.status(500).json({ message: "Erreur serveur, veuillez réessayer dans quelques minutes." })
+    })
 };
 
 exports.deleteAccount = (req, res) => {

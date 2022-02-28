@@ -8,9 +8,6 @@ module.exports = (req, res, next) => {
     console.log("UserId", userId);
     req.token = decodedToken;
     req.auth = userId;
-    console.log("req.auth", req.auth);
-    console.log("req.body.id", req.body.id);
-    console.log("req.params.id", req.params.id);
 
     next();
 
