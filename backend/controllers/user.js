@@ -1,10 +1,10 @@
 const sequelize = require('../sequelize');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const fs = require('fs');
 
 exports.signup = (req, res) => {
-  console.log(sequelize.models);
-
+  
   bcrypt.hash(req.body.password, 10)
     .then(hash => {
       const user = sequelize.models.User.build({
@@ -14,21 +14,21 @@ exports.signup = (req, res) => {
         lastName: req.body.lastName
       })
       user.save()
-        .then(() => res.status(201).json({ message: 'Utilisateur créé' }))
+        .then(() => res.status(201).json({ message: "Utilisateur créé" }))
         .catch(error => {
           console.error(error);
-          res.status(400).json({ message: 'Adresse mail déjà utilisée' })
+          res.status(400).json({ message: "Adresse mail déjà utilisée" })
         })
     })
     .catch(error => {
       console.error(error);
       res.status(500).json({ message: 'Erreur SERVEUR' })
     })
+
 };
 
 exports.login = (req, res) => {
-  console.log(sequelize.models)
-
+  
   sequelize.models.User.findOne({ email: req.body.email })
     .then(user => {
       if (!user) {
@@ -53,13 +53,49 @@ exports.login = (req, res) => {
         })
         .catch(error => {
           console.error(error);
-          res.status(500).json({ message: 'Erreur SERVEUR' })
+          res.status(500).json({ message: "Erreur SERVEUR" })
         })
     })
     .catch(error => {
       console.error(error);
-      res.status(500).json({ message: 'Erreur SERVEUR' })
+      res.status(500).json({ message: "Erreur SERVEUR" })
     })
+};
+
+exports.updateProfile = (req, res) => {
+  const newProfilePic = req.file;
+  const userObject = req.file ?
+  {
+    ...JSON.parse(req.body.user),
+    profileImageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+  } : { ...req.body };
+
+  sequelize.models.User.findOne({ id: req.params.id })
+    .then(user => {
+      console.log(user);
+      const fileToBeDeleted = user.profileImageUrl.split('/images')[1];
+      if (newProfilePic) {
+        sequelize.models.User.update({ id: req.params.id }, { ...userObject, id: req.params.id })
+          .then(() => {
+            res.status(200).json({ message: "Profil mis à jour" })
+            fs.unlink(`images/${fileToBeDeleted}`, (err) => {
+                if (err) {
+                    console.error(err);
+                }
+            })
+          })
+          .catch(error => res.status(400).json({ message: error }))
+
+        return;
+      } else {
+        sequelize.models.User.update({ id: req.params.id }, { ...userObject, id: req.params.id })
+            .then(() => res.status(200).json({ message: "Profil mis à jour" }))
+            .catch(error => res.status(400).json({ message: error }));
+        
+        return;
+      }
+    })
+    .catch(error => res.status(500).json({ message: "ERREUR SERVEUR" }))
 };
 
 exports.deleteAccount = (req, res) => {
