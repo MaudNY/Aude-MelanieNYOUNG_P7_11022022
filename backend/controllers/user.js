@@ -14,26 +14,29 @@ exports.signup = (req, res) => {
         lastName: req.body.lastName
       })
       user.save()
-        .then(() => res.status(201).json({ message: "Utilisateur créé" }))
+        .then(() => res.status(201).json({ message: "Félicitations ! Votre compte utilisateur a été créé." }))
         .catch(error => {
           console.error(error);
-          res.status(400).json({ message: "Adresse mail déjà utilisée" })
+          res.status(400).json({ message: "Cette adresse mail est déjà utilisée, veuillez en saisir une autre." })
         })
     })
     .catch(error => {
       console.error(error);
-      res.status(500).json({ message: 'Erreur SERVEUR' })
+      res.status(500).json({ message: "Erreur serveur, veuillez réessayer dans quelques minutes." })
     })
 
 };
 
 exports.login = (req, res) => {
+
+  const targetedEmail = req.body.email;
+  console.log(targetedEmail);
   
-  sequelize.models.User.findOne({ email: req.body.email })
+  sequelize.models.User.findOne({ where: { email: req.body.email } })
     .then(user => {
       if (!user) {
 
-        return res.status(401).json({ message: "Utilisateur non trouvé" })
+        return res.status(401).json({ message: "Cet utilisateur n'a pas été trouvé" })
       }
       bcrypt.compare(req.body.password, user.password)
         .then(valid => {
@@ -53,12 +56,12 @@ exports.login = (req, res) => {
         })
         .catch(error => {
           console.error(error);
-          res.status(500).json({ message: "Erreur SERVEUR" })
+          res.status(500).json({ message: "Erreur serveur, veuillez réessayer dans quelques minutes." })
         })
     })
     .catch(error => {
       console.error(error);
-      res.status(500).json({ message: "Erreur SERVEUR" })
+      res.status(500).json({ message: "Erreur serveur, veuillez réessayer dans quelques minutes." })
     })
 };
 
@@ -66,16 +69,17 @@ exports.updateProfile = (req, res) => {
   const newProfilePic = req.file;
   const userObject = req.file ?
   {
-    ...JSON.parse(req.body.user),
+    ...JSON.parse(req.body),
     profileImageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
   } : { ...req.body };
+  console.log("userObject");
+  console.log(userObject);
 
-  sequelize.models.User.findOne({ id: req.params.id })
+  sequelize.models.User.findOne({ where: { id: req.params.id } })
     .then(user => {
-      console.log(user);
-      const fileToBeDeleted = user.profileImageUrl.split('/images')[1];
       if (newProfilePic) {
-        sequelize.models.User.update({ id: req.params.id }, { ...userObject, id: req.params.id })
+        const fileToBeDeleted = user.profileImageUrl.split('/images')[1];
+        user.update({ ...userObject }, { where: { id: req.params.id } })
           .then(() => {
             res.status(200).json({ message: "Profil mis à jour" })
             fs.unlink(`images/${fileToBeDeleted}`, (err) => {
@@ -88,14 +92,25 @@ exports.updateProfile = (req, res) => {
 
         return;
       } else {
-        sequelize.models.User.update({ id: req.params.id }, { ...userObject, id: req.params.id })
-            .then(() => res.status(200).json({ message: "Profil mis à jour" }))
-            .catch(error => res.status(400).json({ message: error }));
+        user.update({ ...userObject }, { where: { id: req.params.id } })
+            .then(user => {
+              user.save()
+                .then(() => res.status(200).json({ message: "Profil mis à jour et sauvegardé" }))
+                .catch()
+            })
+            .catch(error => {
+              console.error(error);
+              res.status(500).json({ message: "Erreur SERVEUR" })
+            });
         
         return;
       }
+
     })
-    .catch(error => res.status(500).json({ message: "ERREUR SERVEUR" }))
+    .catch(error => {
+      console.error(error);
+      res.status(500).json({ message: "Erreur SERVEUR" })
+    })
 };
 
 exports.deleteAccount = (req, res) => {
