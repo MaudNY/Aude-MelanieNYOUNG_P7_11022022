@@ -108,6 +108,52 @@ exports.updateProfile = (req, res) => {
     })
 };
 
+// METTRE A JOUR sa photo de profil
+
+exports.updateProfilePicture = (req, res) => {
+  console.log("req.params.id", req.params.id);
+
+  if (req.params.id !== req.auth) {
+    
+    return res.status(403).json({ message: "Requête non autorisée" });
+  }
+
+  sequelize.models.User.findOne({ where: { id: req.params.id } })
+    .then(user => {
+      if (user.profileImageUrl != null) {
+        const picToBeDeleted = user.profileImageUrl.split('/images')[1];
+        
+        user.update({ profileImageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}` }, { where: { id: req.params.id } })
+          .then(() => {
+            fs.unlink(`images/${picToBeDeleted}`, (err) => {
+              if (err) {
+                  console.error(err);
+              }
+            })
+          })
+          .catch(error => {
+            console.error(error);
+            res.status(500).json({ message: "Oh oh" })
+          })
+
+        return user;
+
+      } else {
+
+        return user.update({ profileImageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}` }, { where: { id: req.params.id } });
+      }
+    })
+    .then(() => {
+      
+      return res.status(200).json({ message: "Votre nouvelle photo de profil a bien été sauvegardée" });
+    })
+    .catch(error => {
+      console.error(error);
+      res.status(500).json({ message: "Erreur serveur, veuillez réessayer dans quelques minutes." })
+    })
+
+};
+
 // METTRE A JOUR son mot de passe
 exports.updatePassword = (req, res) => {
   console.log("req.params.id", req.params.id);
