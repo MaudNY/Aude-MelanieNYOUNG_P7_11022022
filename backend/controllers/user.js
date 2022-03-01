@@ -65,7 +65,7 @@ exports.login = (req, res) => {
     })
 };
 
-// AFFICHER son profil
+// AFFICHER un profil
 exports.getOneProfile = (req, res) => {
   sequelize.models.User.findOne({ where: { id: req.params.id } })
     .then(user => {
@@ -80,12 +80,10 @@ exports.getOneProfile = (req, res) => {
 // METTRE A JOUR son profil
 exports.updateProfile = (req, res) => {
   console.log("req.params.id", req.params.id);
-  console.log("req.auth", req.auth);
 
   if (req.params.id !== req.auth) {
-    res.status(403).json({message: "Requête non autorisée"})
-
-    return;
+    
+    return res.status(403).json({ message: "Requête non autorisée" });
   }
   
   const userObject = { ...req.body };
@@ -110,17 +108,59 @@ exports.updateProfile = (req, res) => {
     })
 };
 
+// METTRE A JOUR son mot de passe
+exports.updatePassword = (req, res) => {
+  console.log("req.params.id", req.params.id);
+
+  if (req.params.id !== req.auth) {
+    
+    return res.status(403).json({ message: "Requête non autorisée" });
+  }
+
+  bcrypt.hash(req.body.currentPassword, 10)
+    .then(hashCurrentPassword => {
+      console.log("Mot de passe actuel (currentPassword) :", req.body.currentPassword)
+      
+      return hashCurrentPassword;
+    })
+    .then(currentPassword => {
+      sequelize.models.User.findOne({ where: { id: req.params.id } })
+        .then(user => {
+          console.log("Hash currentPassword :", currentPassword);
+          console.log("Hash mot de passe actuel (user.password) :", user.password);
+
+          return bcrypt.compare(currentPassword, user.password);
+        })
+        .then(valid => {
+          if (!valid) {
+            console.log(valid);
+
+            return res.status(401).json({ message: "Le mot de passe renseigné est incorrect" })
+          }
+
+          return res.status(200).json({ message: "Mot de passe OK" });
+        })
+        .catch(error => {
+          console.error(error);
+          res.status(500).json({ message: "Oh oh - problème hash currentPassword 2" });
+        })
+    })
+    .catch(error => {
+      console.error(error);
+      res.status(500).json({ message: "Oh oh - problème hash currentPassword 1" });
+    })
+
+};
+
 // SUPPRIMER son profil
 exports.deleteAccount = (req, res) => {
   console.log("req.body.id", req.body.id);
   console.log("req.params.id", req.params.id);
-  console.log("req.auth", req.auth);
 
 
   if (req.body.id !== req.params.id || req.body.id !== req.auth) {
-    res.status(403).json({message: "Requête non autorisée"})
 
-    return;
+    return res.status(403).json({message: "Requête non autorisée"});
   }
 
   sequelize.models.User.destroy({ where: { 
