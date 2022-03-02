@@ -6,16 +6,6 @@ function CommentModelCreation(sequelize) {
     content: {
       type: DataTypes.TEXT,
       allowNull: false
-    },
-    likesCount: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      default: 0
-    },
-    commentsCount: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      default: 0
     }
 
   });

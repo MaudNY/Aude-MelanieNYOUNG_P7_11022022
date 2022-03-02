@@ -20,13 +20,30 @@ async function connectDatabase () {
     const Post = PostModelCreation(sequelize);
     const Comment = CommentModelCreation(sequelize);
 
+    // ASSOCIATIONS User
     User.hasMany(Post, {
       onDelete: "CASCADE",
       foreignKey: {
         name: 'userId',
         allowNull: false
       }
-    }); 
+    });
+    User.hasMany(Comment, {
+      onDelete: "CASCADE",
+      foreignKey: {
+        name: 'userId',
+        allowNull: false
+      }
+    })
+
+    // ASSOCIATONS Post
+    Post.hasMany(Comment, {
+      onDelete: "CASCADE",
+      foreignKey: {
+        name: 'postId',
+        allowNull: false
+      }
+    })
     Post.belongsTo(User, {
       onDelete: "CASCADE",
       foreignKey: {
@@ -34,6 +51,8 @@ async function connectDatabase () {
         allowNull: false
       }
     });
+
+    // ASSOCIATIONS Comment
     Comment.belongsTo(User, {
       onDelete: "CASCADE",
       foreignKey: {
