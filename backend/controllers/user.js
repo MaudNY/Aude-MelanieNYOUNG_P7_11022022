@@ -69,11 +69,13 @@ exports.login = (req, res) => {
 exports.getOneProfile = (req, res) => {
   sequelize.models.User.findOne({ where: { id: req.params.id } })
     .then(user => {
-      res.status(200).json(user)
+
+      return res.status(200).json(user);
     })
     .catch(error => {
       console.error(error);
-      res.status(500).json({ message: "Erreur serveur, veuillez réessayer dans quelques minutes." })
+
+      return res.status(500).json({ message: "Erreur serveur, veuillez réessayer dans quelques minutes." });
     })
 };
 

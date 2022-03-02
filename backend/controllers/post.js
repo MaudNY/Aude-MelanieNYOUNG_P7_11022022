@@ -18,7 +18,8 @@ exports.createPost = (req, res) => {
             })
             .catch(error => {
                 console.error(error);
-                res.status(500).json({ message: "Erreur serveur, veuillez réessayer dans quelques minutes." })
+
+                return res.status(500).json({ message: "Erreur serveur, veuillez réessayer dans quelques minutes." });
             })
         
     } else {
@@ -33,7 +34,8 @@ exports.createPost = (req, res) => {
             })
             .catch(error => {
                 console.error(error);
-                res.status(500).json({ message: "Erreur serveur, veuillez réessayer dans quelques minutes." })
+
+                return res.status(500).json({ message: "Erreur serveur, veuillez réessayer dans quelques minutes." });
             })
     }
     
@@ -68,8 +70,25 @@ exports.deletePost = (req, res) => {
         })
         .catch(error => {
             console.error(error);
-            res.status(500).json({ message: "Erreur serveur, veuillez réessayer dans quelques minutes." })
+
+            return res.status(500).json({ message: "Erreur serveur, veuillez réessayer dans quelques minutes." });
         })
 
 
+};
+
+// AFFICHER tous les posts (du plus récent au plus ancien)
+exports.getAllPosts = (req, res) => {
+    sequelize.models.Post.findAll({
+        order: [["createdAt", "DESC"]]
+    })
+        .then(users => {
+
+            return res.status(200).json(users);
+        })
+        .catch(error => {
+            console.error(error);
+
+            return res.status(500).json({ message: "Erreur serveur, veuillez réessayer dans quelques minutes." });
+        })
 };

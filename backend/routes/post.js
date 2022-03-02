@@ -12,7 +12,7 @@ const multer = require('../middleware/multer-config');
 
 router.post('/createpost', auth, multer, postCtrl.createPost);
 router.delete('/deletepost/:id', auth, postCtrl.deletePost);
-//router.get('/recentposts', auth, postCtrl.getAllRecentPosts);
-//router.post('/post/:id/like', auth, postCtrl.getAllRecentPosts);9
+router.get('/posts', auth, postCtrl.getAllPosts);
+//router.post('/post/:id/like', auth, postCtrl.getAllRecentPosts);
 
 module.exports = router;
