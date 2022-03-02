@@ -64,7 +64,7 @@ exports.deletePost = (req, res) => {
 
                 post.destroy();
 
-                return res.status(200).json({ message: "Votre post a bien été supprimé" });
+                return res.status(200).json({ message: "Votre publication a bien été supprimée" });
             }
 
         })
@@ -85,6 +85,34 @@ exports.getAllPosts = (req, res) => {
         .then(users => {
 
             return res.status(200).json(users);
+        })
+        .catch(error => {
+            console.error(error);
+
+            return res.status(500).json({ message: "Erreur serveur, veuillez réessayer dans quelques minutes." });
+        })
+};
+
+// LIKER un post
+exports.likePost = (req, res) => {
+    sequelize.models.Post.findOne({ 
+        where: { id: req.params.id } 
+    })
+        .then(post => {
+
+            if (!post) {
+                
+                return res.status(404).json({ message: "Cette publication est introuvable" });
+            } else if (req.body.like == 1) {
+                post.increment({ likesCount: 1 }, { where: { id: req.params.id } });
+                
+                return res.status(200).json({ message: "Publication likée" });
+            } else if (req.body.like == -1) {
+                post.increment({ likesCount: -1 }, { where: { id: req.params.id } });
+                
+                return res.status(200).json({ message: "Like annulé" });
+            }
+            
         })
         .catch(error => {
             console.error(error);
