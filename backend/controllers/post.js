@@ -77,14 +77,31 @@ exports.deletePost = (req, res) => {
 
 };
 
+// AFFICHER tous ses propres posts
+exports.getAllMyPosts = (req, res) => {
+    sequelize.models.Post.findAll({ where: {
+        userId: req.auth
+    }, order: [["createdAt", "DESC"]]
+    })
+        .then(posts => {
+
+            return res.status(200).json(posts);
+        })
+        .catch(error => {
+            console.error(error);
+
+            return res.status(500).json({ message: "Erreur serveur, veuillez réessayer dans quelques minutes." });
+        })
+};
+
 // AFFICHER tous les posts (du plus récent au plus ancien)
 exports.getAllPosts = (req, res) => {
     sequelize.models.Post.findAll({
         order: [["createdAt", "DESC"]]
     })
-        .then(users => {
+        .then(posts => {
 
-            return res.status(200).json(users);
+            return res.status(200).json(posts);
         })
         .catch(error => {
             console.error(error);
@@ -112,7 +129,7 @@ exports.likePost = (req, res) => {
                 
                 return res.status(200).json({ message: "Like annulé" });
             }
-            
+
         })
         .catch(error => {
             console.error(error);
