@@ -211,7 +211,9 @@ exports.deleteAccount = (req, res) => {
 
   sequelize.models.User.destroy({ where: { 
     id: req.body.id,
-    email: req.body.email } })
+    email: req.body.email 
+    } 
+  })
     .then(() => {
       res.status(200).json({ message : "Votre compte a bien été supprimé" })
     })
