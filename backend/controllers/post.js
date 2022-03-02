@@ -44,7 +44,6 @@ exports.createPost = (req, res) => {
 // SUPPRIMER un post
 exports.deletePost = (req, res) => {
     console.log("Post ID :", req.params.id);
-    console.log("User ID de la personne voulant supprimer :", req.auth);
 
     sequelize.models.Post.findOne({
         where: {
