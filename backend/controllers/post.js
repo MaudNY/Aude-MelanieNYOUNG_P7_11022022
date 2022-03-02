@@ -1,12 +1,25 @@
 const sequelize = require('../sequelize');
-const jwt = require('jsonwebtoken');
 
 // CREER un post
 exports.createPost = (req, res) => {
-    const postObject = req.body;
-    console.log("postObject :", req.body.postObject);
-    
-    if (req.body.file) {
+        
+    if (req.file) {
+        const content = req.body;
+
+        sequelize.models.Post.create({
+            ...content,
+            imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+            userId : req.token.userId,
+            likesCount: 0
+        })
+            .then(post => {
+
+                return res.status(201).json(post);
+            })
+            .catch(error => {
+                console.error(error);
+                res.status(500).json({ message: "Erreur serveur, veuillez réessayer dans quelques minutes." })
+            })
         
     } else {
         sequelize.models.Post.create({
@@ -16,7 +29,7 @@ exports.createPost = (req, res) => {
         })
             .then(post => {
 
-                return res.status(200).json(post);
+                return res.status(201).json(post);
             })
             .catch(error => {
                 console.error(error);
