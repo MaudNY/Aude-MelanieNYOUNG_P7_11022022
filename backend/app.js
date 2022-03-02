@@ -24,12 +24,13 @@ app.use('/images', express.static(path.join(__dirname, 'images')));
 // ROUTES Definition
 
 const userRoutes = require('./routes/user');
-//const postRoutes = require('.:routes/post');
+const postRoutes = require('./routes/post');
 //const commentRoutes = require('./routes/comment');
 
 
 // ENDPOINTS Definition
 app.use('/api/auth', userRoutes);
+app.use('/api/auth', postRoutes);
 //app.use('/api/sauces', sauceRoutes);
 
 module.exports = app;

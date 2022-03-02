@@ -14,11 +14,6 @@ function PostModelCreation(sequelize) {
       type: DataTypes.INTEGER,
       allowNull: false,
       default: 0
-    },
-    commentsCount: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      default: 0
     }
 
   });

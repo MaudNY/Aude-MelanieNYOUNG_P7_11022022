@@ -21,24 +21,28 @@ async function connectDatabase () {
     const Comment = CommentModelCreation(sequelize);
 
     User.hasMany(Post, {
+      onDelete: "CASCADE",
       foreignKey: {
         name: 'userId',
         allowNull: false
       }
     }); 
     Post.belongsTo(User, {
+      onDelete: "CASCADE",
       foreignKey: {
         name: 'userId',
         allowNull: false
       }
     });
     Comment.belongsTo(User, {
+      onDelete: "CASCADE",
       foreignKey: {
         name: 'userId',
         allowNull: false
       }
     });
     Comment.belongsTo(Post, {
+      onDelete: "CASCADE",
       foreignKey: {
         name: 'postId',
         allowNull: false
