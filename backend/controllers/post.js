@@ -60,7 +60,7 @@ exports.deletePost = (req, res) => {
                     .then(post => {
                         post.destroy();
 
-                        return res.status(200).json({ message: "Cette publication a bien été supprimée" });
+                        return res.status(404).json({ message: "Cette publication a bien été supprimée" });
                     })
                     .catch(error => {
                         console.error(error);
@@ -78,35 +78,6 @@ exports.deletePost = (req, res) => {
 
             return res.status(500).json({ message: "Erreur serveur, veuillez réessayer dans quelques minutes." });
         })
-
-    /*sequelize.models.Post.findOne({
-        where: {
-            id: req.params.id
-        }
-    })
-        .then(post => {
-
-            if (!post) {
-                console.log("La personne voulant supprimer n'est pas l'auteur")
-
-                return res.status(403).json({ message: "Requête non autorisée" });
-            } else {
-                console.log("post :", post);
-                const postUserId = post.userId;
-                console.log("User ID de l'auteur (via infos post) :", postUserId);
-
-                post.destroy();
-
-                return res.status(200).json({ message: "Votre publication a bien été supprimée" });
-            }
-
-        })
-        .catch(error => {
-            console.error(error);
-
-            return res.status(500).json({ message: "Erreur serveur, veuillez réessayer dans quelques minutes." });
-        })*/
-
 
 };
 
