@@ -5,7 +5,7 @@ exports.createComment = (req, res) => {
     sequelize.models.Comment.create({
         content: req.body.content,
         userId: req.token.userId,
-        postId: req.params.id
+        postId: req.params.postId
     })
         .then(comment => {
             console.log(comment);
