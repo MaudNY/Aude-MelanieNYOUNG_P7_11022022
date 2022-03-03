@@ -55,17 +55,17 @@ exports.deletePost = (req, res) => {
 
             if (user.role === "admin", "moderator" || user.id === req.auth) {
                 sequelize.models.Post.findOne({
-                    where: { id: req.params.id }
+                    where: { postId: req.params.id }
                 })
                     .then(post => {
                         post.destroy();
 
-                        return res.status(404).json({ message: "Cette publication a bien été supprimée" });
+                        return res.status(200).json({ message: "Cette publication a bien été supprimée" });
                     })
                     .catch(error => {
                         console.error(error);
             
-                        return res.status(500).json({ message: "Publication introuvable" });
+                        return res.status(404).json({ message: "Publication introuvable" });
                     })
             } else {
                 console.log("La personne voulant supprimer n'est pas l'auteur")
@@ -79,23 +79,6 @@ exports.deletePost = (req, res) => {
             return res.status(500).json({ message: "Erreur serveur, veuillez réessayer dans quelques minutes." });
         })
 
-};
-
-// AFFICHER tous ses propres posts
-exports.getAllMyPosts = (req, res) => {
-    sequelize.models.Post.findAll({ where: {
-        userId: req.auth
-    }, order: [["createdAt", "DESC"]]
-    })
-        .then(posts => {
-
-            return res.status(200).json(posts);
-        })
-        .catch(error => {
-            console.error(error);
-
-            return res.status(500).json({ message: "Erreur serveur, veuillez réessayer dans quelques minutes." });
-        })
 };
 
 // AFFICHER tous les posts (du plus récent au plus ancien)
@@ -114,10 +97,27 @@ exports.getAllPosts = (req, res) => {
         })
 };
 
+// AFFICHER tous ses propres posts (du plus récent au plus ancien)
+exports.getAllMyPosts = (req, res) => {
+    sequelize.models.Post.findAll({ where: {
+        userId: req.auth
+    }, order: [["createdAt", "DESC"]]
+    })
+        .then(posts => {
+
+            return res.status(200).json(posts);
+        })
+        .catch(error => {
+            console.error(error);
+
+            return res.status(500).json({ message: "Erreur serveur, veuillez réessayer dans quelques minutes." });
+        })
+};
+
 // LIKER un post
 exports.likePost = (req, res) => {
     sequelize.models.Post.findOne({ 
-        where: { id: req.params.id } 
+        where: { id: req.params.postId } 
     })
         .then(post => {
 
@@ -125,11 +125,11 @@ exports.likePost = (req, res) => {
                 
                 return res.status(404).json({ message: "Cette publication est introuvable" });
             } else if (req.body.like == 1) {
-                post.increment({ likesCount: 1 }, { where: { id: req.params.id } });
+                post.increment({ likesCount: 1 }, { where: { id: req.params.postId } });
                 
                 return res.status(200).json({ message: "Publication likée" });
             } else if (req.body.like == -1) {
-                post.increment({ likesCount: -1 }, { where: { id: req.params.id } });
+                post.increment({ likesCount: -1 }, { where: { id: req.params.postId } });
                 
                 return res.status(200).json({ message: "Like annulé" });
             }

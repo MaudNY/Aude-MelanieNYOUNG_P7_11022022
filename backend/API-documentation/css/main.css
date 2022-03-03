@@ -2,16 +2,13 @@
 /* RESPONSIVE */
 /* UTILS - Mixins */
 html {
-  height: 100%;
   box-sizing: border-box;
 }
 
 body {
-  min-height: 100%;
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  position: relative;
   box-sizing: border-box;
 }
 
@@ -19,8 +16,23 @@ nav, h1, h2 {
   font-family: Triomphe, sans-serif;
 }
 
-p {
+h2 {
+  color: #2E405E;
+}
+
+h3, h4, p {
   font-family: Arial, sans-serif;
+}
+
+h3 {
+  width: 35%;
+  padding: 10px;
+  text-align: center;
+  background-color: #F2F2F2;
+}
+
+h4 {
+  margin: 0;
 }
 
 a, ul {
@@ -62,16 +74,16 @@ header {
 }
 header #page-title {
   display: flex;
+  align-items: center;
   justify-content: center;
   padding: 8px;
   color: #2E405E;
 }
 header #page-title img {
-  padding: 0 10px 0 10px;
+  padding: 0 8px 0 8px;
 }
 header #page-title h1 {
   margin: 0;
-  padding-top: 2px;
 }
 
 nav {
@@ -88,16 +100,63 @@ nav ul {
   list-style-type: none;
 }
 
-h2 {
-  color: #2E405E;
+#endpoint-users, #endpoint-posts, #endpoint-comments {
+  display: flex;
+  margin-top: 50px;
+}
+
+.route-title {
+  display: flex;
+  flex-direction: row;
+}
+.route-title .route-verb {
+  font-weight: bold;
+  padding: 5px;
+}
+.route-title .route-verb--post {
+  color: #FFC530;
+  background-color: #FFF3D5;
+}
+.route-title .route-verb--get {
+  color: #35BD4A;
+  background-color: #EBF8EC;
+}
+.route-title .route-verb--update {
+  color: #5DC6FC;
+  background-color: #DEF3FE;
+}
+.route-title .route-verb--delete {
+  color: #EC6E6B;
+  background-color: #FDF3F3;
+}
+.route-title .route-function {
+  padding: 5px;
+}
+
+.block-responses {
+  margin: 10px 0 30px 0;
+}
+.block-responses .response {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 5px 0 5px 0;
+}
+.block-responses .response p {
+  font-size: 15px;
+  margin: 8px 0 8px 10px;
+}
+.block-responses .response--ok {
+  color: #35BD4A;
+  background-color: #EBF8EC;
+}
+.block-responses .response--error {
+  color: #EC6E6B;
+  background-color: #FDF3F3;
 }
 
 footer {
   background-color: #F2F2F2;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
 }
 footer #footer-img {
   padding: 10px 0 5px 0;

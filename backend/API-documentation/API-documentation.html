@@ -6,6 +6,11 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="css/main.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/png" href="images/icon.png">
+
+    <!-- CDN Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" integrity="sha512-BnbUDfEUfV0Slx6TunuB042k9tuKe3xrD6q4mg5Ed72LTgzDIcLPxg6yI2gcMFRyomt+yJJxE+zJwNmxki6/RA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <title>Documentation de l'API "InBetween" - Réseau social interne Groupomania</title>
 </head>
 
@@ -26,10 +31,9 @@
                   <li><a href="#authorizations-section">Autorisations</a></li>
                   <li><a href="#endpoints-section">ENDPOINTS</a>
                     <ul>
-                        <li><a href="#endpoints-users">Users</a></li>
-                        <li><a href="#endpoints-posts">Posts</a></li>
-                        <li><a href="#endpoints-topics">Topics</a></li>
-                        <li><a href="#endpoints-departments">Departments</a></li>
+                        <li><a href="#endpoint-users">Users</a></li>
+                        <li><a href="#endpoint-posts">Posts</a></li>
+                        <li><a href="#endpoint-comments">Comments</a></li>
                     </ul>
                     </li>
                 </ul>
@@ -77,6 +81,215 @@
 
         <section id="endpoints-section">
             <h2>ENDPOINTS</h2>
+
+            <div id="endpoint-users"><h3>USERS</h3></div>
+
+            <div class="route">
+                <div class="route-title">
+                    <div class="route-verb route-verb--post">POST</div>
+                    <h4 class="route-function">/signup</h4>
+                </div>
+                <p>Crée un compte utilisateur et le sauvegarde en base de données.</p>
+    
+                <h4>Réponses</h4>
+                <div class="block-responses">
+                    <div class="response response--ok"><i class="fas fa-check"></i><p class="status-message">201 - "Félicitations ! Votre compte a été créé."</p></div>
+                    <div class="response response--error"><i class="fas fa-exclamation-circle"></i><p class="status-message">400 - "Cette adresse mail est déjà utilisée."</p></div>
+                    <div class="response response--error"><i class="fas fa-exclamation-circle"></i><p class="status-message">500 - "Erreur serveur"</p></div>
+                </div>
+            </div>
+
+            <div class="route">
+                <div class="route-title">
+                    <div class="route-verb route-verb--post">POST</div>
+                    <h4 class="route-function">/login</h4>
+                </div>
+                <p>Connecte l'utilisateur à son compte.</p>
+    
+                <h4>Réponses</h4>
+                <div class="block-responses">
+                    <div class="response response--ok"><i class="fas fa-check"></i><p class="status-message">200 - "Connexion réussie"</p></div>
+                    <div class="response response--error"><i class="fas fa-exclamation-circle"></i><p class="status-message">401 - "Cet utilisateur n'a pas été trouvé"</p></div>
+                    <div class="response response--error"><i class="fas fa-exclamation-circle"></i><p class="status-message">401 - "Mot de passe incorrect"</p></div>
+                    <div class="response response--error"><i class="fas fa-exclamation-circle"></i><p class="status-message">500 - "Erreur serveur"</p></div>
+                </div>
+            </div>
+
+            <div class="route">
+                <div class="route-title">
+                    <div class="route-verb route-verb--get">GET</div>
+                    <h4 class="route-function">/profile/:id</h4>
+                </div>
+                <p>Affiche le profil d'un utilisateur en fonction d'un id utilisateur en paramètre.</p>
+    
+                <h4>Réponses</h4>
+                <div class="block-responses">
+                    <div class="response response--ok"><i class="fas fa-check"></i><p class="status-message">200 - Retourne le profil de l'utilisateur recherché</p></div>
+                    <div class="response response--error"><i class="fas fa-exclamation-circle"></i><p class="status-message">403 - "Requête non autorisée !"</p></div>
+                    <div class="response response--error"><i class="fas fa-exclamation-circle"></i><p class="status-message">500 - "Erreur serveur"</p></div>
+                </div>
+            </div>
+
+            <div class="route">
+                <div class="route-title">
+                    <div class="route-verb route-verb--update">PUT</div>
+                    <h4 class="route-function">/updateprofile/:id</h4>
+                </div>
+                <p>Permet à un utilisateur authentifié de modifier son profil en fonction de son propre id utilisateur en paramètre.</p>
+    
+                <h4>Réponses</h4>
+                <div class="block-responses">
+                    <div class="response response--ok"><i class="fas fa-check"></i><p class="status-message">200 - "Votre profil a bien été mis à jour"</p></div>
+                    <div class="response response--error"><i class="fas fa-exclamation-circle"></i><p class="status-message">403 - "Requête non autorisée !"</p></div>
+                    <div class="response response--error"><i class="fas fa-exclamation-circle"></i><p class="status-message">500 - "Erreur serveur"</p></div>
+                </div>
+            </div>
+
+            <div class="route">
+                <div class="route-title">
+                    <div class="route-verb route-verb--update">PUT</div>
+                    <h4 class="route-function">/updateprofilepic/:id</h4>
+                </div>
+                <p>Permet à un utilisateur authentifié de modifier sa photo de profil en fonction de son propre id utilisateur en paramètre.</p>
+    
+                <h4>Réponses</h4>
+                <div class="block-responses">
+                    <div class="response response--ok"><i class="fas fa-check"></i><p class="status-message">200 - "Votre nouvelle photo de profil a bien été sauvegardée"</p></div>
+                    <div class="response response--error"><i class="fas fa-exclamation-circle"></i><p class="status-message">403 - "Requête non autorisée !"</p></div>
+                    <div class="response response--error"><i class="fas fa-exclamation-circle"></i><p class="status-message">500 - "Erreur serveur"</p></div>
+                </div>
+            </div>
+
+            <div class="route">
+                <div class="route-title">
+                    <div class="route-verb route-verb--delete">DELETE</div>
+                    <h4 class="route-function">/deleteaccount/:id</h4>
+                </div>
+                <p>Permet à un utilisateur authentifié de supprimer son compte en fonction de son propre id utilisateur en paramètre.</p>
+    
+                <h4>Réponses</h4>
+                <div class="block-responses">
+                    <div class="response response--ok"><i class="fas fa-check"></i><p class="status-message">200 - "Votre compte a bien été supprimé"</p></div>
+                    <div class="response response--error"><i class="fas fa-exclamation-circle"></i><p class="status-message">403 - "Requête non autorisée !"</p></div>
+                    <div class="response response--error"><i class="fas fa-exclamation-circle"></i><p class="status-message">500 - "Erreur serveur"</p></div>
+                </div>
+            </div>
+
+            <div id="endpoint-posts"><h3>POSTS</h3></div>
+
+            <div class="route">
+                <div class="route-title">
+                    <div class="route-verb route-verb--post">POST</div>
+                    <h4 class="route-function">/createpost</h4>
+                </div>
+                <p>Permet à un utilisateur authentifié de créer une publication, contenant une image ou non.</p>
+    
+                <h4>Réponses</h4>
+                <div class="block-responses">
+                    <div class="response response--ok"><i class="fas fa-check"></i><p class="status-message">201 - Retourne la publication créée par l'utilisateur</p></div>
+                    <div class="response response--error"><i class="fas fa-exclamation-circle"></i><p class="status-message">403 - "Requête non autorisée !"</p></div>
+                    <div class="response response--error"><i class="fas fa-exclamation-circle"></i><p class="status-message">500 - "Erreur serveur"</p></div>
+                </div>
+            </div>
+
+            <div class="route">
+                <div class="route-title">
+                    <div class="route-verb route-verb--delete">DELETE</div>
+                    <h4 class="route-function">/deletepost/:postId</h4>
+                </div>
+                <p>Permet à un utilisateur authentifié de supprimer l'une de ses publications en fonction de l'id de la publication en paramètre.<br/><br/>
+                Les utilisateurs authentifiés disposant d'un role "admin" ou "moderator" peuvent également supprimer la publication.</p>
+    
+                <h4>Réponses</h4>
+                <div class="block-responses">
+                    <div class="response response--ok"><i class="fas fa-check"></i><p class="status-message">200 - "Cette publication a bien été supprimée"</p></div>
+                    <div class="response response--error"><i class="fas fa-exclamation-circle"></i><p class="status-message">403 - "Requête non autorisée !"</p></div>
+                    <div class="response response--error"><i class="fas fa-exclamation-circle"></i><p class="status-message">404 - "Publication introuvable"</p></div>
+                    <div class="response response--error"><i class="fas fa-exclamation-circle"></i><p class="status-message">500 - "Erreur serveur"</p></div>
+                </div>
+            </div>
+
+            <div class="route">
+                <div class="route-title">
+                    <div class="route-verb route-verb--get">GET</div>
+                    <h4 class="route-function">/posts</h4>
+                </div>
+                <p>Permet à un utilisateur authentifié de consulter toutes les publications existantes de la plus récente à la plus ancienne.</p>
+    
+                <h4>Réponses</h4>
+                <div class="block-responses">
+                    <div class="response response--ok"><i class="fas fa-check"></i><p class="status-message">200 - Retourne toutes les publications</p></div>
+                    <div class="response response--error"><i class="fas fa-exclamation-circle"></i><p class="status-message">403 - "Requête non autorisée !"</p></div>
+                    <div class="response response--error"><i class="fas fa-exclamation-circle"></i><p class="status-message">500 - "Erreur serveur"</p></div>
+                </div>
+            </div>
+
+            <div class="route">
+                <div class="route-title">
+                    <div class="route-verb route-verb--get">GET</div>
+                    <h4 class="route-function">/myposts</h4>
+                </div>
+                <p>Permet à un utilisateur authentifié de consulter toutes ses publications de la plus récente à la plus ancienne.</p>
+    
+                <h4>Réponses</h4>
+                <div class="block-responses">
+                    <div class="response response--ok"><i class="fas fa-check"></i><p class="status-message">200 - Retourne les publications de l'utilisateur</p></div>
+                    <div class="response response--error"><i class="fas fa-exclamation-circle"></i><p class="status-message">403 - "Requête non autorisée !"</p></div>
+                    <div class="response response--error"><i class="fas fa-exclamation-circle"></i><p class="status-message">500 - "Erreur serveur"</p></div>
+                </div>
+            </div>
+
+            <div class="route">
+                <div class="route-title">
+                    <div class="route-verb route-verb--post">POST</div>
+                    <h4 class="route-function">/post/:postId/like</h4>
+                </div>
+                <p>Permet à un utilisateur authentifié d'ajouter un "like" à une publication en fonction de l'id de la publication en paramètre.</p>
+    
+                <h4>Réponses</h4>
+                <div class="block-responses">
+                    <div class="response response--ok"><i class="fas fa-check"></i><p class="status-message">200 - "Publication likée"</p></div>
+                    <div class="response response--ok"><i class="fas fa-check"></i><p class="status-message">200 - "Like annulé"</p></div>
+                    <div class="response response--error"><i class="fas fa-exclamation-circle"></i><p class="status-message">403 - "Requête non autorisée !"</p></div>
+                    <div class="response response--error"><i class="fas fa-exclamation-circle"></i><p class="status-message">404 - "Cette publication est introuvable"</p></div>
+                    <div class="response response--error"><i class="fas fa-exclamation-circle"></i><p class="status-message">500 - "Erreur serveur"</p></div>
+                </div>
+            </div>
+            
+            <div id="endpoint-comments"><h3>COMMENTS</h3></div>
+
+            <div class="route">
+                <div class="route-title">
+                    <div class="route-verb route-verb--post">POST</div>
+                    <h4 class="route-function">/comment/:postId</h4>
+                </div>
+                <p>Permet à un utilisateur authentifié de commenter une publication en fonction de l'id de la publication en paramètre.</p>
+    
+                <h4>Réponses</h4>
+                <div class="block-responses">
+                    <div class="response response--ok"><i class="fas fa-check"></i><p class="status-message">200 - Retourne le commentaire de l'utilisateur</p></div>
+                    <div class="response response--error"><i class="fas fa-exclamation-circle"></i><p class="status-message">403 - "Requête non autorisée !"</p></div>
+                    <div class="response response--error"><i class="fas fa-exclamation-circle"></i><p class="status-message">500 - "Problème lié aux données serveur"</p></div>
+                </div>
+            </div>
+
+            <div class="route">
+                <div class="route-title">
+                    <div class="route-verb route-verb--delete">DELETE</div>
+                    <h4 class="route-function">/deletecomment/:id</h4>
+                </div>
+                <p>Permet à un utilisateur authentifié de supprimer l'un de ses commentaires en fonction de l'id du commentaire en paramètre.<br/><br/>
+                Les utilisateurs authentifiés disposant d'un role "admin" ou "moderator" peuvent également supprimer le commentaire.</p>
+    
+                <h4>Réponses</h4>
+                <div class="block-responses">
+                    <div class="response response--ok"><i class="fas fa-check"></i><p class="status-message">200 - "Ce commentaire a bien été supprimé"</p></div>
+                    <div class="response response--error"><i class="fas fa-exclamation-circle"></i><p class="status-message">403 - "Requête non autorisée !"</p></div>
+                    <div class="response response--error"><i class="fas fa-exclamation-circle"></i><p class="status-message">404 - "Commentaire introuvable"</p></div>
+                    <div class="response response--error"><i class="fas fa-exclamation-circle"></i><p class="status-message">500 - "Erreur serveur"</p></div>
+                </div>
+            </div>
+
         </section>
 
     </main>

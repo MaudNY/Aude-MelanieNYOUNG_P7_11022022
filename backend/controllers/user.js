@@ -136,7 +136,7 @@ exports.updateProfilePicture = (req, res) => {
           })
           .catch(error => {
             console.error(error);
-            res.status(500).json({ message: "Oh oh" })
+            res.status(500).json({ message: "Erreur serveur, veuillez réessayer dans quelques minutes." })
           })
 
         return user;
