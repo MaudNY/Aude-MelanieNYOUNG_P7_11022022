@@ -13,7 +13,8 @@ exports.signup = (req, res) => {
         email: req.body.email,
         password: hash,
         firstName: req.body.firstName,
-        lastName: req.body.lastName
+        lastName: req.body.lastName,
+        role: "user"
       })
       user.save()
         .then(() => res.status(201).json({ message: "Félicitations ! Votre compte a été créé." }))

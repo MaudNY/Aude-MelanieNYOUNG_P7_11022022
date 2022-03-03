@@ -34,9 +34,12 @@ function UserModelCreation(sequelize) {
         },
         bio: {
           type: DataTypes.TEXT
+        }, 
+        role: {
+          type: DataTypes.STRING,
+          allowNull: false
         }
-      }, {
-        // Other model options go here
+        
       });
 
       return User;

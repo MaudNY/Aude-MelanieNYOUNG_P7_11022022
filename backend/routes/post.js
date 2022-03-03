@@ -4,7 +4,9 @@ const router = express.Router();
 const postCtrl = require('../controllers/post');
 
 const auth = require('../middleware/auth');
+//const role = require('../middleware/role');
 const multer = require('../middleware/multer-config');
+
 
 router.post('/createpost', auth, multer, postCtrl.createPost);
 router.delete('/deletepost/:id', auth, postCtrl.deletePost);

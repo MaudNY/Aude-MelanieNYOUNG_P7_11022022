@@ -45,10 +45,43 @@ exports.createPost = (req, res) => {
 exports.deletePost = (req, res) => {
     console.log("Post ID :", req.params.id);
 
-    sequelize.models.Post.findOne({
+    sequelize.models.User.findOne({
         where: {
-            id: req.params.id,
-            userId: req.auth
+            id: req.auth
+        }
+    })
+        .then(user => {
+            console.log("Rôle du user authentifié :", user.role);
+
+            if (user.role === "admin", "moderator" || user.id === req.auth) {
+                sequelize.models.Post.findOne({
+                    where: { id: req.params.id }
+                })
+                    .then(post => {
+                        post.destroy();
+
+                        return res.status(200).json({ message: "Cette publication a bien été supprimée" });
+                    })
+                    .catch(error => {
+                        console.error(error);
+            
+                        return res.status(500).json({ message: "Publication introuvable" });
+                    })
+            } else {
+                console.log("La personne voulant supprimer n'est pas l'auteur")
+
+                return res.status(403).json({ message: "Requête non autorisée" });
+            }
+        })
+        .catch(error => {
+            console.error(error);
+
+            return res.status(500).json({ message: "Erreur serveur, veuillez réessayer dans quelques minutes." });
+        })
+
+    /*sequelize.models.Post.findOne({
+        where: {
+            id: req.params.id
         }
     })
         .then(post => {
@@ -58,6 +91,7 @@ exports.deletePost = (req, res) => {
 
                 return res.status(403).json({ message: "Requête non autorisée" });
             } else {
+                console.log("post :", post);
                 const postUserId = post.userId;
                 console.log("User ID de l'auteur (via infos post) :", postUserId);
 
@@ -71,7 +105,7 @@ exports.deletePost = (req, res) => {
             console.error(error);
 
             return res.status(500).json({ message: "Erreur serveur, veuillez réessayer dans quelques minutes." });
-        })
+        })*/
 
 
 };
