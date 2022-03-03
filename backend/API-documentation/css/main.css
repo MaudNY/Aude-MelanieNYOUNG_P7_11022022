@@ -100,9 +100,12 @@ nav ul {
   list-style-type: none;
 }
 
+#api-presentation-section, #authentification-section, #authorizations-section {
+  text-align: justify;
+}
+
 #endpoint-users, #endpoint-posts, #endpoint-comments {
   display: flex;
-  margin-top: 50px;
 }
 
 .route-title {
@@ -153,6 +156,9 @@ nav ul {
 .block-responses .response--error {
   color: #EC6E6B;
   background-color: #FDF3F3;
+}
+.block-responses .response--end {
+  margin-bottom: 50px;
 }
 
 footer {
