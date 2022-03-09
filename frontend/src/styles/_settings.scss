@@ -1,0 +1,77 @@
+// COLORS
+$primary-color: #091F43;
+$primary-color-light: #2E405E;
+$primary-color-lighter: #6D89B7;
+$secondary-color: #D1515A;
+$secondary-color-light: #FFD5D5;
+$tertiary-color: #F2F2F2;
+
+// FONTS
+@font-face {
+	font-family: 'Poppins-regular';
+	src: url(../font/Poppins-Regular.otf);
+}
+
+@font-face {
+	font-family: 'Poppins-light';
+	src: url(../font/Poppins-Light.otf);
+}
+
+@font-face {
+	font-family: 'Poppins-extralight';
+	src: url(../font/Poppins-ExtraLight.otf);
+}
+
+@font-face {
+	font-family: 'Poppins-semibold';
+	src: url(../font/Poppins-SemiBold.otf);
+}
+
+// BASE
+html {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+a, ul {
+	text-decoration-line: none;
+}
+
+/* RESPONSIVE */
+$breakpoints: (tablet: 768px, desktop: 1140px);
+
+/* MIXINS */
+@mixin weblink-rules ($colour) {
+	text-decoration-line: none;
+	color: $colour;
+}
+
+@mixin tablet-only {
+	@media screen and (min-width: map-get($breakpoints, tablet)) {
+		@content;
+	}
+}
+
+@mixin desktop-only {
+	@media screen and (min-width: map-get($breakpoints, desktop)) {
+		@content;
+	}
+}
+
+// CONTAINERS
+.container-main {
+	margin: 0 auto;
+	max-width: 335px;
+	@include tablet-only {
+		max-width: 708px;
+	}
+	@include desktop-only {
+		max-width: 1080px;
+	}
+}

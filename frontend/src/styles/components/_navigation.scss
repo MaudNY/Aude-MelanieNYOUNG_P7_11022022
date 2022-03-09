@@ -1,0 +1,10 @@
+.navigation {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: $tertiary-color;
+    .my-profile {
+        padding-right: 20px;
+    }
+}
