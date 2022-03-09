@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
@@ -22,28 +21,3 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-=======
-.DS_Store
-node_modules
-/dist
-
-
-# local env files
-.env.local
-.env.*.local
-
-# Log files
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-
-# Editor directories and files
-.idea
-.vscode
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
->>>>>>> ab54e1e880675b4272052b242d89974db2931721
