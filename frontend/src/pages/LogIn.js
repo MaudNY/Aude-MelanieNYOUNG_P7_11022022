@@ -1,20 +1,20 @@
 import Header from "../components/Header";
 import Banner from "../components/Banner";
 import NavigationLoginPage from "../components/NavigationLoginPage";
-import SignupForm from "../components/SignupForm";
+import LoginForm from "../components/LoginForm";
 import Footer from "../components/Footer";
 
 
-const SignUpPage = () => {
+const LogInPage = () => {
     return (
         <div>
             <Header />
             <Banner />
             <NavigationLoginPage />
-            <SignupForm />
+            <LoginForm />
             <Footer />
         </div>
     )
 };
 
-export default SignUpPage;
+export default LogInPage;
