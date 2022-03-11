@@ -1,4 +1,7 @@
 @import "./settings";
-@import "./components/navigation";
-@import "./components/bannerheader";
+@import "./components/header.scss";
+@import "./components/navigation-login-page";
+@import "./components/banner";
 @import "./components/homemain";
+@import "./components/signup-form";
+@import "./components/footer";

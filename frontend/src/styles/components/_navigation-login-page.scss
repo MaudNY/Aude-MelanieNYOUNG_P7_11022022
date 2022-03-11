@@ -1,0 +1,52 @@
+#navigation-login-page {
+    display: flex;
+    justify-content: center;
+    background-color: $primary-color;
+    #buttons-row {
+        width: 350px;
+        padding: 5px 0;
+        margin-top: 50px;
+        border-radius: 20px 20px 0 0;
+        color: white;
+        font-weight: bold;
+        display: flex;
+        justify-content: space-around;
+        background-color: $secondary-color;
+        @include tablet-only {
+            width: 708px;
+        }
+        @include desktop-only {
+            width: 1080px;
+        }
+        #signup-button, #login-button {
+            position: relative;
+            justify-content: center;
+            padding-top: 10px;
+            @include weblink-rules (white);
+            &:focus {
+                &::after {
+                    content: "";
+                    width: 100%;
+                    height: 3px;
+                    background-color: white;
+                    position: absolute;
+                    bottom: -5px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                }
+            }
+        }
+        #signup-button {
+            margin-left: 22px;
+        }
+        #login-button {
+            margin-right: 22px;
+        }
+    }
+    #button-splitter {
+        align-items: center;
+        width: 3px;
+        height: 120%;
+        background-color: white;
+    }
+}

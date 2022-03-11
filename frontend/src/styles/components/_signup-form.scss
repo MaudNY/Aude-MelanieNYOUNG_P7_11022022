@@ -1,0 +1,37 @@
+.main-login-page {
+    display: flex;
+    justify-content: center;
+    background-color: $primary-color;
+    form {
+        width: 330px;
+        border: $secondary-color 10px solid;
+        border-radius: 0 0 15px 15px;
+        background-color: white;
+        margin-bottom: 50px;
+        @include tablet-only {
+            width: 688px;
+        }
+        @include desktop-only {
+            width: 1060px;
+        }
+    }
+    .form-block {
+        display: flex;
+        flex-direction: column;
+        width: 80%;
+        margin: 20px auto;
+        label {
+            font-weight: bold;
+            margin-bottom: 2px;
+        }
+        input {
+            height: 25px;
+        }
+    }
+    .required-mention {
+        font-size: 11px;
+        font-weight: bold;
+        font-style: italic;
+        margin: 0 0 5px 5px;
+    }
+}
