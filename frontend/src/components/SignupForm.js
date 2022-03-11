@@ -46,7 +46,7 @@ const SignupForm = () => {
 
                 <button type="submit" className="submit-button submit-button--signup disabled">Inscription</button>
 
-                <div className="required-mention">* Champs obligatoires</div>
+                <div className="required-mention">* Champ obligatoire</div>
             </form>
         </div>
     );

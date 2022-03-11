@@ -22,7 +22,7 @@ const LoginForm = () => {
 
                 <button type="submit" className="submit-button submit-button--login disabled">Connexion</button>
 
-                <div className="required-mention">* Champs obligatoires</div>
+                <div className="required-mention">* Champ obligatoire</div>
             </form>
         </div>
     );

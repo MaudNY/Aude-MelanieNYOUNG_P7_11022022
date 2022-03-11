@@ -13,14 +13,15 @@
         justify-content: space-around;
         background-color: $secondary-color;
         @include tablet-only {
-            width: 708px;
+            width: 658px;
         }
         @include desktop-only {
-            width: 1080px;
+            width: 780px;
         }
         #signup-button, #login-button {
             position: relative;
-            justify-content: center;
+            min-width: 45%;
+            text-align: center;
             padding-top: 10px;
             @include weblink-rules (white);
             &:focus {
@@ -35,12 +36,6 @@
                     transform: translateX(-50%);
                 }
             }
-        }
-        #signup-button {
-            margin-left: 22px;
-        }
-        #login-button {
-            margin-right: 22px;
         }
     }
     #button-splitter {

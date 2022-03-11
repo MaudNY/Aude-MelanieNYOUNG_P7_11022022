@@ -11,16 +11,22 @@
         background-color: white;
         margin-bottom: 50px;
         @include tablet-only {
-            width: 688px;
+            width: 638px;
         }
         @include desktop-only {
-            width: 1060px;
+            width: 760px;
         }
         .form-block {
             display: flex;
             flex-direction: column;
             width: 80%;
             margin: 20px auto;
+            @include tablet-only {
+                width: 60%;
+            }
+            @include desktop-only {
+                width: 60%;
+            }
             label {
                 font-weight: bold;
                 margin-bottom: 2px;
@@ -33,18 +39,24 @@
             width: 80%;
             height: 35px;
             color: white;
-            background: $secondary-color;
+            background: $alt-color;
             font-size: 16px;
             font-weight: bold;
             margin: 20px auto;
             border-radius: 20px;
             border-style: none;
+            @include tablet-only {
+                width: 40%;
+            }
+            @include desktop-only {
+                width: 30%;
+            }
         }
         .required-mention {
             font-size: 11px;
             font-weight: bold;
             font-style: italic;
-            margin: 0 0 5px 5px;
+            margin: 0 0 5px 10px;
         }
     }
 }
