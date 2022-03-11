@@ -20,6 +20,8 @@ const LoginForm = () => {
                     <p class="error-message"></p>
                 </div>
 
+                <button type="submit" className="submit-button submit-button--login disabled">Connexion</button>
+
                 <div className="required-mention">* Champs obligatoires</div>
             </form>
         </div>
