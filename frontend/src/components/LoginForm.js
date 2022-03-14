@@ -1,12 +1,57 @@
-import React from "react";
+import React, { useState } from "react";
+import api from "../api/url";
 
 const LoginForm = () => {
+    // Get input values
+    const inputValues = { email: "", password: "" };
+    const [formValues, setFormValues] = useState(inputValues);
+
+    // Get JSON object from imput values
+    const setRequestBody = (e) => {
+        const {name, value} = e.target;
+        setFormValues({ ...formValues, [name]: value });
+        console.log("Login details :", formValues)
+    };
+
+    // Send login details to open account
+    const logInToAccount = async (e) => {
+        e.preventDefault();
+        const loginDetails = { ...formValues };
+
+        api.post('/login', loginDetails)
+            .then(response => {
+                localStorage.setItem("token", response.data.token);
+                const config = {
+                    headers: {
+                        Authorization: "Bearer " + localStorage.getItem("token")
+                    }
+                }
+               
+                return config;
+            })
+            .then(config => {
+                api.get('/', config)
+                    .then(() => {
+
+                        return window.open("http://localhost:3001/", "_blank");
+                    })
+                    .catch(error => {
+                
+                        console.log(error);
+                    })
+            })
+            .catch(error => {
+                
+                console.log(error);
+            })
+    };
+
     return (
         <div className="main-login-page">
             <form id="signup-form" method="post">
                 <div className="form-block">
                     <label htmlFor="email">Mon adresse email Groupomania *</label>
-                    <input type="text" name="email" id="email" placeholder="Ex : alexandre.rouvain@groupomania.com" required/>
+                    <input type="text" name="email" id="email" onChange={ setRequestBody } placeholder="Ex : alexandre.rouvain@groupomania.com" required/>
                     <i className="fas fa-check-circle"></i>
                     <i className="fas fa-exclamation-circle"></i>
                     <p className="error-message"></p>
@@ -14,13 +59,13 @@ const LoginForm = () => {
 
                 <div className="form-block">
                     <label htmlFor="password">Mon mot de passe *</label>
-                    <input type="text" name="password" id="password" required/>
+                    <input type="text" name="password" id="password" onChange={ setRequestBody } required/>
                     <i className="fas fa-check-circle"></i>
                     <i className="fas fa-exclamation-circle"></i>
                     <p className="error-message"></p>
                 </div>
 
-                <button type="submit" className="submit-button submit-button--login disabled">Connexion</button>
+                <button type="submit" className="submit-button submit-button--login disabled" onClick={ logInToAccount }>Connexion</button>
 
                 <div className="required-mention">* Champ obligatoire</div>
             </form>

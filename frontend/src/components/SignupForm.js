@@ -3,7 +3,7 @@ import api from "../api/url";
 
 const SignupForm = () => {
     // Get input values
-    const inputValues = { firstName: "", lastName: "", email: "", password: ""};
+    const inputValues = { firstName: "", lastName: "", email: "", password: "" };
     const [formValues, setFormValues] = useState(inputValues);
 
     // Get JSON object from imput values
