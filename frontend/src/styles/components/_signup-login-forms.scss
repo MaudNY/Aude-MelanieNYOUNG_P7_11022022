@@ -21,6 +21,7 @@
             flex-direction: column;
             width: 80%;
             margin: 20px auto;
+            position: relative;
             @include tablet-only {
                 width: 60%;
             }
@@ -33,6 +34,11 @@
             }
             input {
                 height: 25px;
+            }
+            .fas {
+                position: absolute;
+                top: 28px;
+                right: 3%;
             }
         }
         .submit-button {

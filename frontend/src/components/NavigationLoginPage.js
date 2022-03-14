@@ -5,11 +5,11 @@ const NavigationLoginPage = () => {
     return (
         <div id="navigation-login-page">
             <div id="buttons-row">
-                <NavLink exact to="/signup" id="signup-button" className="nav-active">
+                <NavLink exact="true" to="/signup" id="signup-button" className="nav-active">
                     S'inscrire
                 </NavLink>
                 <div id="button-splitter"></div>
-                <NavLink exact to="/login" id="login-button" className="nav-active">
+                <NavLink exact="true" to="/login" id="login-button" className="nav-active">
                     Se connecter
                 </NavLink>
             </div>

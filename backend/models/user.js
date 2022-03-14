@@ -5,11 +5,19 @@ function UserModelCreation(sequelize) {
         // Model attributes are defined here
         firstName: {
           type: DataTypes.STRING,
-          allowNull: false
+          min: 2,
+          allowNull: false,
+          validate: {
+            is: /^([A-ZÉÈÊËÎÏa-zéèëîïüßäö]{1,})?([-]{0,1}[\ \']*)?([A-ZÉÈÊËÎÏa-zéèëîïüßäö]{1,})?([-]{0,1}[\ \']*)?([A-ZÉÈÊËÎÏa-zéèëîïüßäö]{1,})?([-]{0,1}[\ \']*)?([A-ZÉÈÊËÎÏa-zéèëîïüßäö]{1,})$/
+          }
         },
         lastName: {
           type: DataTypes.STRING,
-          allowNull: false
+          min: 2,
+          allowNull: false,
+          validate: {
+            is: /^([A-ZÉÈÊËÎÏa-zéèëîïüßäö]{1,})?([-]{0,1}[\ \']*)?([A-ZÉÈÊËÎÏa-zéèëîïüßäö]{1,})?([-]{0,1}[\ \']*)?([A-ZÉÈÊËÎÏa-zéèëîïüßäö]{1,})?([-]{0,1}[\ \']*)?([A-ZÉÈÊËÎÏa-zéèëîïüßäö]{1,})$/
+          }
         },
         email: {
           type: DataTypes.STRING,
