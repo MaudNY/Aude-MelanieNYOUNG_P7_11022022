@@ -2,9 +2,9 @@ import React from "react";
 
 const Footer = () => {
     return (
-        <div id="footer">
+        <footer>
             <img src="./img/icon-left-font-monochrome-black(small).png" alt="logo" />
-        </div>
+        </footer>
     );
 };
 

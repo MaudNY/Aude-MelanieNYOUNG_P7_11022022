@@ -27,7 +27,7 @@ const SignupForm = () => {
     };
 
     return (
-        <div className="main-login-page">
+        <main className="main-login-page">
             <form id="signup-form" method="post">
                 <div className="form-block">
                     <label htmlFor="firstName">Mon prénom *</label>
@@ -73,7 +73,7 @@ const SignupForm = () => {
 
                 <div className="required-mention">* Champ obligatoire</div>
             </form>
-        </div>
+        </main>
     );
 };
 

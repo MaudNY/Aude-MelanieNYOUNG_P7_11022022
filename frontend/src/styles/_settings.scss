@@ -7,6 +7,8 @@ $secondary-color-light: #FFD5D5;
 $tertiary-color: #F2F2F2;
 $alt-color : #048b9a;
 
+$linear-gradient: linear-gradient(to bottom right, $alt-color, $primary-color-light);
+
 // FONTS
 @font-face {
 	font-family: 'Poppins-regular';

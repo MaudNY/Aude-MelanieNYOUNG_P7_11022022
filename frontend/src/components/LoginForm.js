@@ -10,35 +10,26 @@ const LoginForm = () => {
     const setRequestBody = (e) => {
         const {name, value} = e.target;
         setFormValues({ ...formValues, [name]: value });
-        console.log("Login details :", formValues)
     };
 
     // Send login details to open account
-    const logInToAccount = async (e) => {
+    const logIn = async (e) => {
         e.preventDefault();
         const loginDetails = { ...formValues };
 
         api.post('/login', loginDetails)
             .then(response => {
-                localStorage.setItem("token", response.data.token);
-                const config = {
-                    headers: {
-                        Authorization: "Bearer " + localStorage.getItem("token")
-                    }
-                }
-               
-                return config;
-            })
-            .then(config => {
-                api.get('/', config)
-                    .then(() => {
+               localStorage.setItem("token", response.data.token);
+               response.config = {
+                   headers: {
+                       ...response.config.headers,
+                        Authorization: "Bearer " + response.data.token
+                   }
+               }
 
-                        return window.open("http://localhost:3001/", "_blank");
-                    })
-                    .catch(error => {
-                
-                        console.log(error);
-                    })
+               console.log("Response :", response.config);
+
+               return window.open("http://localhost:3001/", "_blank");
             })
             .catch(error => {
                 
@@ -47,11 +38,11 @@ const LoginForm = () => {
     };
 
     return (
-        <div className="main-login-page">
+        <main className="main-login-page">
             <form id="signup-form" method="post">
                 <div className="form-block">
                     <label htmlFor="email">Mon adresse email Groupomania *</label>
-                    <input type="text" name="email" id="email" onChange={ setRequestBody } placeholder="Ex : alexandre.rouvain@groupomania.com" required/>
+                    <input type="text" name="email" id="email" onChange={ setRequestBody } placeholder="Ex : marc.rive@groupomania.com" required/>
                     <i className="fas fa-check-circle"></i>
                     <i className="fas fa-exclamation-circle"></i>
                     <p className="error-message"></p>
@@ -65,11 +56,11 @@ const LoginForm = () => {
                     <p className="error-message"></p>
                 </div>
 
-                <button type="submit" className="submit-button submit-button--login disabled" onClick={ logInToAccount }>Connexion</button>
+                <button type="submit" className="submit-button submit-button--login disabled" onClick={ logIn }>Connexion</button>
 
                 <div className="required-mention">* Champ obligatoire</div>
             </form>
-        </div>
+        </main>
     );
 };
 

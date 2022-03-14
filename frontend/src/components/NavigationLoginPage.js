@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 
 const NavigationLoginPage = () => {
     return (
-        <div id="navigation-login-page">
+        <nav id="navigation-login-page">
             <div id="buttons-row">
                 <NavLink exact="true" to="/signup" id="signup-button" className="nav-active">
                     S'inscrire
@@ -13,7 +13,7 @@ const NavigationLoginPage = () => {
                     Se connecter
                 </NavLink>
             </div>
-        </div>
+        </nav>
     );
 };
 

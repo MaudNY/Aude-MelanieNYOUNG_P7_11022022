@@ -10,10 +10,10 @@ const Banner = () => {
             <img src="./img/group-people-sharing(large).jpg" alt="banner" />
         </div>
         );
-    } else if (urlPathName === "/signup" || urlPathName === "/login") {
+    } else {
 
         return (
-            <div className="banner-logoff">
+            <div className="banner-loggedoff">
                 <img src="./img/man-woman-looking(large).jpg" alt="banner" />
             </div>
         );
