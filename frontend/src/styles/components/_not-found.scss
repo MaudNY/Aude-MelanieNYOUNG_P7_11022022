@@ -1,0 +1,23 @@
+#not-found-section {
+    display: flex;
+    min-height: 900px;
+    background: center / cover no-repeat url("../../../public/img/work-corridor\(large\).jpg");
+    #not-found-message {
+        display: flex;
+        flex-direction: column;
+        height: 90%;
+        align-items: flex-start;
+        margin: 35px auto;
+        padding: 40px 20px;
+        background-color: white;
+        border: $secondary-color 10px solid;
+        border-radius: 5px;
+    }
+}
+
+#error-code {
+    font-family: 'Poppins-semibold';
+    font-size: 33px;
+    font-weight: bold;
+    color: $secondary-color;
+}

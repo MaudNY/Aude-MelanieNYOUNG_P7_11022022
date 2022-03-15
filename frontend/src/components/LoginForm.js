@@ -17,7 +17,7 @@ const LoginForm = () => {
         e.preventDefault();
         const loginDetails = { ...formValues };
 
-        api.post('/login', loginDetails)
+        api.post('/', loginDetails)
             .then(response => {
                localStorage.setItem("token", response.data.token);
                response.config = {
@@ -29,7 +29,7 @@ const LoginForm = () => {
 
                console.log("Response :", response.config);
 
-               return window.open("http://localhost:3001/", "_blank");
+               return window.open("http://localhost:3080/home", "_blank");
             })
             .catch(error => {
                 

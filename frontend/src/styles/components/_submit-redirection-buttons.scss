@@ -1,0 +1,33 @@
+#redirection-button, .submit-button {
+    height: 35px;
+    color: white;
+    background: $linear-gradient;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 20px auto;
+    border-radius: 20px;
+    border-style: none;
+    transform: scale(1);
+    transition-property: transform;
+    transition-duration: 350ms;
+    &:hover {
+        transform: scale(1.1);
+    }
+}
+
+.submit-button {
+    width: 50%;
+    @include tablet-only {
+        width: 40%;
+    }
+    @include desktop-only {
+        width: 30%;
+    }
+}
+
+#redirection-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 55%;
+}
