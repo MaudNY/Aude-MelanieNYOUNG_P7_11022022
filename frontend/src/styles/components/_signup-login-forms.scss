@@ -9,54 +9,12 @@
         border: $secondary-color 10px solid;
         border-radius: 0 0 15px 15px;
         background-color: white;
-        margin-bottom: 50px;
+        margin-bottom: 8.5em;
         @include tablet-only {
             width: 638px;
         }
         @include desktop-only {
             width: 760px;
-        }
-        .form-block {
-            display: flex;
-            flex-direction: column;
-            width: 80%;
-            margin: 20px auto;
-            position: relative;
-            @include tablet-only {
-                width: 60%;
-            }
-            @include desktop-only {
-                width: 60%;
-            }
-            label {
-                font-weight: bold;
-                margin-bottom: 2px;
-            }
-            input {
-                height: 25px;
-            }
-            .fas {
-                position: absolute;
-                top: 28px;
-                right: 3%;
-            }
-        }
-        .submit-button {
-            width: 50%;
-            height: 35px;
-            color: white;
-            background: $linear-gradient;
-            font-size: 16px;
-            font-weight: bold;
-            margin: 20px auto;
-            border-radius: 20px;
-            border-style: none;
-            @include tablet-only {
-                width: 40%;
-            }
-            @include desktop-only {
-                width: 30%;
-            }
         }
         .required-mention {
             font-size: 11px;

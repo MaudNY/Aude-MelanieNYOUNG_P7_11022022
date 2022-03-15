@@ -39,7 +39,7 @@ const LoginForm = () => {
 
     return (
         <main className="main-login-page">
-            <form id="signup-form" method="post">
+            <form id="login-form" method="post">
                 <div className="form-block">
                     <label htmlFor="email">Mon adresse email Groupomania *</label>
                     <input type="text" name="email" id="email" onChange={ setRequestBody } placeholder="Ex : marc.rive@groupomania.com" required/>
@@ -56,7 +56,7 @@ const LoginForm = () => {
                     <p className="error-message"></p>
                 </div>
 
-                <button type="submit" className="submit-button submit-button--login disabled" onClick={ logIn }>Connexion</button>
+                <button type="submit" className="submit-button disabled" onClick={ logIn }>Connexion</button>
 
                 <div className="required-mention">* Champ obligatoire</div>
             </form>

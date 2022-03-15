@@ -1,0 +1,19 @@
+#signup-button, #login-button {
+    position: relative;
+    min-width: 45%;
+    text-align: center;
+    padding-top: 10px;
+    @include weblink-rules (white);
+    &:focus, &:hover {
+        &::after {
+            content: "";
+            width: 40%;
+            height: 3px;
+            background-color: white;
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    }
+}

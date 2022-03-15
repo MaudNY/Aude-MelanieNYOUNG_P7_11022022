@@ -62,14 +62,14 @@ const SignupForm = () => {
                 </div>
 
                 <div className="form-block">
-                    <label htmlFor="passwordConfirmation">Veuillez confirmer votre mot de passe *</label>
+                    <label htmlFor="passwordConfirmation">Confirmez votre mot de passe *</label>
                     <input type="text" name="passwordConfirmation" id="passwordConfirmation" required/>
                     <i className="fas fa-check-circle"></i>
                     <i className="fas fa-exclamation-circle"></i>
                     <p className="error-message"></p>
                 </div>
 
-                <button type="submit" className="submit-button submit-button--signup disabled" onClick={ createNewUser }>Inscription</button>
+                <button type="submit" className="submit-button disabled" onClick={ createNewUser }>Inscription</button>
 
                 <div className="required-mention">* Champ obligatoire</div>
             </form>
