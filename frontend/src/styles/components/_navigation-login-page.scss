@@ -4,7 +4,7 @@
     background-color: $primary-color;
     #buttons-row {
         width: 350px;
-        margin-top: 8.5em;
+        margin-top: 6.3em;
         padding: 5px 0;
         border-radius: 20px 20px 0 0;
         color: white;
@@ -14,9 +14,11 @@
         background-color: $secondary-color;
         @include tablet-only {
             width: 658px;
+            margin-top: 6em;
         }
         @include desktop-only {
             width: 780px;
+            margin-top: 8.5em;
         }
         &--login-page {
             margin-top: 1000px;
