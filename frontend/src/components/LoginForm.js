@@ -20,14 +20,6 @@ const LoginForm = () => {
         api.post('/', loginDetails)
             .then(response => {
                localStorage.setItem("token", response.data.token);
-               response.config = {
-                   headers: {
-                       ...response.config.headers,
-                        Authorization: "Bearer " + response.data.token
-                   }
-               }
-
-               console.log("Response :", response.config);
 
                return window.open("http://localhost:3080/home", "_blank");
             })

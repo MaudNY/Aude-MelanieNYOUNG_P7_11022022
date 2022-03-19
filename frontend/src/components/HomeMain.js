@@ -1,8 +1,8 @@
 import React from "react";
-import api from "../api/url";
+import authApi from "../api/auth";
 
 const HomeMain = () => {
-    api.get('/')
+    authApi.get('/home')
         .then(res => {
 
             return console.log(res);
