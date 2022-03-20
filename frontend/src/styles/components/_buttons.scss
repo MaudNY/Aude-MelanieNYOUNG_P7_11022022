@@ -67,3 +67,21 @@
         width: 15%;
     }
 }
+
+.comment-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    padding: 0 0 0 2.5px;
+    color: white;
+    background: $linear-gradient;
+    font-weight: bold;
+	border-radius: 50px;
+    border-style: none;
+    .comment-icon {
+        width: 13px;
+        height: 13px;
+    }
+}

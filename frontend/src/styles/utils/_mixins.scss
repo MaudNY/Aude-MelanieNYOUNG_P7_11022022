@@ -16,6 +16,14 @@
 	}
 }
 
+@mixin post-pic-design {
+    margin-right: 2.5%;
+    border-radius: 50%;
+    overflow: hidden;
+    object-fit: cover;
+    cursor: pointer;
+}
+
 @mixin post-design {
 	max-width: 100%;
     padding: 2.5%;

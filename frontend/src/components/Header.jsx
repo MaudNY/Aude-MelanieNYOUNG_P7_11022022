@@ -20,7 +20,7 @@ export default function Header() {
                     <img src="./assets/logo-inbetween.png" alt="logo" />
                 </div>
                 <div className="header-profile-link">
-                    <img src="./assets/icon.png" alt="logo" />
+                    <img src="./assets/man-woman-looking(large).jpg" alt="logo" />
                 </div>
             </header>
             );
