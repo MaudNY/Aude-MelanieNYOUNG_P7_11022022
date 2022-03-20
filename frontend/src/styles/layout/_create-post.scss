@@ -1,11 +1,7 @@
 .created-post {
     display: flex;
     flex-direction: column;
-    max-width: 100%;
-    padding: 2.5%;
-    border-radius: 6.5px;
-    background: $neutral;
-    @include box-shadow;
+    @include post-design;
     @include tablet-only {
         max-width: 708px;
     }
