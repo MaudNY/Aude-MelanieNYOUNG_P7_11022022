@@ -1,0 +1,69 @@
+#signup-button, #login-button {
+    min-width: 45%;
+    font-size: 18px;
+    text-align: center;
+    padding-top: 10px;
+    @include weblink-rules (white);
+}
+
+.nav-active {
+    position: relative;
+
+    &::after {
+        content: "";
+        width: 50%;
+        height: 3px;
+        background-color: white;
+        position: absolute;
+        bottom: -6px;
+        left: 50%;
+        transform: translateX(-50%);
+        @include tablet-only {
+            width: 30%;
+        }
+        @include desktop-only {
+            width: 25%;
+        }
+    }
+}
+
+#redirection-button, .submit-button {
+    height: 35px;
+    font-size: 16px;
+    margin: 20px auto;
+    transform: scale(1);
+    transition-property: transform;
+    transition-duration: 350ms;
+    @include submit-button;
+    &:hover {
+        transform: scale(1.1);
+    }
+}
+
+.submit-button {
+    width: 50%;
+    @include tablet-only {
+        width: 40%;
+    }
+    @include desktop-only {
+        width: 30%;
+    }
+}
+
+#redirection-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 55%;
+}
+
+.publish-button {
+    width: 20%;
+    @include submit-button;
+    @include tablet-only {
+        width: 15%;
+    }
+    @include desktop-only {
+        width: 15%;
+    }
+}

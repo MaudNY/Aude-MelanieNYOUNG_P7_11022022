@@ -1,0 +1,30 @@
+// BASE
+html {
+    box-sizing: border-box;
+	height: 100%;
+}
+
+body {
+    font-family: Arial, sans-serif;
+	position: relative;
+	min-height: 100%;
+    margin: 0;
+    padding: 0 0 50px 0;
+    box-sizing: border-box;
+	-moz-box-sizing: border-box;
+}
+
+a, ul {
+	text-decoration-line: none;
+}
+
+input, textarea {
+	outline: none;
+}
+
+::placeholder {
+	font-family: Arial, sans-serif;
+}
+
+// RESPONSIVE
+$breakpoints: (tablet: 768px, desktop: 1140px);

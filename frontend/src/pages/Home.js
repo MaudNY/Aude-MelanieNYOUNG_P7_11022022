@@ -1,6 +1,6 @@
 import Header from "../components/Header";
 import Banner from "../components/Banner";
-import HomeMain from "../components/HomeMain";
+import HomeFeed from "../components/HomeFeed";
 import Footer from "../components/Footer";
 
 const HomePage = () => {
@@ -8,7 +8,7 @@ const HomePage = () => {
         <div>
             <Header />
             <Banner />
-            <HomeMain />
+            <HomeFeed />
             <Footer />
         </div>
     )

@@ -182,3 +182,17 @@ exports.deleteAccount = (req, res) => {
     })
 
 };
+
+// OBTENIR LA LISTE DE TOUS LES UTILISATEURS
+exports.getAllUsers = (req, res) => {
+  sequelize.models.User.findAll()
+    .then(users => {
+
+      return res.status(200).json(users);
+    })
+    .catch(error => {
+        console.error(error);
+
+        return res.status(500).json({ message: "Erreur serveur, veuillez réessayer dans quelques minutes." });
+    })
+};

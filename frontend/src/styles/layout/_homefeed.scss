@@ -1,0 +1,17 @@
+#main-feed {
+    background-color: $neutral;
+}
+
+
+.main-container {
+    margin: 0 auto;
+    padding: 2.5% 0 2.5% 0;
+    border-radius: 8px;
+    max-width: 395px;
+    @include tablet-only {
+        max-width: 608px;
+    }
+    @include desktop-only {
+        max-width: 680px;
+    }
+}
