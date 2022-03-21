@@ -19,6 +19,24 @@ exports.createComment = (req, res) => {
         })
 };
 
+// AFFICHER tous les commentaires
+exports.getCommentsPerPost = (req, res) => {
+    sequelize.models.Comment.findAll({
+        postId: req.params.postId
+    },{
+        order: [["createdAt", "ASC"]]
+    })
+        .then(comments => {
+
+            return res.status(200).json(comments);
+        })
+        .catch(error => {
+            console.error(error);
+
+            return res.status(500).json({ message: "Erreur serveur, veuillez réessayer dans quelques minutes." });
+        })
+};
+
 // SUPPRIMER un commentaire
 exports.deleteComment = (req, res) => {
     console.log("Comment ID :", req.params.id);
