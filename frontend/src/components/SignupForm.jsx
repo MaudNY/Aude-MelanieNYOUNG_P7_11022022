@@ -19,7 +19,20 @@ const SignupForm = () => {
 
         api.post('/signup', newUser)
             .then(response => {
-                console.log("Response :", response)
+
+                return console.log(response.data.message);
+            })
+            .then(() => {
+                const email = formValues.email;
+                const password = formValues.password;
+
+                return api.post('/', { email: email, password: password })
+            })
+            .then(response => {
+                localStorage.setItem("userId", response.data.userId);
+                localStorage.setItem("token", response.data.token);
+               
+                return window.open("http://localhost:3080/home", "_blank");
             })
             .catch(error => {
                 console.log(error)

@@ -1,27 +1,28 @@
 import React, { useState } from "react";
 import api from "../api/url";
 
-const LoginForm = () => {
+const LoginForm = ({ authenticate }) => {
     // Get input values
     const inputValues = { email: "", password: "" };
     const [formValues, setFormValues] = useState(inputValues);
 
-    // Get JSON object from imput values
+    // Get JSON object from input values
     const setRequestBody = (e) => {
         const {name, value} = e.target;
         setFormValues({ ...formValues, [name]: value });
     };
 
     // Send login details to open account
-    const logIn = async (e) => {
+    const logIn = (e) => {
         e.preventDefault();
         const loginDetails = { ...formValues };
 
         api.post('/', loginDetails)
             .then(response => {
-               localStorage.setItem("token", response.data.token);
-
-               return window.open("http://localhost:3080/home", "_blank");
+                localStorage.setItem("userId", response.data.userId);
+                localStorage.setItem("token", response.data.token);
+               
+                return window.open("http://localhost:3080/home", "_blank");
             })
             .catch(error => {
                 

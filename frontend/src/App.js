@@ -2,8 +2,10 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import SignUp from "./pages/SignUp";
 import LogIn from "./pages/LogIn";
-import Home from "./pages/Home";
+import HomePage from "./pages/HomePage";
 import NotFound from "./pages/NotFound";
+
+import PrivateRoute from "./PrivateRoute";
 
 const App = () => {
   return (
@@ -11,8 +13,10 @@ const App = () => {
       <Routes>
         <Route path='/signup' exact element={ <SignUp /> } />
         <Route path='/' exact element={ <LogIn /> } />
-        <Route path='/home' exact element={ <Home /> } />
-        <Route path='*' element={ <NotFound /> } />
+        <Route element={ <PrivateRoute /> }>
+          <Route path='/home' exact element={ <HomePage /> } />
+          <Route path='*' element={ <NotFound /> } />
+        </Route>
       </Routes>
     </BrowserRouter>
   );
