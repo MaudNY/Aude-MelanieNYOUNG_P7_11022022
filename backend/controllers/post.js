@@ -81,6 +81,22 @@ exports.deletePost = (req, res) => {
 
 };
 
+// AFFICHER un post en particulier
+exports.getOnePost = (req, res) => {
+    sequelize.models.Post.findOne({ where: {
+        id: req.params.postId
+    } })
+        .then(post => {
+
+            return res.status(200).json(post);
+        })
+        .catch(error => {
+            console.error(error);
+
+            return res.status(500).json({ message: "Une erreur s'est produite, veuillez réessayer dans quelques minutes." });
+        })
+};
+
 // AFFICHER tous les posts (du plus récent au plus ancien)
 exports.getAllPosts = (req, res) => {
     sequelize.models.Post.findAll({
