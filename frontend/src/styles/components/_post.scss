@@ -14,24 +14,37 @@
     flex-direction: row;
     align-items: center;
     flex: 1;
-    .author-first-name {
-        padding-right: 3.5px;
-    }
-    .author-first-name, .author-last-name {
-        font-weight: 600;
-    }
-    .post-date {
+}
+
+.author-details {
+    display: flex;
+    flex-direction: column;
+    .author-name {
         display: flex;
-        flex: 1;
-        justify-content: flex-end;
-        align-items: center;
-        font-size: 11px;
+        flex-direction: row;
+        .author-first-name {
+            padding-right: 3.5px;
+        }
+        .author-first-name, .author-last-name {
+            font-weight: 600;
+        }
     }
-    .delete-icon {
-        width: 20px;
-        height: 20px;
-        color: $secondary-color;
+    .author-job {
+        font-size: 13px;
     }
+}
+
+.post-date {
+    display: flex;
+    flex: 1;
+    justify-content: flex-end;
+    align-items: center;
+    font-size: 11px;
+}
+.delete-icon {
+    width: 20px;
+    height: 20px;
+    color: $secondary-color;
 }
 
 .post-content {
@@ -42,5 +55,24 @@
     width: auto;
     img {
         width: 100%;
+    }
+}
+
+.post-line-reactions {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 2px;
+}
+
+.comment-section {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 11px;
+    .comment-icon {
+        font-size: 15px;
+        margin-right: 3px;
     }
 }
