@@ -44,7 +44,7 @@ const SignupForm = () => {
             <form id="signup-form" method="post">
                 <div className="form-block">
                     <label htmlFor="firstName">Mon prénom *</label>
-                    <input type="text" name="firstName" id="firstName" value={ formValues.firstName } onChange={ setRequestBody } required/>
+                    <input type="text" name="firstName" id="firstName" value={ formValues.firstName } onChange={ setRequestBody } autoComplete="off" required/>
                     <i className="fas fa-check-circle"></i>
                     <i className="fas fa-exclamation-circle"></i>
                     <p className="error-message"></p>
@@ -52,7 +52,7 @@ const SignupForm = () => {
 
                 <div className="form-block">
                     <label htmlFor="lastName">Mon nom *</label>
-                    <input type="text" name="lastName" id="lastName" value={ formValues.lastName } onChange={ setRequestBody } required/>
+                    <input type="text" name="lastName" id="lastName" value={ formValues.lastName } onChange={ setRequestBody } autoComplete="off" required/>
                     <i className="fas fa-check-circle"></i>
                     <i className="fas fa-exclamation-circle"></i>
                     <p className="error-message"></p>
@@ -60,7 +60,7 @@ const SignupForm = () => {
 
                 <div className="form-block">
                     <label htmlFor="email">Mon adresse email Groupomania *</label>
-                    <input type="text" name="email" id="email" value={ formValues.email } onChange={ setRequestBody} placeholder="Ex : marc.rive@groupomania.com" required/>
+                    <input type="text" name="email" id="email" value={ formValues.email } onChange={ setRequestBody} placeholder="Ex : marc.rive@groupomania.com" autoComplete="off" required/>
                     <i className="fas fa-check-circle"></i>
                     <i className="fas fa-exclamation-circle"></i>
                     <p className="error-message"></p>
@@ -68,7 +68,7 @@ const SignupForm = () => {
 
                 <div className="form-block">
                     <label htmlFor="password">Mon mot de passe *</label>
-                    <input type="text" name="password" id="password" value={ formValues.password } onChange={ setRequestBody } required/>
+                    <input type="text" name="password" id="password" value={ formValues.password } onChange={ setRequestBody } autoComplete="off" required/>
                     <i className="fas fa-check-circle"></i>
                     <i className="fas fa-exclamation-circle"></i>
                     <p className="error-message"></p>
@@ -76,7 +76,7 @@ const SignupForm = () => {
 
                 <div className="form-block">
                     <label htmlFor="passwordConfirmation">Confirmez votre mot de passe *</label>
-                    <input type="text" name="passwordConfirmation" id="passwordConfirmation" required/>
+                    <input type="text" name="passwordConfirmation" id="passwordConfirmation" autoComplete="off" required/>
                     <i className="fas fa-check-circle"></i>
                     <i className="fas fa-exclamation-circle"></i>
                     <p className="error-message"></p>

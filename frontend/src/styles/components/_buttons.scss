@@ -59,6 +59,7 @@
 
 .publish-button {
     width: 20%;
+    padding: 4.5px;
     @include submit-button;
     @include tablet-only {
         width: 15%;

@@ -3,12 +3,17 @@ import authApi from '../api/auth';
 
 import CreateComment from './CreateComment';
 
-import DeleteIcon from '@mui/icons-material/Delete';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
+import { DateTime } from 'luxon';
 
 export default function Posts() {
     const [ data, setData ] = useState([]);
-    const [ users, setUsers ] = useState([]);
+    const now = DateTime.now().day;
+    console.log("now :", now);
+
+    const datePostNine = DateTime.fromISO("2022-03-03T15:59:48");
+    console.log("Date Post 9 :", datePostNine);
 
     useEffect(() => {
         authApi.get('/home')
@@ -16,19 +21,6 @@ export default function Posts() {
                 console.log("Liste des posts :", res.data);
                 
                 return setData(res.data);
-            })
-            .catch(error => {
-                
-                console.log(error);
-            })
-    }, []);
-
-    useEffect(() => {
-        authApi.get('/users')
-            .then((res) => {
-                console.log("Liste des utilisateurs :", res.data);
-
-                return setUsers(res.data);
             })
             .catch(error => {
                 
@@ -47,16 +39,16 @@ export default function Posts() {
                 <div className="post-details">
                     <div className="author-details">
                         <div className="author-name">
-                            <div className="author-first-name">Li</div>
-                            <div className="author-last-name">Mai</div>
+                            <div className="author-first-name">{ post.User.firstName }</div>
+                            <div className="author-last-name">{ post.User.lastName }</div>
                         </div>
-                        <div className="author-job">Sales Director</div>
+                        <div className="author-job">{ post.User.job }</div>
                     </div>
-                    <div className="post-date">{post.createdAt}</div>
-                    <DeleteIcon className="delete-icon" />
+                    <div className="post-date">{ post.createdAt }</div>
+                    <MoreVertIcon className="more-vert-icon" />
                 </div>
             </div>
-            <div className="post-line-two post-content">{post.content}</div>
+            <div className="post-line-two post-content">{ post.content }</div>
             <div className="post-line-three">
                 <img src={post.imageUrl} alt={"image post " + post.id} />
             </div>

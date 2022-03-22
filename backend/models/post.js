@@ -9,11 +9,6 @@ function PostModelCreation(sequelize) {
     },
     imageUrl: {
       type: DataTypes.STRING
-    },
-    likesCount: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      default: 0
     }
 
   });

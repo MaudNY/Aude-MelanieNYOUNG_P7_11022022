@@ -9,8 +9,7 @@ exports.createPost = (req, res) => {
         sequelize.models.Post.create({
             ...content,
             imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
-            userId : req.token.userId,
-            likesCount: 0
+            userId : req.token.userId
         })
             .then(post => {
 
@@ -25,8 +24,7 @@ exports.createPost = (req, res) => {
     } else {
         sequelize.models.Post.create({
             content: req.body.content,
-            userId : req.token.userId,
-            likesCount : 0
+            userId : req.token.userId
         })
             .then(post => {
 
@@ -85,7 +83,7 @@ exports.deletePost = (req, res) => {
 exports.getOnePost = (req, res) => {
     sequelize.models.Post.findOne({ where: {
         id: req.params.postId
-    } })
+    }, include: sequelize.models.User })
         .then(post => {
 
             return res.status(200).json(post);
@@ -100,7 +98,8 @@ exports.getOnePost = (req, res) => {
 // AFFICHER tous les posts (du plus récent au plus ancien)
 exports.getAllPosts = (req, res) => {
     sequelize.models.Post.findAll({
-        order: [["createdAt", "DESC"]]
+        order: [["createdAt", "DESC"]],
+        include: sequelize.models.User,
     })
         .then(posts => {
 

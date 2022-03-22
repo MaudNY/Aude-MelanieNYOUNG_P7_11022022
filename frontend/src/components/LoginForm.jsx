@@ -43,7 +43,7 @@ const LoginForm = ({ authenticate }) => {
 
                 <div className="form-block">
                     <label htmlFor="password">Mon mot de passe *</label>
-                    <input type="text" name="password" id="password" onChange={ setRequestBody } required/>
+                    <input type="text" name="password" id="password" onChange={ setRequestBody } autoComplete="off" required/>
                     <i className="fas fa-check-circle"></i>
                     <i className="fas fa-exclamation-circle"></i>
                     <p className="error-message"></p>

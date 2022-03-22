@@ -1,6 +1,6 @@
 .create-post {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     @include post-design;
     @include tablet-only {
         max-width: 708px;
@@ -10,19 +10,7 @@
     }
 }
 
-.post-upper-bar {
-    display: flex;
-    flex-direction: row;
-    margin-bottom: 1.5%;
-    textarea {
-        flex: 1;
-        padding: 15px 0 0 10px;
-        border-style: none;
-        border-radius: 6.5px;
-    }
-}
-
-.post-picture {
+.post-author-pic {
     width: 45px;
     height: 45px;
     @include post-pic-design;
@@ -33,6 +21,18 @@
     }
 }
 
+#post-form {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    textarea {
+        flex: 1;
+        padding: 15px 0 0 10px;
+        border-style: none;
+        border-radius: 6.5px;
+    }
+}
+
 .post-splitter {
     width: 100%;
     height: 3px;
@@ -40,13 +40,28 @@
     background-color: $tertiary-color;
 }
 
-.post-lower-bar {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
+#post-file {
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
 }
 
-.post-img-icon {
-    color: $icon-img;
-    margin-right: 1.5%;
+.post-submit-bar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: right;
+    .post-img-icon {
+        color: $icon-img;
+        margin-right: 1.5%;
+    }
+}
+
+input[type="file"] {
+    display: none;
+    label {
+        display: initial;
+    }
 }
