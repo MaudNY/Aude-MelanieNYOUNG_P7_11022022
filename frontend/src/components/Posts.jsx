@@ -5,15 +5,9 @@ import CreateComment from './CreateComment';
 
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
-import { DateTime } from 'luxon';
 
 export default function Posts() {
     const [ data, setData ] = useState([]);
-    const now = DateTime.now().day;
-    console.log("now :", now);
-
-    const datePostNine = DateTime.fromISO("2022-03-03T15:59:48");
-    console.log("Date Post 9 :", datePostNine);
 
     useEffect(() => {
         authApi.get('/home')
@@ -50,7 +44,7 @@ export default function Posts() {
             </div>
             <div className="post-line-two post-content">{ post.content }</div>
             <div className="post-line-three">
-                <img src={ post.imageUrl } alt={"image post " + post.id} />
+                <img src={ post.imageUrl } alt={ "image publication " + post.id + " de " + post.User.firstName + " " + post.User.lastName } />
             </div>
             <div className="post-line-reactions">
                 <div className="comment-section">

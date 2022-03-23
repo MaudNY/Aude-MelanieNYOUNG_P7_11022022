@@ -4,7 +4,7 @@ import AddPhotoAlternateRoundedIcon from '@mui/icons-material/AddPhotoAlternateR
 
 export default function CreatePost() {
   // Get input values
-  const inputValues = { content: "", imageUrl: "", file:"" };
+  const inputValues = { content: "", imageUrl: "" };
   const [formValues, setFormValues] = useState(inputValues);
 
   // Get JSON object from input values
@@ -12,7 +12,7 @@ export default function CreatePost() {
       const {name, value} = e.target;
       setFormValues({ ...formValues, [name]: value });
 
-      console.log({...formValues});
+      return console.log({...formValues});
   };
 
   // --- SET FILE PREVIEW --- //
@@ -25,6 +25,7 @@ export default function CreatePost() {
   const previewFile = (e) => {
     setRequestBody(e);
     const file = e.target.files[0];
+    console.log("File :", file);
 
     if (file) {
       setImage(file && file.type.substr(0, 5) === "image");
@@ -49,21 +50,29 @@ export default function CreatePost() {
       
     } else {
       setPreview(null);
-      console.log("NO IMAGE !", image);
+      console.log("NO IMAGE !");
     }
 
   }, [image]);
 
-  // PUBLISH post
+
+  // --- PUBLISH POST --- //
+
   const publishPost = (e) => {
     e.preventDefault();
+
     const postDetails = { ...formValues };
-    console.log("Form values au moment du POST :", postDetails);
+    const file = document.querySelector('input[type="file"]').files[0];
 
-    authApi.post('/createpost', postDetails)
-        .then(() => {
+    let formData = new FormData();
+    formData.append("content", postDetails.content);
+    formData.append("image", file);
 
-            return console.log("Form values après le POST :", postDetails);;
+    authApi.post('/createpost', formData)
+        .then(res => {
+            console.log("Response :", res);
+
+            return window.location.reload(false);
         })
         .catch(error => {
             
