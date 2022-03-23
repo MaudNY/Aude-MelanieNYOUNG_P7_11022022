@@ -12,6 +12,7 @@
 .post-picture {
     width: 45px;
     height: 45px;
+    margin-left: -1.5%;
     @include post-pic-design;
     img {
         width: 100%;
@@ -33,7 +34,8 @@
     .author-name {
         display: flex;
         flex-direction: row;
-        font-size: 15px;
+        font-size: 14px;
+        margin-bottom: 1px;
         .author-first-name {
             padding-right: 3.5px;
         }
@@ -42,7 +44,7 @@
         }
     }
     .author-job {
-        font-size: 13px;
+        font-size: 11px;
     }
 }
 

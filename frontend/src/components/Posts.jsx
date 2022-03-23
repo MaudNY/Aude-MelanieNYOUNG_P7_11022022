@@ -50,7 +50,7 @@ export default function Posts() {
             </div>
             <div className="post-line-two post-content">{ post.content }</div>
             <div className="post-line-three">
-                <img src={post.imageUrl} alt={"image post " + post.id} />
+                <img src={ post.imageUrl } alt={"image post " + post.id} />
             </div>
             <div className="post-line-reactions">
                 <div className="comment-section">

@@ -53,7 +53,7 @@ exports.deletePost = (req, res) => {
 
             if (user.role === "admin", "moderator" || user.id === req.auth) {
                 sequelize.models.Post.findOne({
-                    where: { postId: req.params.id }
+                    where: { id: req.params.postId }
                 })
                     .then(post => {
                         post.destroy();

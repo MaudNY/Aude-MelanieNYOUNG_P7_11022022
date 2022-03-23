@@ -14,7 +14,7 @@ exports.signup = (req, res) => {
         password: hash,
         firstName: req.body.firstName,
         lastName: req.body.lastName,
-        profileImageUrl: "http://localhost:3000/images/user-profile-icon.jpg1648035372948.jpg",
+        profileImageUrl: "http://localhost:3000/images/user-profile-icon.jpg1648043905886.jpg",
         role: "user"
       })
       user.save()
