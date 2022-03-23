@@ -34,7 +34,7 @@ export default function Posts() {
             <div className="post" key={ post.id }>
             <div className="post-line-one">
                 <div className="post-picture">
-                    <img src="./assets/man-woman-looking(large).jpg" alt="logo" />
+                    <img src={ post.User.profileImageUrl } alt={ post.User.firstName + " " + post.User.lastName } />
                 </div>
                 <div className="post-details">
                     <div className="author-details">
