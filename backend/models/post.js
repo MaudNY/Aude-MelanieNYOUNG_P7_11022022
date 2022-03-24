@@ -9,6 +9,11 @@ function PostModelCreation(sequelize) {
     },
     imageUrl: {
       type: DataTypes.STRING
+    },
+    commentsCount: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      default: 0
     }
 
   });

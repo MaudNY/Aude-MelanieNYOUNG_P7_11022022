@@ -10,7 +10,11 @@ exports.createComment = (req, res) => {
         .then(comment => {
             console.log(comment);
 
-            return res.status(201).json(comment);
+            return sequelize.models.Post.increment({ commentsCount: 1 }, { where: { id: comment.postId } });
+        })
+        .then(() => {
+
+            return res.status(201).json({ message: "Commentaire publié" });
         })
         .catch(error => {
             console.error(error);
@@ -56,6 +60,10 @@ exports.deleteComment = (req, res) => {
                     .then(comment => {
                         comment.destroy();
 
+                        return sequelize.models.Post.increment({ commentsCount: -1 }, { where: { id: comment.postId } });
+                    })
+                    .then(() => {
+            
                         return res.status(200).json({ message: "Ce commentaire a bien été supprimé" });
                     })
                     .catch(error => {

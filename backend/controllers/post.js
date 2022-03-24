@@ -9,6 +9,7 @@ exports.createPost = (req, res) => {
         sequelize.models.Post.create({
             ...content,
             imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+            commentsCount: 0,
             userId : req.token.userId
         })
             .then(post => {

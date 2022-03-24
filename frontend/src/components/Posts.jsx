@@ -6,7 +6,7 @@ import CreateComment from './CreateComment';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 
-export default function Posts() {
+export default function Posts(post) {
     const [ data, setData ] = useState([]);
 
     useEffect(() => {
@@ -51,7 +51,9 @@ export default function Posts() {
             <div className="post-line-reactions">
                 <div className="comment-section">
                     <ChatBubbleOutlineIcon className="comment-icon"/>
-                    <div className="comment-description">0 commentaires</div>
+                    { post.commentsCount < 2 ?
+                    <div className="comment-count">{ post.commentsCount } commentaire</div>
+                    : <div className="comment-count">{ post.commentsCount } commentaires</div> }
                 </div>
             </div>
             <div className="post-last-line">

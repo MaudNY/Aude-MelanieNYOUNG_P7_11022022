@@ -47,7 +47,7 @@ export default function CreatePost() {
       reader.onloadend = () => {
         setPreview(
           <div id="preview-post-file">
-            <img src={reader.result} alt="preview" />
+            <img src={ reader.result } alt="preview" />
             <IconButton aria-label="delete" className="cancel-file-button" onClick={ () => { setImage() } }>
               <CancelIcon />
             </IconButton>
