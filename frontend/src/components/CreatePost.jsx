@@ -25,10 +25,11 @@ export default function CreatePost() {
   const previewFile = (e) => {
     setRequestBody(e);
     const file = e.target.files[0];
-    console.log("File :", file);
+    
 
     if (file) {
       setImage(file && file.type.substr(0, 5) === "image");
+      localStorage.setItem("file", file.name);
     } else {
       setImage(null);
     }
@@ -43,14 +44,13 @@ export default function CreatePost() {
 
       const reader = new FileReader(file);
       reader.onloadend = () => {
-        setPreview(<img src={ reader.result } alt="logo" />);
+        setPreview(<img src={ reader.result } alt="preview" />);
         console.log("Fini !");
       }
       reader.readAsDataURL(file);
       
     } else {
       setPreview(null);
-      console.log("NO IMAGE !");
     }
 
   }, [image]);

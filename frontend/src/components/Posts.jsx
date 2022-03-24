@@ -43,9 +43,11 @@ export default function Posts() {
                 </div>
             </div>
             <div className="post-line-two post-content">{ post.content }</div>
-            <div className="post-line-three">
-                <img src={ post.imageUrl } alt={ "image publication " + post.id + " de " + post.User.firstName + " " + post.User.lastName } />
-            </div>
+            { post.imageUrl ?
+                <div className="post-line-three">
+                    <img src={ post.imageUrl } alt={ "image publication " + post.id + " de " + post.User.firstName + " " + post.User.lastName } />
+                </div> : <></>
+            }
             <div className="post-line-reactions">
                 <div className="comment-section">
                     <ChatBubbleOutlineIcon className="comment-icon"/>
