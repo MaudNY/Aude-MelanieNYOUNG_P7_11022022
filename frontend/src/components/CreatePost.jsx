@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import authApi from "../api/auth";
 import AddPhotoAlternateRoundedIcon from '@mui/icons-material/AddPhotoAlternateRounded';
+import { IconButton } from '@mui/material';
+import CancelIcon from '@mui/icons-material/Cancel';
 
 export default function CreatePost() {
   // Get input values
@@ -12,7 +14,7 @@ export default function CreatePost() {
       const {name, value} = e.target;
       setFormValues({ ...formValues, [name]: value });
 
-      return console.log({...formValues});
+      return {...formValues};
   };
 
   // --- SET FILE PREVIEW --- //
@@ -29,7 +31,6 @@ export default function CreatePost() {
 
     if (file) {
       setImage(file && file.type.substr(0, 5) === "image");
-      localStorage.setItem("file", file.name);
     } else {
       setImage(null);
     }
@@ -40,12 +41,18 @@ export default function CreatePost() {
 
     if (image) {
       const file = document.querySelector("#file").files[0];
-      console.log("FILE useEffect = ", file);
+      console.log("Fichier en PREVIEW = ", file);
 
       const reader = new FileReader(file);
       reader.onloadend = () => {
-        setPreview(<img src={ reader.result } alt="preview" />);
-        console.log("Fini !");
+        setPreview(
+          <div id="preview-post-file">
+            <img src={reader.result} alt="preview" />
+            <IconButton aria-label="delete" className="cancel-file-button" onClick={ () => { setImage() } }>
+              <CancelIcon />
+            </IconButton>
+          </div>
+        );
       }
       reader.readAsDataURL(file);
       
@@ -86,9 +93,9 @@ export default function CreatePost() {
         <img src="./assets/man-woman-looking(large).jpg" alt="logo" />
       </div>
       <form id="post-form" method="post" encType="multipart/form-data">
-        <textarea type="text" name="content" id="content" onChange={ setRequestBody } placeholder="Que souhaitez-vous partager aujourd'hui ?" autoComplete="off" required />
+        <textarea type="text" name="content" id="content" onChange={ setRequestBody } placeholder="Que souhaitez-vous partager aujourd'hui ?" autoComplete="off" minLength={ 1 } required />
         <div className="post-splitter"></div>
-        <div id="preview-post-file">{ preview }</div>
+        { preview }
         <div className="post-submit-bar">
           <input type="file" name="file" id="file" accept="image/*" onChange={ previewFile } />
           <label htmlFor="file"><AddPhotoAlternateRoundedIcon className='post-img-icon' /></label>
