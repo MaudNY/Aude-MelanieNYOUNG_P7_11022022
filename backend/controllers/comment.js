@@ -23,7 +23,7 @@ exports.createComment = (req, res) => {
         })
 };
 
-// AFFICHER tous les commentaires
+// AFFICHER tous les commentaires d'un post
 exports.getCommentsPerPost = (req, res) => {
     sequelize.models.Comment.findAll({
         postId: req.params.postId

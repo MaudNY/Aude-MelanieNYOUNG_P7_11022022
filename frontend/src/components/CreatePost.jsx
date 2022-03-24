@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import authApi from "../api/auth";
 import AddPhotoAlternateRoundedIcon from '@mui/icons-material/AddPhotoAlternateRounded';
 import { IconButton } from '@mui/material';
@@ -19,7 +19,7 @@ export default function CreatePost() {
 
   // --- SET FILE PREVIEW --- //
 
-  // Store file in state
+  // Store file & preview in state
   const [ image, setImage ] = useState();
   const [ preview, setPreview ] = useState();
 

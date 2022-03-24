@@ -25,6 +25,7 @@ exports.createPost = (req, res) => {
     } else {
         sequelize.models.Post.create({
             content: req.body.content,
+            commentsCount: 0,
             userId : req.token.userId
         })
             .then(post => {
