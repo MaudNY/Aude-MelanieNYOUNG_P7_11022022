@@ -21,6 +21,7 @@ const LoginForm = ({ authenticate }) => {
             .then(response => {
                 localStorage.setItem("userId", response.data.userId);
                 localStorage.setItem("token", response.data.token);
+                localStorage.setItem("profileImageUrl", response.data.profileImageUrl);
                
                 return window.open("http://localhost:3080/home", "_blank");
             })

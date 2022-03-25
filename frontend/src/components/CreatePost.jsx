@@ -48,7 +48,7 @@ export default function CreatePost() {
         setPreview(
           <div id="preview-post-file">
             <img src={ reader.result } alt="preview" />
-            <IconButton aria-label="delete" className="cancel-file-button" onClick={ () => { setImage() } }>
+            <IconButton className="cancel-file-button" onClick={ () => { setImage() } }>
               <CancelIcon />
             </IconButton>
           </div>
@@ -90,7 +90,7 @@ export default function CreatePost() {
   return (
     <div className='create-post'>
       <div className="post-author-pic">
-        <img src="./assets/man-woman-looking(large).jpg" alt="logo" />
+        <img src={ localStorage.getItem("profileImageUrl") } alt="logo" />
       </div>
       <form id="post-form" method="post" encType="multipart/form-data">
         <textarea type="text" name="content" id="content" onChange={ setRequestBody } placeholder="Que souhaitez-vous partager aujourd'hui ?" autoComplete="off" minLength={ 1 } required />

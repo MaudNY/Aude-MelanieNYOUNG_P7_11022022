@@ -46,7 +46,7 @@ export default function Posts() {
                             <div className="author-job">{ post.User.job }</div>
                         </div>
                         <div className="post-date">{ post.createdAt }</div>
-                        <button className="post-actions" onClick={ showOptions }>
+                        <button className="post-actions" aria-label="Voir plus d'options" onClick={ showOptions }>
                             <MoreVertIcon className="more-vert-icon" />
                         </button>
                     </div>
