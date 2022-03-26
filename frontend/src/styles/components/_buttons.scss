@@ -72,6 +72,21 @@
     }
 }
 
+.post-actions-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    border: none;
+    background: $neutral;
+    cursor: pointer;
+    .post-actions-icon {
+        padding: 0 10px;
+    }
+}
+
 .comment-button {
     display: flex;
     align-items: center;

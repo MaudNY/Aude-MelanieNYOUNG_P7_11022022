@@ -3,7 +3,6 @@ import authApi from '../api/auth';
 
 import CreateComment from './CreateComment';
 
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 
 export default function Posts() {
@@ -24,15 +23,48 @@ export default function Posts() {
             })
     }, []);
 
-    const showOptions = (e) => {
+    // --- SHOW PUT AND DELETE OPTIONS --- //
 
-        console.log(e.target.parentElement);
+    const [ options, setOptions ] = useState();
+
+    const showOptions = (e) => {
+        const postId = e.target.id;
+        console.log("ID du post cliqué :", postId);
+
+        const author = e.target.parentElement.id;
+        console.log("ID de l'auteur :", author);
+
+        const $targetedPost = document.getElementById(postId);
+        console.log("Post cible :", $targetedPost);
+
+        const user = localStorage.getItem("userId");
+        console.log("Id de l'utilisateur :", user);
+
+        $targetedPost.classList.add("clicked")
+
+        if ($targetedPost) {
+
+            setOptions(
+                <div className="post-options">
+                    <div className="option-modify">Modifier</div>
+                    <div className="options-splitter"></div>
+                    <div className="option-delete">Supprimer</div>
+                </div>
+            )
+        }
+    };
+
+    // SET POST ID in Local Storage
+    const setPostId = (e) => {
+        const postId = e.target.parentElement.parentElement.parentElement.id;
+        
+        return localStorage.setItem("postId", postId);
     };
 
     return (
         <div id="homefeed">
             {data.map((post) =>
-              <div className="post" key={ post.id }>
+              <div id={ post.id } key={ post.id } className="post">
                 <div className="post-line-one">
                     <div className="post-picture">
                         <img src={ post.User.profileImageUrl } alt={ post.User.firstName + " " + post.User.lastName } />
@@ -46,8 +78,8 @@ export default function Posts() {
                             <div className="author-job">{ post.User.job }</div>
                         </div>
                         <div className="post-date">{ post.createdAt }</div>
-                        <button className="post-actions" aria-label="Voir plus d'options" onClick={ showOptions }>
-                            <MoreVertIcon className="more-vert-icon" />
+                        <button type="button" id={ post.User.id } className="post-actions-btn" onClick={ showOptions }>
+                            <i id={ post.id } className="fa-solid fa-ellipsis-vertical post-actions-icon"></i>
                         </button>
                     </div>
                 </div>
@@ -62,17 +94,14 @@ export default function Posts() {
                         <ChatBubbleOutlineIcon className="comment-icon"/>
                         { post.commentsCount < 2 ?
                         <div className="comment-count">{ post.commentsCount } commentaire</div>
-                        : <div className="comment-count">{ post.commentsCount } commentaires</div> }
+                        : <div className="comment-count">{ post.commentsCount } commentaires</div>
+                        }
                     </div>
                 </div>
-                <div className="post-last-line">
+                <div id={ post.id } className="post-last-line" onClick={ setPostId } >
                     <CreateComment />
                 </div>
-                <div className="post-options">
-                    <div className="option-modify">Modifier</div>
-                    <div className="options-splitter"></div>
-                    <div className="option-delete">Supprimer</div>
-                </div>
+                { options }
             </div>
           )}
       </div>

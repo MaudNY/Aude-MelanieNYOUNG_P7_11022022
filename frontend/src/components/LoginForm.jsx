@@ -9,7 +9,8 @@ const LoginForm = ({ authenticate }) => {
     // Get JSON object from input values
     const setRequestBody = (e) => {
         const {name, value} = e.target;
-        setFormValues({ ...formValues, [name]: value });
+        
+        return setFormValues({ ...formValues, [name]: value });
     };
 
     // Send login details to open account
@@ -22,6 +23,7 @@ const LoginForm = ({ authenticate }) => {
                 localStorage.setItem("userId", response.data.userId);
                 localStorage.setItem("token", response.data.token);
                 localStorage.setItem("profileImageUrl", response.data.profileImageUrl);
+                localStorage.setItem("role", response.data.role);
                
                 return window.open("http://localhost:3080/home", "_blank");
             })
@@ -44,7 +46,7 @@ const LoginForm = ({ authenticate }) => {
 
                 <div className="form-block">
                     <label htmlFor="password">Mon mot de passe *</label>
-                    <input type="text" name="password" id="password" onChange={ setRequestBody } autoComplete="off" required/>
+                    <input type="password" name="password" id="password" onChange={ setRequestBody } autoComplete="off" required/>
                     <i className="fas fa-check-circle"></i>
                     <i className="fas fa-exclamation-circle"></i>
                     <p className="error-message"></p>

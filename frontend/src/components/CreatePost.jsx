@@ -76,8 +76,7 @@ export default function CreatePost() {
     formData.append("image", file);
 
     authApi.post('/createpost', formData)
-        .then(res => {
-            console.log("Response :", res);
+        .then(() => {
 
             return window.location.reload(false);
         })

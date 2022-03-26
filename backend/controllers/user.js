@@ -50,6 +50,7 @@ exports.login = (req, res) => {
             message: "Connexion réussie",
             userId: user.id,
             profileImageUrl: user.profileImageUrl,
+            role: user.role,
             token: jwt.sign(
               { userId: user.id },
               'RANDOM_TOKEN_SECRET',
