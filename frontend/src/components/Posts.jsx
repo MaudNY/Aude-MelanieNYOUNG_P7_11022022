@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import authApi from '../api/auth';
 
 import CreateComment from './CreateComment';
@@ -22,6 +23,13 @@ export default function Posts() {
                 console.log(error);
             })
     }, []);
+
+    // SET POST ID in Local Storage
+    const setPostId = (e) => {
+        const postId = e.target.parentElement.parentElement.parentElement.id;
+        
+        return localStorage.setItem("postId", postId);
+    };
 
     // --- SHOW PUT AND DELETE OPTIONS --- //
 
@@ -54,13 +62,6 @@ export default function Posts() {
         }
     };
 
-    // SET POST ID in Local Storage
-    const setPostId = (e) => {
-        const postId = e.target.parentElement.parentElement.parentElement.id;
-        
-        return localStorage.setItem("postId", postId);
-    };
-
     return (
         <div id="homefeed">
             {data.map((post) =>
@@ -90,13 +91,15 @@ export default function Posts() {
                     </div> : <></>
                 }
                 <div className="post-line-reactions">
-                    <div className="comment-section">
-                        <ChatBubbleOutlineIcon className="comment-icon"/>
-                        { post.commentsCount < 2 ?
-                        <div className="comment-count">{ post.commentsCount } commentaire</div>
-                        : <div className="comment-count">{ post.commentsCount } commentaires</div>
-                        }
-                    </div>
+                    <Link to={ `/post/${ post.id }` } >
+                        <div className="comment-section">
+                            <ChatBubbleOutlineIcon className="comment-icon"/>
+                            { post.commentsCount < 2 ?
+                            <div className="comment-count">{ post.commentsCount } commentaire</div>
+                            : <div className="comment-count">{ post.commentsCount } commentaires</div>
+                            }
+                        </div>
+                    </Link>
                 </div>
                 <div id={ post.id } className="post-last-line" onClick={ setPostId } >
                     <CreateComment />

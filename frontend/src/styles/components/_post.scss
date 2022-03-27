@@ -114,6 +114,10 @@
     flex-direction: row;
     align-items: center;
     font-size: 11px;
+    @include weblink-rules (black);
+    :hover {
+        text-decoration: underline;
+    }
     .comment-icon {
         font-size: 15px;
         margin-right: 3px;
