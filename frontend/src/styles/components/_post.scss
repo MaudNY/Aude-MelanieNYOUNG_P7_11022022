@@ -58,35 +58,6 @@
     font-size: 11px;
 }
 
-.post-options {
-    position: absolute;
-    top: 44px;
-    right: 17px;
-    z-index: 10;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-size: 15px;
-    background-color: $neutral;
-    padding: 8px;
-    border-radius: 6.5px;
-    -webkit-box-shadow: 0px 1px 7px 0px rgba(0,0,0,0.37); 
-    box-shadow: 0px 1px 7px 0px rgba(0,0,0,0.37);
-    .option-modify, .option-delete {
-        &:hover {
-            font-weight: bold;
-            cursor: pointer;
-            transform: scale(1.1);
-        }
-    }
-    .options-splitter {
-        width: 80%;
-        height: 2px;
-        margin: 5.5px 0;
-        background-color: $tertiary-color;
-    }
-}
-
 .post-line-two {
     font-size: 15px;
     margin-top: 7px;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Header from "../components/Header";
 import Banner from "../components/Banner";
 import SinglePost from "../components/SinglePost";
@@ -8,12 +8,9 @@ export default function SinglePostPage() {
 
     return (
         <div>
-            <div>
-                <Header />
-                <Banner />
-                <SinglePost />
-                <Footer />
-            </div>
+            <Header />
+            <SinglePost />
+            <Footer />
         </div>
       )
 }

@@ -4,9 +4,17 @@ import HomeFeed from "../components/HomeFeed";
 import Footer from "../components/Footer";
 
 const HomePage = () => {
+    const resetPostOptions = (e) => {
+        e.preventDefault();
+        const $postOptions = document.querySelector("#post-options");
+
+        if ($postOptions && !e.target.classList.contains("post-actions-icon")) {
+            $postOptions.remove();
+        }
+    }
        
     return (
-        <div>
+        <div onClick={ resetPostOptions }>
             <Header />
             <Banner />
             <HomeFeed />

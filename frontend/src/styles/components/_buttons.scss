@@ -72,6 +72,28 @@
     }
 }
 
+.update-btn-container {
+    display: flex;
+    justify-content: right;
+    margin-bottom: 8px;
+    .update-button {
+        width: 20%;
+        padding: 4.5px;
+        cursor: pointer;
+        color: white;
+        background: $alt-color;
+        font-weight: bold;
+        border-radius: 20px;
+        border-style: none;
+        @include tablet-only {
+            width: 15%;
+        }
+        @include desktop-only {
+            width: 15%;
+        }
+    }
+}
+
 .post-actions-btn {
     display: flex;
     align-items: center;
