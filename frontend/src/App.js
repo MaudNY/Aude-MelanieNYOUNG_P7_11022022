@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import SignUp from "./pages/SignUp";
 import LogIn from "./pages/LogIn";
 import HomePage from "./pages/HomePage";
@@ -11,7 +11,7 @@ import PrivateRoute from "./PrivateRoute";
 
 const App = () => {
   return (
-    <BrowserRouter>
+    <Router>
       <Routes>
         <Route path='/signup' exact element={ <SignUp /> } />
         <Route path='/' exact element={ <LogIn /> } />
@@ -21,7 +21,7 @@ const App = () => {
           <Route path='*' element={ <NotFound /> } />
         </Route>
       </Routes>
-    </BrowserRouter>
+    </Router>
   );
 };
 

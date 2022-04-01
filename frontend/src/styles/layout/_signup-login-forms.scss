@@ -26,3 +26,42 @@
         }
     }
 }
+
+.form-inputs {
+    border-radius: 10px;
+    border-width: 1.75px;
+    border-color: $primary-color;
+}
+
+.fa-exclamation-circle {
+    color: $secondary-color;
+    visibility: hidden;
+}
+
+.error {
+    animation: wrong-input 100ms cubic-bezier(.4,.1,.6,.9) 2;
+    border-color: $secondary-color;
+    .form-inputs {
+        border-width: 2.5px;
+        border-color: $secondary-color;
+    }
+    .fa-exclamation-circle {
+        color: $secondary-color;
+        visibility: visible;
+    }
+    .error-message {
+        margin : 0.75em 0 0.25em 0;
+        font-size: 11.5px;
+        font-style: italic;
+        color: $secondary-color;
+    }
+}
+
+@keyframes wrong-input {
+    25% {
+        transform: translateX(1%);
+    }
+    75% {
+        transform: translateX(1% * -1);
+    }
+}

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import api from "../api/url";
 
-const LoginForm = ({ authenticate }) => {
+const LoginForm = () => {
     // Get input values
     const inputValues = { email: "", password: "" };
     const [formValues, setFormValues] = useState(inputValues);
@@ -18,6 +18,12 @@ const LoginForm = ({ authenticate }) => {
         e.preventDefault();
         const loginDetails = { ...formValues };
 
+        const $emailError = document.querySelector("#email-error");
+        const $passwordError = document.querySelector("#password-error");
+
+        const $formBlockEmail = $emailError.parentElement;
+        const $formBlockPassword = $passwordError.parentElement;
+
         api.post('/', loginDetails)
             .then(response => {
                 localStorage.setItem("userId", response.data.userId);
@@ -25,11 +31,29 @@ const LoginForm = ({ authenticate }) => {
                 localStorage.setItem("profileImageUrl", response.data.profileImageUrl);
                 localStorage.setItem("role", response.data.role);
                
-                return window.open("http://localhost:3080/home", "_blank");
+                return window.location = "/home";
             })
-            .catch(error => {
+            .catch((error) => {
+                const errorData = error.response.data;
+                const errorMessage = error.response.data.message;
+
+                if (errorMessage === "Cet utilisateur n'a pas été trouvé") {
+                    $formBlockPassword.classList.remove("error");
+                    $passwordError.innerHTML = "";
+                    
+                    $formBlockEmail.classList.add("error");
+                    $emailError.innerHTML = errorMessage;
+                } else if (errorMessage === "Mot de passe incorrect") {
+                    $formBlockEmail.classList.remove("error");
+                    $emailError.innerHTML = "";
+
+                    $formBlockPassword.classList.add("error");
+                    $passwordError.innerHTML = errorMessage;
+                } else {
+                    $emailError.innerHTML = errorMessage;
+                }
                 
-                console.log(error);
+                return console.log(errorData);
             })
     };
 
@@ -38,18 +62,16 @@ const LoginForm = ({ authenticate }) => {
             <form id="login-form" method="post">
                 <div className="form-block">
                     <label htmlFor="email">Mon adresse email Groupomania *</label>
-                    <input type="text" name="email" id="email" onChange={ setRequestBody } placeholder="Ex : marc.rive@groupomania.com" required/>
-                    <i className="fas fa-check-circle"></i>
+                    <input type="text" name="email" id="email" className="form-inputs" onChange={ setRequestBody } placeholder="Ex : marc.rive@groupomania.com" required/>
                     <i className="fas fa-exclamation-circle"></i>
-                    <p className="error-message"></p>
+                    <p id="email-error" className="error-message"></p>
                 </div>
 
                 <div className="form-block">
                     <label htmlFor="password">Mon mot de passe *</label>
-                    <input type="password" name="password" id="password" onChange={ setRequestBody } autoComplete="off" required/>
-                    <i className="fas fa-check-circle"></i>
+                    <input type="password" name="password" id="password" className="form-inputs" onChange={ setRequestBody } autoComplete="off" required/>
                     <i className="fas fa-exclamation-circle"></i>
-                    <p className="error-message"></p>
+                    <p id="password-error" className="error-message"></p>
                 </div>
 
                 <button type="submit" className="submit-button disabled" onClick={ logIn }>Connexion</button>
