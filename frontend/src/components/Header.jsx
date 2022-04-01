@@ -20,7 +20,7 @@ export default function Header() {
                     <img src="./assets/logo-inbetween.png" alt="logo" />
                 </div>
                 <div className="header-profile-link">
-                    <img src={ localStorage.getItem("profileImageUrl") } alt="logo" />
+                    <img src={ localStorage.getItem("profileImageUrl") } alt="utilisateur connecté" />
                 </div>
             </header>
             );

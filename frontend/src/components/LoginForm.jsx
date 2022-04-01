@@ -74,7 +74,7 @@ const LoginForm = () => {
                     <p id="password-error" className="error-message"></p>
                 </div>
 
-                <button type="submit" className="submit-button disabled" onClick={ logIn }>Connexion</button>
+                <button type="submit" className="submit-button" onClick={ logIn }>Connexion</button>
 
                 <div className="required-mention">* Champ obligatoire</div>
             </form>

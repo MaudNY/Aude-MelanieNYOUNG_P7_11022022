@@ -21,7 +21,7 @@ exports.signup = (req, res) => {
         .then(() => res.status(201).json({ message: "Félicitations ! Votre compte a été créé." }))
         .catch(error => {
           console.error(error);
-          res.status(400).json({ message: "Cette adresse mail est déjà utilisée." })
+          res.status(400).json(error);
         })
     })
     .catch(error => {

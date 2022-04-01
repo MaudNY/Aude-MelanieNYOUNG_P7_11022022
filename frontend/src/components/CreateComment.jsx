@@ -38,7 +38,7 @@ export default function CreateComment() {
     <div className="create-comment">
       <div className="comment-upper-bar">
         <div className="comment-picture">
-            <img src={ localStorage.getItem("profileImageUrl") } alt="logo" />
+            <img src={ localStorage.getItem("profileImageUrl") } alt="utilisateur connecté" />
         </div>
         <textarea type="text" name="content" id="content" onChange={ setRequestBody } placeholder="Partagez votre opinion ici..." required />
         <button type="submit" className="comment-button" onClick={ publishComment } ><SendIcon className="comment-icon" /></button>

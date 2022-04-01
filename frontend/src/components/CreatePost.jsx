@@ -89,7 +89,7 @@ export default function CreatePost() {
   return (
     <div className='create-post'>
       <div className="post-author-pic">
-        <img src={ localStorage.getItem("profileImageUrl") } alt="logo" />
+        <img src={ localStorage.getItem("profileImageUrl") } alt="utilisateur connecté" />
       </div>
       <form id="post-form" method="post" encType="multipart/form-data">
         <textarea type="text" name="content" id="content" onChange={ setRequestBody } placeholder="Que souhaitez-vous partager aujourd'hui ?" autoComplete="off" minLength={ 1 } required />

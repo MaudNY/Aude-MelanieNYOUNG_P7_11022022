@@ -29,7 +29,11 @@ function UserModelCreation(sequelize) {
         },
         password: {
           type: DataTypes.STRING,
-          allowNull: false
+          allowNull: false,
+          validate: {
+            notNull: true,
+            notEmpty: true
+          }
         },
         profileImageUrl: {
           type: DataTypes.STRING,
