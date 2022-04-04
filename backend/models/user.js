@@ -31,8 +31,7 @@ function UserModelCreation(sequelize) {
           type: DataTypes.STRING,
           allowNull: false,
           validate: {
-            notNull: true,
-            notEmpty: true
+            is: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{3,}$/
           }
         },
         profileImageUrl: {

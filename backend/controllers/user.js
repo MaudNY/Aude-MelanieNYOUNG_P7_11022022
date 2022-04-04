@@ -14,7 +14,7 @@ exports.signup = (req, res) => {
         password: hash,
         firstName: req.body.firstName,
         lastName: req.body.lastName,
-        profileImageUrl: "http://localhost:3000/images/user-profile-icon.jpg1648043905886.jpg",
+        profileImageUrl: "http://localhost:3000/images/default-profile-pic.jpg",
         role: "user"
       })
       user.save()
@@ -171,11 +171,28 @@ exports.deleteAccount = (req, res) => {
     return res.status(403).json({message: "Requête non autorisée"});
   }
 
-  sequelize.models.User.destroy({ where: { 
-    id: req.body.id,
-    email: req.body.email 
-    } 
-  })
+  sequelize.models.User.findOne({ where: { id: req.auth } })
+    .then(user => {
+
+      if (user.profileImageUrl != null) {
+        const picToBeDeleted = user.profileImageUrl.split('/images')[1];
+
+        fs.unlink(`images/${picToBeDeleted}`, (error) => {
+          if (error) {
+            console.error(error);
+          }
+        })
+      }
+
+      localStorage.clear();
+
+      return sequelize.models.User.destroy({ where: { 
+        id: req.body.id,
+        email: req.body.email 
+        } 
+      });
+
+    })
     .then(() => {
       res.status(200).json({ message : "Votre compte a bien été supprimé" })
     })
@@ -183,7 +200,6 @@ exports.deleteAccount = (req, res) => {
       console.log(error);
       res.status(500).json({ message: "Erreur serveur, veuillez réessayer dans quelques minutes." })
     })
-
 };
 
 // OBTENIR LA LISTE DE TOUS LES UTILISATEURS
