@@ -10,6 +10,7 @@ export default function Posts() {
 
     // Variables
     const userId = localStorage.getItem("userId");
+    const $clicked = document.querySelector(".clicked");
 
     // --- GET ALL POSTS --- //
     const [ data, setData ] = useState([]);
@@ -53,29 +54,14 @@ export default function Posts() {
         return setClicked(!clicked);
     };
 
-    // Show options block everytime "clicked" value changes
-    useEffect(() => {
-        const $previousPostOptions = document.querySelector("#post-options");
-        
-        const $clickedPost = document.querySelector(".clicked");
-        const $options = document.createElement("div");
-        $options.id = "post-options";
-        $options.innerHTML = `
-            <button type="button" class="option-modify">Modifier</button>
-            <div class="options-splitter"></div>
-            <button type="button" class="option-delete">Supprimer</button>
-        `;
+    // Clear post options
+    const clearPostOptions = (e) => {
+        e.preventDefault();
 
-        if ($clickedPost && $previousPostOptions) {
-            $previousPostOptions.remove();
-
-            return $clickedPost.append($options);
-        } else if ($clickedPost) {
-
-            return $clickedPost.append($options);
+        if (!e.target.classList.contains("post-actions-icon")) {
+            setClicked(false);
         }
-
-    }, [clicked]);
+    };
 
     // --- UPDATE A POST --- //
     const [ isUpdated, setIsUpdated ] = useState(false);
@@ -101,7 +87,7 @@ export default function Posts() {
     };
 
     return (
-        <div id="homefeed">
+        <div id="homefeed" onClick={ clearPostOptions }>
             {data.map((post) =>
               <div id={ post.id } key={ post.id } className="post">
                 <div className="post-line-one">
@@ -157,6 +143,14 @@ export default function Posts() {
                 <div className="post-last-line" onClick={ setPostId } >
                     <CreateComment />
                 </div>
+                {$clicked && $clicked !== null && $clicked.id == post.id && clicked === true
+                ?
+                <div id="post-options">
+                    <button type="button" className="option-modify">Modifier</button>
+                    <div className="options-splitter"></div>
+                    <button type="button" className="option-delete">Supprimer</button>
+                </div>
+                : <></>}
             </div>
           )}
       </div>
