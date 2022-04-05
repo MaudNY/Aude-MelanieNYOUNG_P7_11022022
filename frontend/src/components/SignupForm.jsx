@@ -18,75 +18,75 @@ const SignupForm = () => {
         e.preventDefault();
         const newUser = { ...formValues };
 
-    // Send new user data to sign up and log in
-    api.post('/signup', newUser)
-        .then(response => {
-            console.log(response.data.message);
+        // Send new user data to sign up and log in
+        api.post('/signup', newUser)
+            .then(response => {
+                console.log(response.data.message);
 
-            const email = formValues.email;
-            const password = formValues.password;
+                const email = formValues.email;
+                const password = formValues.password;
 
-            return api.post('/', { email: email, password: password });
-        })
-        .then(response => {
-            localStorage.setItem("userId", response.data.userId);
-            localStorage.setItem("token", response.data.token);
-            localStorage.setItem("profileImageUrl", response.data.profileImageUrl);
-            localStorage.setItem("role", response.data.role);
-            
-            return window.location = "/home";
-        })
-        .catch(error => {
-            // GET ERRORS TABLE from backend
-            const errorsTable = error.response.data.errors;
-            console.log(errorsTable);
+                return api.post('/', { email: email, password: password });
+            })
+            .then(response => {
+                localStorage.setItem("userId", response.data.userId);
+                localStorage.setItem("token", response.data.token);
+                localStorage.setItem("profileImageUrl", response.data.profileImageUrl);
+                localStorage.setItem("role", response.data.role);
+                
+                return window.location = "/home";
+            })
+            .catch(error => {
+                // GET ERRORS TABLE from backend
+                const errorsTable = error.response.data.errors;
+                console.log(errorsTable);
 
-            // VARIABLES
-            const $emailError = document.querySelector("#email-error");
-            const $formBlockEmail = $emailError.parentElement;
-            const $passwordError = document.querySelector("#password-error");
-            const $formBlockPassword = $passwordError.parentElement;
+                // VARIABLES
+                const $emailError = document.querySelector("#email-error");
+                const $formBlockEmail = $emailError.parentElement;
+                const $passwordError = document.querySelector("#password-error");
+                const $formBlockPassword = $passwordError.parentElement;
 
-            // Reset all error classes from the document
-            const errorClassList = document.querySelectorAll(".error");
-            const errorClassTable = Array.from(errorClassList);
+                // Reset all error classes from the document
+                const errorClassList = document.querySelectorAll(".error");
+                const errorClassTable = Array.from(errorClassList);
 
-            if (errorClassTable.length !== 0) {
+                if (errorClassTable.length !== 0) {
 
-                for (let $formBlock of errorClassTable) {
-                    $formBlock.classList.remove("error");
-                    const $errorMessage = $formBlock.querySelector(".error-message");
-                    $errorMessage.innerHTML = "";
+                    for (let $formBlock of errorClassTable) {
+                        $formBlock.classList.remove("error");
+                        const $errorMessage = $formBlock.querySelector(".error-message");
+                        $errorMessage.innerHTML = "";
+                    }
                 }
-            }
 
-            // Mention where the error lies with ERRORS TABLE
-            for (let error of errorsTable) {
-                const wrongInputId = error.path;
-                const errorType = error.type;
-                const $wrongInput = document.getElementById(wrongInputId);
+                // Mention where the error lies with ERRORS TABLE
+                for (let error of errorsTable) {
+                    const wrongInputId = error.path;
+                    const errorType = error.type;
+                    const $wrongInput = document.getElementById(wrongInputId);
 
-                if ($wrongInput.id === "firstName" || $wrongInput.id === "lastName") {
-                    $wrongInput.parentElement.classList.add("error");
-                    let $wrongInputMessage = document.getElementById(`${$wrongInput.id}-error`);
-                    $wrongInputMessage.innerHTML = "Veuillez correctement renseigner ce champ";
+                    if ($wrongInput.id === "firstName" || $wrongInput.id === "lastName") {
+                        $wrongInput.parentElement.classList.add("error");
+                        let $wrongInputMessage = document.getElementById(`${$wrongInput.id}-error`);
+                        $wrongInputMessage.innerHTML = "Veuillez correctement renseigner ce champ";
 
-                } else if ($wrongInput.id === "email" && errorType === "unique violation") {
-                    $formBlockEmail.classList.add("error");
-                    $emailError.innerHTML = "Cette adresse email est déjà utilisée";
+                    } else if ($wrongInput.id === "email" && errorType === "unique violation") {
+                        $formBlockEmail.classList.add("error");
+                        $emailError.innerHTML = "Cette adresse email est déjà utilisée";
 
-                } else if ($wrongInput.id === "email" && errorType === "Validation error") {
-                    $formBlockEmail.classList.add("error");
-                    $emailError.innerHTML = "Veuillez renseigner une adresse email valide";
-                    
-                } else if ($wrongInput.id === "password") {
-                    $formBlockPassword.classList.add("error");
-                    $passwordError.innerHTML = "Veuillez renseigner un mot de passe"
+                    } else if ($wrongInput.id === "email" && errorType === "Validation error") {
+                        $formBlockEmail.classList.add("error");
+                        $emailError.innerHTML = "Veuillez renseigner une adresse email valide";
+                        
+                    } else if ($wrongInput.id === "password") {
+                        $formBlockPassword.classList.add("error");
+                        $passwordError.innerHTML = "Veuillez renseigner un mot de passe"
+                    }
                 }
-            }
-            
-            return console.error(errorsTable);
-        })
+                
+                return console.error(errorsTable);
+            })
     };
 
     return (
