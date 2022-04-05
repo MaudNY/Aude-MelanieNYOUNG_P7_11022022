@@ -8,6 +8,9 @@ import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 
 export default function Posts() {
 
+    // Variables
+    const userId = localStorage.getItem("userId");
+
     // --- GET ALL POSTS --- //
     const [ data, setData ] = useState([]);
 
@@ -24,9 +27,6 @@ export default function Posts() {
             })
     }, []);
 
-    // GET USER Id
-    const userId = localStorage.getItem("userId");
-
     // SET POST ID in Local Storage
     const setPostId = (e) => {
         const postId = e.target.parentElement.parentElement.parentElement.parentElement.id;
@@ -35,11 +35,29 @@ export default function Posts() {
     };
 
     // --- SHOW POST OPTIONS --- //
+    const [ clicked, setClicked ] = useState(false);
 
+    // Define if the post is either clicked or not
     const showOptions = (e) => {
+        const $currentClickedPost = document.querySelector(".clicked");
+
+        if ($currentClickedPost) {
+            $currentClickedPost.classList.remove("clicked")
+        }
+
         const postId = e.target.parentElement.parentElement.parentElement.parentElement.id;
         const $targetedPost = document.getElementById(postId);
 
+        $targetedPost.classList.add("clicked");
+
+        return setClicked(!clicked);
+    };
+
+    // Show options block everytime "clicked" value changes
+    useEffect(() => {
+        const $previousPostOptions = document.querySelector("#post-options");
+        
+        const $clickedPost = document.querySelector(".clicked");
         const $options = document.createElement("div");
         $options.id = "post-options";
         $options.innerHTML = `
@@ -48,18 +66,16 @@ export default function Posts() {
             <button type="button" class="option-delete">Supprimer</button>
         `;
 
-        const $currentOptionsList = document.querySelector("#post-options");
+        if ($clickedPost && $previousPostOptions) {
+            $previousPostOptions.remove();
 
-        if ($currentOptionsList) {
-            $currentOptionsList.remove();
+            return $clickedPost.append($options);
+        } else if ($clickedPost) {
 
-            return $targetedPost.append($options);
-        } else {
-
-            return $targetedPost.append($options);
+            return $clickedPost.append($options);
         }
 
-    };
+    }, [clicked]);
 
     // --- UPDATE A POST --- //
     const [ isUpdated, setIsUpdated ] = useState(false);
@@ -102,7 +118,7 @@ export default function Posts() {
                         </div>
                         <div className="post-date">{ post.createdAt }</div>
                         { userId == post.User.id
-                        ? <button type="button" className="post-actions-btn" onClick={ showOptions }>
+                        ? <button id={ post.id } type="button" className="post-actions-btn" onClick={ showOptions }>
                             <i className="fa-solid fa-ellipsis-vertical post-actions-icon"></i>
                         </button>
                         :
