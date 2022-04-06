@@ -1,4 +1,5 @@
 const sequelize = require('../sequelize');
+const fs = require('fs');
 
 // CREER un post
 exports.createPost = (req, res) => {
@@ -39,6 +40,62 @@ exports.createPost = (req, res) => {
             })
     }
     
+};
+
+// MODIFIER un post
+exports.updatePost = (req, res) => {
+
+    sequelize.models.Post.findOne({ where: { id: req.params.postId } })
+        .then((post) => {
+
+            if (parseFloat(req.auth) === post.userId) {
+                const upcomingFile = req.file;
+
+                if (upcomingFile && post.imageUrl != null) {
+                    const imageToBeDeleted = post.imageUrl.split('/images')[1];
+
+                    post.update({ 
+                        content: req.body.content,
+                        imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}` 
+                    }, { where: { id: req.params.postId } })
+                        .then(() => {
+                            fs.unlink(`images/${imageToBeDeleted}`, (err) => {
+                                if (err) {
+                                    console.error(err);
+                                }
+                              })
+                            
+                            return res.status(200).json({ message: "Votre post a bien été mis à jour" });
+                        })
+                        .catch(error => {
+                            console.error(error);
+                
+                            return res.status(404).json({ message: "Erreur de traitement" });
+                        })
+                } else {
+
+                    post.update({ content: req.body.content }, { where: { id: req.params.postId } })
+                        .then(() => {
+                            
+                            return res.status(200).json({ message: "Votre post a bien été mis à jour" });
+                        })
+                        .catch(error => {
+                            console.error(error);
+                
+                            return res.status(404).json({ message: "Erreur de traitement" });
+                        })
+                }
+            } else {
+
+                return res.status(403).json({ message: "Requête non autorisée" });
+            }
+
+        })
+        .catch(error => {
+            console.error(error);
+
+            return res.status(500).json({ message: "Erreur serveur, veuillez réessayer dans quelques minutes." });
+        })
 };
 
 // SUPPRIMER un post
