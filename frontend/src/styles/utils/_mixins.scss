@@ -40,3 +40,10 @@
 	border-radius: 20px;
     border-style: none;
 }
+
+@mixin submit-bar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: right;
+}

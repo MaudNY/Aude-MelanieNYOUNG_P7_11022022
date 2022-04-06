@@ -1,0 +1,17 @@
+.post-submit-bar, .update-submit-bar {
+    @include submit-bar;
+    input[type="file"] {
+        display: none;
+    }
+}
+.update-submit-bar {
+    .post-img-icon {
+        margin-right: 6px;
+    }
+}
+
+.post-img-icon {
+    color: $icon-img;
+    margin-right: 2.5px;
+    cursor: pointer;
+}

@@ -5,6 +5,7 @@ import authApi from '../api/auth';
 import CreateComment from './CreateComment';
 
 import { IconButton } from '@mui/material';
+import AddPhotoAlternateRoundedIcon from '@mui/icons-material/AddPhotoAlternateRounded';
 import CancelIcon from '@mui/icons-material/Cancel';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 
@@ -60,15 +61,13 @@ export default function Posts() {
 
     // Clear post options
     const clearPostOptions = (e) => {
-        e.preventDefault();
 
         if (!e.target.classList.contains("post-actions-icon")) {
-            setClicked(false);
+            return setClicked(false);
         }
     };
 
-    // --- UPDATE A POST --- //
-    const [ isUpdated, setIsUpdated ] = useState(false);
+    // --- SET FILE PREVIEW --- //
 
     // Get input values
     const inputValues = { content: "", imageUrl: "" };
@@ -83,6 +82,52 @@ export default function Posts() {
 
         return {...formValues};
     };
+
+    // Store file & preview in state
+    const [ image, setImage ] = useState();
+    const [ preview, setPreview ] = useState(null);
+
+    // Get post file details
+    const previewFile = (e) => {
+        setRequestBody(e);
+        const file = e.target.files[0];
+        
+
+        if (file) {
+            setImage(file && file.type.substr(0, 5) === "image");
+        } else {
+            setImage(null);
+        }
+    };
+
+    // Display file preview
+    useEffect(() => {
+
+        if (image) {
+            const file = document.querySelector("#updated-file").files[0];
+            console.log("Fichier en PREVIEW = ", file);
+
+            const reader = new FileReader(file);
+            reader.onloadend = () => {
+                setPreview(
+                <div id="preview-updated-file">
+                    <img src={ reader.result } alt="preview" />
+                    <IconButton className="cancel-file-button" onClick={ () => { setImage() } }>
+                    <CancelIcon />
+                    </IconButton>
+                </div>
+                );
+            }
+            reader.readAsDataURL(file);
+        
+        } else {
+            setPreview(null);
+        }
+
+    }, [image]);
+
+    // --- UPDATE A POST --- //
+    const [ isUpdated, setIsUpdated ] = useState(false);
 
     const showUpdateForm = (e) => {
         e.preventDefault();
@@ -101,6 +146,27 @@ export default function Posts() {
         return setIsUpdated(true);
 
     };
+
+    /*const publishUpdatedPost = (e) => {
+        console.log("C'est bon !");
+
+        const newPostContent = { ...formValues };
+        const newFile = document.querySelector('input[type="file"]').files[0];
+
+        let formData = new FormData();
+        formData.append("content", newPostContent.content);
+        formData.append("image", newFile);
+
+        authApi.put('/createpost', formData)
+            .then(() => {
+
+                return window.location.reload(false);
+            })
+            .catch(error => {
+                
+                console.log(error);
+            })
+    };*/
 
     // DELETE A POST
     const [ deletionAlert, setDeletionAlert ] = useState(false);
@@ -177,15 +243,21 @@ export default function Posts() {
                 </div>
                 { isUpdated === true && $updating && $updating.id == post.id
                 ? 
-                <div className="post-line-two post-textarea">
-                    <textarea defaultValue={ post.content } onChange={ setRequestBody }></textarea>
-                    <div className="update-btn-container">
-                        <button type="submit" className="update-button">Enregistrer</button>
-                    </div> 
-                </div>
+                <form id="update-form" className="post-line-two post-textarea" method="post" encType="multipart/form-data">
+                      <textarea defaultValue={ post.content } type="text" name="content" id="content" onChange={ setRequestBody }></textarea>
+                      <div className="update-submit-bar">
+                      <input type="file" name="updated-file" id="updated-file" accept="image/*" onChange={ previewFile } />
+                      <label htmlFor="updated-file"><AddPhotoAlternateRoundedIcon className='post-img-icon' /></label>
+                      <button type="submit" className="update-button">Enregistrer</button>
+                        <IconButton className="cancel-updated-file-button" onClick={ (e) => setIsUpdated(false) }>
+                            <CancelIcon />
+                        </IconButton>
+                        </div>
+                        {preview !== null && (preview)}
+                </form>
                 : <div className="post-line-two post-content">{ post.content }</div>
                 }
-                { post.imageUrl
+                { post.imageUrl && preview === null
                 ?
                 <div className="post-line-three">
                     <img src={ post.imageUrl } alt={ "image publication " + post.id + " de " + post.User.firstName + " " + post.User.lastName } />

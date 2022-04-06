@@ -5,8 +5,6 @@ import Footer from "../components/Footer";
 
 const HomePage = () => {
     const resetPostOptions = (e) => {
-        e.preventDefault();
-
         const $clickedElement = document.querySelector(".clicked");
 
         if ($clickedElement && !e.target.classList.contains("post-actions-icon")) {
