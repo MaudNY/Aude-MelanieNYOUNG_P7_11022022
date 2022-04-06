@@ -78,8 +78,6 @@ export default function Posts() {
         const {name, value} = e.target;
         setFormValues({ ...formValues, [name]: value });
 
-        console.log({ ...formValues });
-
         return {...formValues};
     };
 
@@ -140,33 +138,50 @@ export default function Posts() {
 
         const postId = e.target.parentElement.parentElement.id;
         const $targetedPost = document.getElementById(postId);
-
         $targetedPost.classList.add("updating");
+
+        localStorage.setItem("postId", postId);
 
         return setIsUpdated(true);
 
     };
 
-    /*const publishUpdatedPost = (e) => {
-        console.log("C'est bon !");
-
+    const publishUpdatedPost = (e) => {
+        e.preventDefault();
         const newPostContent = { ...formValues };
-        const newFile = document.querySelector('input[type="file"]').files[0];
+        const newFile = document.querySelector("#updated-file").files[0];
+        const postId = localStorage.getItem("postId");
 
         let formData = new FormData();
-        formData.append("content", newPostContent.content);
-        formData.append("image", newFile);
 
-        authApi.put('/createpost', formData)
-            .then(() => {
+        if (newPostContent.content === "" && newPostContent.imageUrl === "" && !newFile) {
+            
+            return setIsUpdated(false);
+        } else if (newPostContent.content === "" && newFile) {
+            formData.append("image", newFile);
+            authApi.put(`updatepost/${postId}`, formData)
+                .then(() => {
 
-                return window.location.reload(false);
-            })
-            .catch(error => {
-                
-                console.log(error);
-            })
-    };*/
+                    return window.location.reload(false);
+                })
+                .catch(error => {
+                    
+                    console.log(error);
+                })
+        } else {
+            formData.append("content", newPostContent.content);
+            formData.append("image", newFile);
+            authApi.put(`updatepost/${postId}`, formData)
+                .then(() => {
+
+                    return window.location.reload(false);
+                })
+                .catch(error => {
+                    
+                    console.log(error);
+                })
+        }
+    };
 
     // DELETE A POST
     const [ deletionAlert, setDeletionAlert ] = useState(false);
@@ -248,7 +263,7 @@ export default function Posts() {
                       <div className="update-submit-bar">
                       <input type="file" name="updated-file" id="updated-file" accept="image/*" onChange={ previewFile } />
                       <label htmlFor="updated-file"><AddPhotoAlternateRoundedIcon className='post-img-icon' /></label>
-                      <button type="submit" className="update-button">Enregistrer</button>
+                      <button type="button" className="update-button" onClick={ publishUpdatedPost }>Enregistrer</button>
                         <IconButton className="cancel-updated-file-button" onClick={ (e) => setIsUpdated(false) }>
                             <CancelIcon />
                         </IconButton>
