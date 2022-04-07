@@ -5,8 +5,9 @@ function PrivateRoute (req, res) {
     try {
         const token = localStorage.getItem("token");
         const userId = localStorage.getItem("userId");
+        const role = localStorage.getItem("role");
 
-        if (token === null || userId === null) {
+        if (token === null || userId === null || role === null) {
 
             return <Navigate to="/" />
         } else {

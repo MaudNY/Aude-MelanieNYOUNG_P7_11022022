@@ -72,10 +72,33 @@ exports.updatePost = (req, res) => {
                 
                             return res.status(404).json({ message: "Erreur de traitement" });
                         })
-                } else {
-
-                    post.update({ content: req.body.content }, { where: { id: req.params.postId } })
+                } else if (upcomingFile) {
+                    post.update({ 
+                        content: req.body.content,
+                        imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}` 
+                    }, { where: { id: req.params.postId } })
                         .then(() => {
+                                
+                            return res.status(200).json({ message: "Votre post a bien été mis à jour" });
+                        })
+                        .catch(error => {
+                            console.error(error);
+                
+                            return res.status(404).json({ message: "Erreur de traitement" });
+                        })
+                } else {
+                    const imageToBeDeleted = post.imageUrl.split('/images')[1];
+
+                    post.update({ ...req.body }, { where: { id: req.params.postId } })
+                        .then(() => {
+
+                            if (imageToBeDeleted) {
+                                fs.unlink(`images/${imageToBeDeleted}`, (err) => {
+                                    if (err) {
+                                        console.error(err);
+                                    }
+                                    })
+                            }
                             
                             return res.status(200).json({ message: "Votre post a bien été mis à jour" });
                         })

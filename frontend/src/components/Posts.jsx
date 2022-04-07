@@ -126,6 +126,8 @@ export default function Posts() {
 
     // --- UPDATE A POST --- //
     const [ isUpdated, setIsUpdated ] = useState(false);
+    const [ newContent, setNewContent ] = useState();
+    const [ currentImageDeletion, setCurrentImageDeletion ] = useState(false);
 
     const showUpdateForm = (e) => {
         e.preventDefault();
@@ -146,41 +148,56 @@ export default function Posts() {
 
     };
 
+    const cancelPostUpdate = (e) => {
+        setCurrentImageDeletion(false);
+        setIsUpdated(false);
+    }
+
+    const hideImage = (e) => {
+        const $currentImage = e.target.parentElement.parentElement.parentElement;
+
+        return setCurrentImageDeletion(true);
+    };
+
     const publishUpdatedPost = (e) => {
         e.preventDefault();
-        const newPostContent = { ...formValues };
         const newFile = document.querySelector("#updated-file").files[0];
         const postId = localStorage.getItem("postId");
 
         let formData = new FormData();
 
-        if (newPostContent.content === "" && newPostContent.imageUrl === "" && !newFile) {
-            
+        if (newContent === undefined && !newFile && currentImageDeletion === false) {
+
             return setIsUpdated(false);
-        } else if (newPostContent.content === "" && newFile) {
-            formData.append("image", newFile);
-            authApi.put(`updatepost/${postId}`, formData)
-                .then(() => {
+        } else if (newContent === undefined && !newFile && currentImageDeletion === true) {
+            formData.append("imageUrl", "");
 
-                    return window.location.reload(false);
-                })
-                .catch(error => {
-                    
-                    console.log(error);
-                })
+        } else if (newContent === undefined && newFile) {
+            setCurrentImageDeletion(false);
+            formData.append("image", newFile);
+
+        } else if (!newFile && currentImageDeletion === false) {
+            formData.append("content", newContent);
+
+        } else if(newContent !== undefined && currentImageDeletion === true) {
+            formData.append("content", newContent);
+            formData.append("imageUrl", "");
+
         } else {
-            formData.append("content", newPostContent.content);
+            setCurrentImageDeletion(false);
+            formData.append("content", newContent);
             formData.append("image", newFile);
-            authApi.put(`updatepost/${postId}`, formData)
-                .then(() => {
-
-                    return window.location.reload(false);
-                })
-                .catch(error => {
-                    
-                    console.log(error);
-                })
         }
+
+        return authApi.put(`updatepost/${postId}`, formData)
+            .then(() => {
+
+                return window.location.reload(false);
+            })
+            .catch(error => {
+                
+                console.log(error);
+            })
     };
 
     // DELETE A POST
@@ -259,12 +276,12 @@ export default function Posts() {
                 { isUpdated === true && $updating && $updating.id == post.id
                 ? 
                 <form id="update-form" className="post-line-two post-textarea" method="post" encType="multipart/form-data">
-                      <textarea defaultValue={ post.content } type="text" name="content" id="content" onChange={ setRequestBody }></textarea>
+                      <textarea defaultValue={ post.content } type="text" name="content" id="content" onChange={ (e) => setNewContent(e.target.value) }></textarea>
                       <div className="update-submit-bar">
                       <input type="file" name="updated-file" id="updated-file" accept="image/*" onChange={ previewFile } />
                       <label htmlFor="updated-file"><AddPhotoAlternateRoundedIcon className='post-img-icon' /></label>
                       <button type="button" className="update-button" onClick={ publishUpdatedPost }>Enregistrer</button>
-                        <IconButton className="cancel-updated-file-button" onClick={ (e) => setIsUpdated(false) }>
+                        <IconButton onClick={ cancelPostUpdate }>
                             <CancelIcon />
                         </IconButton>
                         </div>
@@ -272,7 +289,17 @@ export default function Posts() {
                 </form>
                 : <div className="post-line-two post-content">{ post.content }</div>
                 }
-                { post.imageUrl && preview === null
+                { post.imageUrl && preview === null && isUpdated === true && currentImageDeletion === false
+                ?
+                <div className="post-line-three">
+                    <IconButton className="delete-current-image-btn" onClick={ (e) => setCurrentImageDeletion(true) }>
+                        <CancelIcon />
+                    </IconButton>
+                    <img src={ post.imageUrl } alt={ "image publication " + post.id + " de " + post.User.firstName + " " + post.User.lastName } />
+                </div>
+                : <></>
+                }
+                { post.imageUrl && isUpdated === false && currentImageDeletion === false
                 ?
                 <div className="post-line-three">
                     <img src={ post.imageUrl } alt={ "image publication " + post.id + " de " + post.User.firstName + " " + post.User.lastName } />
