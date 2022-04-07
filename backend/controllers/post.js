@@ -87,12 +87,13 @@ exports.updatePost = (req, res) => {
                             return res.status(404).json({ message: "Erreur de traitement" });
                         })
                 } else {
-                    const imageToBeDeleted = post.imageUrl.split('/images')[1];
 
                     post.update({ ...req.body }, { where: { id: req.params.postId } })
                         .then(() => {
 
-                            if (imageToBeDeleted) {
+                            if (post.imageUrl) {
+                                const imageToBeDeleted = post.imageUrl.split('/images')[1];
+
                                 fs.unlink(`images/${imageToBeDeleted}`, (err) => {
                                     if (err) {
                                         console.error(err);

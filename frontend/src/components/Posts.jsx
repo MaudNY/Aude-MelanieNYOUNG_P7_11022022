@@ -183,6 +183,9 @@ export default function Posts() {
             formData.append("content", newContent);
             formData.append("imageUrl", "");
 
+        } else if (newContent !== undefined && !newFile) {
+            formData.append("content", newContent);
+            
         } else {
             setCurrentImageDeletion(false);
             formData.append("content", newContent);
@@ -273,6 +276,9 @@ export default function Posts() {
                         }
                     </div>
                 </div>
+                { post.createdAt !== post.updatedAt && (
+                    <div className="post-updated-mention">(Modifié)</div>
+                ) }
                 { isUpdated === true && $updating && $updating.id == post.id
                 ? 
                 <form id="update-form" className="post-line-two post-textarea" method="post" encType="multipart/form-data">
