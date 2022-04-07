@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import authApi from '../api/auth';
 
 import CreateComment from './CreateComment';
+import Comments from "./Comments";
 
 import { IconButton } from '@mui/material';
 import AddPhotoAlternateRoundedIcon from '@mui/icons-material/AddPhotoAlternateRounded';
@@ -19,6 +19,7 @@ export default function Posts() {
 
     // --- GET ALL POSTS --- //
     const [ data, setData ] = useState([]);
+    const [ showComments, setShowComments ] = useState(false);
 
     useEffect(() => {
         authApi.get('/home')
@@ -242,6 +243,7 @@ export default function Posts() {
             })
     };
 
+
     return (
         <div id="homefeed" onClick={ clearPostOptions }>
             {data.map((post) =>
@@ -306,16 +308,14 @@ export default function Posts() {
                 </div>
                 : <></>
                 }
-                <div className="post-line-reactions">
-                    <Link to={ `/post/${ post.id }` } >
-                        <div className="comment-section">
-                            <ChatBubbleOutlineIcon className="comment-icon"/>
-                            { post.commentsCount < 2
-                            ? <div className="comment-count">{ post.commentsCount } commentaire</div>
-                            : <div className="comment-count">{ post.commentsCount } commentaires</div>
-                            }
-                        </div>
-                    </Link>
+                <div className="post-line-reactions" onClick={ (e) => setShowComments(!showComments) }>
+                    <div className="comment-section">
+                        <ChatBubbleOutlineIcon className="comment-icon"/>
+                        { post.commentsCount < 2
+                        ? <div className="comment-count">{ post.commentsCount } commentaire</div>
+                        : <div className="comment-count">{ post.commentsCount } commentaires</div>
+                        }
+                    </div>
                 </div>
                 <div className="post-last-line" onClick={ setPostId } >
                     <CreateComment />
@@ -349,6 +349,7 @@ export default function Posts() {
                 </div>
                 : <></>
                 }
+                { showComments === true && (<Comments post={ post } postId={ post.id } />)}
             </div>
           )}
       </div>

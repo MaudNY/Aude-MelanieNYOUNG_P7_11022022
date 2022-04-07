@@ -25,11 +25,9 @@ exports.createComment = (req, res) => {
 
 // AFFICHER tous les commentaires d'un post
 exports.getCommentsPerPost = (req, res) => {
-    sequelize.models.Comment.findAll({
+    sequelize.models.Comment.findAll( { where: {
         postId: req.params.postId
-    },{
-        order: [["createdAt", "ASC"]]
-    })
+    } } )
         .then(comments => {
 
             return res.status(200).json(comments);

@@ -196,7 +196,10 @@ exports.getOnePost = (req, res) => {
 exports.getAllPosts = (req, res) => {
     sequelize.models.Post.findAll({
         order: [["createdAt", "DESC"]],
-        include: sequelize.models.User,
+        include: [
+            sequelize.models.User,
+            sequelize.models.Comment
+        ]
     })
         .then(posts => {
 
