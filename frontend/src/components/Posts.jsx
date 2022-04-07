@@ -153,12 +153,6 @@ export default function Posts() {
         setIsUpdated(false);
     }
 
-    const hideImage = (e) => {
-        const $currentImage = e.target.parentElement.parentElement.parentElement;
-
-        return setCurrentImageDeletion(true);
-    };
-
     const publishUpdatedPost = (e) => {
         e.preventDefault();
         const newFile = document.querySelector("#updated-file").files[0];
@@ -185,7 +179,7 @@ export default function Posts() {
 
         } else if (newContent !== undefined && !newFile) {
             formData.append("content", newContent);
-            
+
         } else {
             setCurrentImageDeletion(false);
             formData.append("content", newContent);
@@ -265,7 +259,7 @@ export default function Posts() {
                             <div className="author-job">{ post.User.job }</div>
                         </div>
                         <div className="post-date">{ post.createdAt }</div>
-                        { userId == post.User.id || localStorage.getItem("role") === "moderator"
+                        { parseFloat(userId) === post.User.id || localStorage.getItem("role") === "moderator"
                         ? <button id={ post.id } type="button" className="post-actions-btn" onClick={ showOptions }>
                             <i className="fa-solid fa-ellipsis-vertical post-actions-icon"></i>
                         </button>
@@ -279,7 +273,7 @@ export default function Posts() {
                 { post.createdAt !== post.updatedAt && (
                     <div className="post-updated-mention">(Modifié)</div>
                 ) }
-                { isUpdated === true && $updating && $updating.id == post.id
+                { isUpdated === true && $updating && parseFloat($updating.id) === post.id
                 ? 
                 <form id="update-form" className="post-line-two post-textarea" method="post" encType="multipart/form-data">
                       <textarea defaultValue={ post.content } type="text" name="content" id="content" onChange={ (e) => setNewContent(e.target.value) }></textarea>
@@ -326,7 +320,7 @@ export default function Posts() {
                 <div className="post-last-line" onClick={ setPostId } >
                     <CreateComment />
                 </div>
-                {clicked === true && $clicked && $clicked.id == post.id && post.User.id == userId
+                {clicked === true && $clicked && parseFloat($clicked.id) === post.id && post.User.id === parseFloat(userId)
                 ?
                 <div id="post-options">
                     <button type="button" className="option-modify" onClick={ showUpdateForm }>Modifier</button>
@@ -335,14 +329,14 @@ export default function Posts() {
                 </div>
                 : <></>
                 }
-                {clicked === true && $clicked && $clicked.id == post.id && localStorage.getItem("role") === "moderator" && post.User.id != userId
+                {clicked === true && $clicked && parseFloat($clicked.id) === post.id && localStorage.getItem("role") === "moderator" && post.User.id !== parseFloat(userId)
                 ?
                 <div id="post-options">
                     <button type="button" className="option-delete" onClick={ showDeletionAlert }>Supprimer</button>
                 </div>
                 : <></>
                 }
-                {deletionAlert === true && $deleting && $deleting.id == post.id
+                {deletionAlert === true && $deleting && parseFloat($deleting.id) === post.id
                 ?
                 <div id={ post.id } className="deletion-alert">
                     <IconButton className="cancel-deletion-button" onClick={ clearDeletionAlert }>
