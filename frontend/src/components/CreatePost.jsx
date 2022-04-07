@@ -64,6 +64,7 @@ export default function CreatePost() {
 
 
   // --- PUBLISH POST --- //
+  const [ error, setError ] = useState(false);
 
   const publishPost = (e) => {
     e.preventDefault();
@@ -81,8 +82,8 @@ export default function CreatePost() {
             return window.location.reload(false);
         })
         .catch(error => {
-            
-            console.log(error);
+            setError(true);
+            console.log(error.response.data);
         })
   };
 
@@ -96,6 +97,9 @@ export default function CreatePost() {
         <div className="post-splitter"></div>
         { preview }
         <div className="post-submit-bar">
+          { error === true && (
+            <div id="error-publish-post">Le contenu de votre post ne peut pas être vide <span>&#128519;</span></div>
+          )}
           <input type="file" name="file" id="file" accept="image/*" onChange={ previewFile } />
           <label htmlFor="file"><AddPhotoAlternateRoundedIcon className='post-img-icon' /></label>
           <button type="submit" className="publish-button" onClick={ publishPost } >Publier</button>

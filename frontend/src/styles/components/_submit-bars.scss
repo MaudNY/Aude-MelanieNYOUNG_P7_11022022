@@ -4,6 +4,14 @@
         display: none;
     }
 }
+
+#error-publish-post {
+    font-size: 11px;
+    text-align: center;
+    color: $secondary-color;
+    animation: wrong-input 100ms cubic-bezier(.4,.1,.6,.9) 2;
+}
+
 .update-submit-bar {
     .post-img-icon {
         margin-right: 6px;

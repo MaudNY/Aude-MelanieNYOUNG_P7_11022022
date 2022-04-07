@@ -24,20 +24,26 @@ exports.createPost = (req, res) => {
             })
         
     } else {
-        sequelize.models.Post.create({
-            content: req.body.content,
-            commentsCount: 0,
-            userId : req.token.userId
-        })
-            .then(post => {
 
-                return res.status(201).json(post);
-            })
-            .catch(error => {
-                console.error(error);
+        if (req.body.content === "") {
 
-                return res.status(500).json({ message: "Erreur serveur, veuillez réessayer dans quelques minutes." });
+            return res.status(400).json({ message: "Le contenu du post ne peut pas être vide" });
+        } else {
+            sequelize.models.Post.create({
+                content: req.body.content,
+                commentsCount: 0,
+                userId : req.token.userId
             })
+                .then(post => {
+    
+                    return res.status(201).json(post);
+                })
+                .catch(error => {
+                    console.error(error);
+    
+                    return res.status(500).json({ message: "Erreur serveur, veuillez réessayer dans quelques minutes." });
+                })
+        }
     }
     
 };
