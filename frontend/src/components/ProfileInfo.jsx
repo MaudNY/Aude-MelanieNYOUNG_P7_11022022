@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import authApi from '../api/auth';
 
+import SettingsIcon from '@mui/icons-material/Settings';
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 
 export default function ProfileInfo() {
@@ -24,6 +25,9 @@ export default function ProfileInfo() {
             })
     }, [id]);
 
+    // SHOW PROFILE SETTINGS
+    const [ profileOptions, setProfileOptions ] = useState(false);
+
     // UPDATE PROFILE
     const [ isUpdated, setIsUpdated ] = useState(false);
 
@@ -36,8 +40,6 @@ export default function ProfileInfo() {
         bio: ""
     };
     const [formValues, setFormValues] = useState(inputValues);
-
-    console.log(formValues.firstName.value)
 
     // Get JSON object from input values
     const setRequestBody = (e) => {
@@ -54,13 +56,24 @@ export default function ProfileInfo() {
         e.preventDefault();
 
         const profileDetails = { ...formValues };
+        console.log("PREVIOUS :", formValues);
         
         for (let name in profileDetails) {
-            console.log((`${name}: ${profileDetails[name]}`));
-            if (profileDetails[name] === "") {
-                console.log("input x:", document.getElementsByName(name)[0].value);
-            }           
+            //console.log(`${name}: ${profileDetails[name]}`);
+
+            if (document.getElementsByName(name)[0].value !== "" && profileDetails[name] === "") {
+                const $defaultValue = document.getElementsByName(name)[0].value;
+                //console.log(`Valeur formulaire  de l'input ${name}:`, profileDetails[name]);
+                //console.log(`Valeur par défaut de l'input ${name}:`, $defaultValue);
+                //console.log(name);
+                //console.log(profileDetails);
+
+                setFormValues({ ...formValues, [name]: $defaultValue });
+                //console.log("NEW FORM ? :", formValues);
+            }
         }
+
+        console.log("NEW FORM ? :", formValues);
     };
     
     return (
@@ -74,14 +87,11 @@ export default function ProfileInfo() {
             <div className="profile-info">
                 <div className="profile-pic-block">
                     <img src={ profile.profileImageUrl } alt="" />
-                    <div className="profile-pic-icon">
-                        <AddAPhotoIcon />
-                    </div>
                 </div>
                 <form id="update-profile-form" method="post">
                     <div className="profile-form-block">
                         <label htmlFor="firstName">Mon prénom*</label>
-                        <input type="text" defaultValue={ profile.firstName } id="firstName" name="firstName" onChange={ (setRequestBody) }></input>
+                        <input type="text" defaultValue={ profile.firstName } id="firstName" name="firstName" onChange={ setRequestBody }></input>
                     </div>
 
                     <div className="profile-form-block">
@@ -101,7 +111,7 @@ export default function ProfileInfo() {
 
                     <div className="profile-form-block form-block-bio">
                         <label htmlFor="bio">À propos de moi</label>
-                        <textarea type="text" defaultValue={ profile.bio } id="bio" name="bio" onChange={ setRequestBody }></textarea>
+                        <textarea type="text" defaultValue={ profile.bio } id="bio" name="bio" placeholder="Dites-nous quelque chose à propos de vous..." onChange={ setRequestBody }></textarea>
                     </div>
                 </form>
             </div>
@@ -110,15 +120,36 @@ export default function ProfileInfo() {
             // --> IF setIsUpdated === FALSE <-- //
             :
             <>
+            { profile.id === parseFloat(localStorage.getItem("userId"))
+            ?
             <div className="profile-background">
-                <button type="button" id="update-profile-btn" onClick={ (e) => setIsUpdated(true) }>Modifier profil</button>
+                <div id="settings-icon" className="settings-icon" onClick={ (e) => setProfileOptions(true) }>
+                    <SettingsIcon />
+                </div>
+                { profileOptions === true && (
+                    <div className="settings-profile">
+                        <button type="button" id="update-profile-btn" onClick={ (e) => setIsUpdated(true) }>Modifier le profil</button>
+                        <div className="options-splitter"></div>
+                        <button type="button" id="delete-profile-btn">Supprimer le profil</button>
+                    </div>
+                ) }
             </div>
+            /*<div className="settings-profile">
+                <button type="button" id="update-profile-btn" onClick={ (e) => setIsUpdated(true) }>Modifier profil</button>
+            </div>*/
+            :
+            <div className="profile-background"></div>
+            }
             <div className="profile-info">
                 <div className="profile-pic-block">
                     <img src={ profile.profileImageUrl } alt="" />
+                    { profile.id === parseFloat(localStorage.getItem("userId"))
+                    ?
                     <div className="profile-pic-icon">
                         <AddAPhotoIcon />
                     </div>
+                    : <></>
+                    }
                 </div>
                 <div className="profile-name">{ profile.firstName + " " + profile.lastName }</div>
                 { profile.job !== null
@@ -134,7 +165,13 @@ export default function ProfileInfo() {
                     <div className="bio-title">À propos de moi</div>
                     { profile.bio !== null
                     ? <div className="bio-content">{ profile.bio }</div>
-                    : <div className="bio-content bio-content-replacement">Dites-nous quelque chose à propos de vous...</div>
+                    :
+                    <div className="bio-content bio-content-replacement">
+                        { profile.id === parseFloat(localStorage.getItem("userId"))
+                        ? <>Dites-nous quelque chose à propos de vous...</>
+                        : <>Ce membre ne s'est pas encore présenté ! <span>&#128517;</span></>
+                        }
+                    </div>
                     }
             </div>
             </>

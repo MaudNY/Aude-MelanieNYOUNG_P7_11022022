@@ -33,6 +33,12 @@
     box-shadow: 0px 1px 7px 0px rgba(0,0,0,0.37);
 }
 
+@mixin options-splitter-design {
+    width: 80%;
+    height: 2px;
+    background-color: $tertiary-color;
+}
+
 @mixin submit-button {
     color: white;
     background: $linear-gradient;

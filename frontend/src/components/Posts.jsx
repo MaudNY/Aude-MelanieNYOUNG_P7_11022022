@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { NavLink } from "react-router-dom";
 import authApi from '../api/auth';
 
 import CreateComment from './CreateComment';
@@ -174,7 +175,7 @@ export default function Posts() {
         } else if (!newFile && currentImageDeletion === false) {
             formData.append("content", newContent);
 
-        } else if(newContent !== undefined && currentImageDeletion === true) {
+        } else if (newContent !== undefined && currentImageDeletion === true) {
             formData.append("content", newContent);
             formData.append("imageUrl", "");
 
@@ -249,26 +250,27 @@ export default function Posts() {
             {data.map((post) =>
               <div id={ post.id } key={ post.id } className="post">
                 <div className="post-line-one">
-                    <div className="post-picture">
-                        <img src={ post.User.profileImageUrl } alt={ post.User.firstName + " " + post.User.lastName } />
-                    </div>
-                    <div className="post-details">
-                        <div className="author-details">
-                            <div className="author-name">
-                                <div className="author-first-name">{ post.User.firstName }</div>
-                                <div className="author-last-name">{ post.User.lastName }</div>
-                            </div>
-                            <div className="author-job">{ post.User.job }</div>
+                    <NavLink to={ `/profil/${ post.User.id }` } className="nav-link">
+                        <div className="post-picture">
+                            <img src={ post.User.profileImageUrl } alt={ post.User.firstName + " " + post.User.lastName } />
                         </div>
+                    </NavLink>
+                    <div className="post-details">
+                        <NavLink to={ `/profil/${ post.User.id }` } className="nav-link">
+                            <div className="author-details">
+                                <div className="author-name">
+                                    <div className="author-first-name">{ post.User.firstName }</div>
+                                    <div className="author-last-name">{ post.User.lastName }</div>
+                                </div>
+                                <div className="author-job">{ post.User.job }</div>
+                            </div>
+                        </NavLink>
                         <div className="post-date">{ post.createdAt }</div>
                         { parseFloat(userId) === post.User.id || localStorage.getItem("role") === "moderator"
                         ? <button id={ post.id } type="button" className="post-actions-btn" onClick={ showOptions }>
                             <i className="fa-solid fa-ellipsis-vertical post-actions-icon"></i>
                         </button>
-                        :
-                        <button type="button" className="post-actions-btn">
-                            <i className="fa-solid fa-ellipsis-vertical post-actions-icon"></i>
-                        </button>
+                        : <></>
                         }
                     </div>
                 </div>

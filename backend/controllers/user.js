@@ -184,8 +184,6 @@ exports.deleteAccount = (req, res) => {
         })
       }
 
-      localStorage.clear();
-
       return sequelize.models.User.destroy({ where: { 
         id: req.body.id,
         email: req.body.email 

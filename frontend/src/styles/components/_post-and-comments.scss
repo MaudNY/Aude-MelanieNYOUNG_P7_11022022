@@ -19,6 +19,7 @@
     width: 45px;
     height: 45px;
     margin-left: -1.5%;
+    cursor: pointer;
     @include post-pic-design;
     img {
         width: 100%;
@@ -32,12 +33,14 @@
     flex-direction: row;
     align-items: center;
     flex: 1;
+    @include weblink-rules(black);
 }
 
 .author-details {
     display: flex;
     flex-direction: column;
     margin-left: 4px;
+    cursor: pointer;
     .author-name {
         display: flex;
         flex-direction: row;
@@ -107,7 +110,6 @@
     flex-direction: row;
     align-items: center;
     font-size: 11px;
-    @include weblink-rules (black);
     :hover {
         text-decoration: underline;
     }
@@ -131,4 +133,8 @@
         height: 24px;
         padding: 0;
     }
+}
+
+.nav-link {
+    @include weblink-rules(black);
 }

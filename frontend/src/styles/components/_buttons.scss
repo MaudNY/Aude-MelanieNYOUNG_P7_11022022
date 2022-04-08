@@ -128,9 +128,14 @@
     cursor: pointer;
 }
 
-#update-profile-btn {
-    background: $tertiary-color;
-    @include profile-button;
+#update-profile-btn, #delete-profile-btn {
+    font-weight: bold;
+    text-transform: uppercase;
+    background-color: $neutral;
+    padding: 10px;
+    border: none;
+    border-radius: 6.5px;
+    z-index: 2;
 }
 
 #save-profile-btn {
