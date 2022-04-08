@@ -282,14 +282,14 @@ export default function Posts() {
                 <form id="update-form" className="post-line-two post-textarea" method="post" encType="multipart/form-data">
                       <textarea defaultValue={ post.content } type="text" name="content" id="content" onChange={ (e) => setNewContent(e.target.value) }></textarea>
                       <div className="update-submit-bar">
-                      <input type="file" name="updated-file" id="updated-file" accept="image/*" onChange={ previewFile } />
-                      <label htmlFor="updated-file"><AddPhotoAlternateRoundedIcon className='post-img-icon' /></label>
-                      <button type="button" className="update-button" onClick={ publishUpdatedPost }>Enregistrer</button>
+                        <input type="file" name="updated-file" id="updated-file" accept="image/*" onChange={ previewFile } />
+                        <label htmlFor="updated-file"><AddPhotoAlternateRoundedIcon className='post-img-icon' /></label>
+                        <button type="button" className="update-button" onClick={ publishUpdatedPost }>Enregistrer</button>
                         <IconButton onClick={ cancelPostUpdate }>
                             <CancelIcon />
                         </IconButton>
-                        </div>
-                        {preview !== null && (preview)}
+                    </div>
+                    {preview !== null && (preview)}
                 </form>
                 : <div className="post-line-two post-content">{ post.content }</div>
                 }

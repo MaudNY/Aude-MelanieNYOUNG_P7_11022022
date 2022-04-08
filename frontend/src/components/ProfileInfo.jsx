@@ -2,20 +2,27 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import authApi from '../api/auth';
 
-import SettingsIcon from '@mui/icons-material/Settings';
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
+import CancelIcon from '@mui/icons-material/Cancel';
+import SaveIcon from '@mui/icons-material/Save';
+import SettingsIcon from '@mui/icons-material/Settings';
 
 export default function ProfileInfo() {
 
     // SHOW PROFILE
     const { id } = useParams();
     const [ profile, setProfile ] = useState([]);
+    const [ isUpdated, setIsUpdated ] = useState(false);
+    const [ profileOptions, setProfileOptions ] = useState(false);
 
     useEffect(() => {
         
         authApi.get(`/profile/${ id }`)
             .then((res) => {
                 console.log("UTILISATEUR :", res.data);
+                localStorage.setItem("firstName", res.data.firstName);
+                localStorage.setItem("lastName", res.data.lastName);
+
 
                 return setProfile(res.data);
             })
@@ -25,16 +32,12 @@ export default function ProfileInfo() {
             })
     }, [id]);
 
-    // SHOW PROFILE SETTINGS
-    const [ profileOptions, setProfileOptions ] = useState(false);
-
     // UPDATE PROFILE
-    const [ isUpdated, setIsUpdated ] = useState(false);
-
+    
     // Get input values
     const inputValues = { 
-        firstName: "",
-        lastName: "",
+        firstName: localStorage.getItem("firstName"),
+        lastName: localStorage.getItem("lastName"),
         job: "",
         department: "",
         bio: ""
@@ -56,25 +59,61 @@ export default function ProfileInfo() {
         e.preventDefault();
 
         const profileDetails = { ...formValues };
-        console.log("PREVIOUS :", formValues);
+        console.log("NEW FORM ? :", profileDetails);
+
+        authApi.put(`/updateprofile/${ id }`, profileDetails)
+            .then(() => {
+
+                return window.location.reload(false);
+            })
+            .catch(error => {
+                
+                console.log(error);
+            })
+    };
+
+    // UPDATE PROFILE PICTURE
+    const [ image, setImage ] = useState();
+    const [ preview, setPreview ] = useState(null);
+
+    // Get profile picture file details
+    const previewFile = (e) => {
+        const {name, value} = e.target;
+        console.log("TARGET ?", { name, value });
+        const file = e.target.files[0];
         
-        for (let name in profileDetails) {
-            //console.log(`${name}: ${profileDetails[name]}`);
 
-            if (document.getElementsByName(name)[0].value !== "" && profileDetails[name] === "") {
-                const $defaultValue = document.getElementsByName(name)[0].value;
-                //console.log(`Valeur formulaire  de l'input ${name}:`, profileDetails[name]);
-                //console.log(`Valeur par défaut de l'input ${name}:`, $defaultValue);
-                //console.log(name);
-                //console.log(profileDetails);
+        if (file) {
+            setImage(file && file.type.substr(0, 5) === "image");
+        } else {
+            setImage(null);
+        }
+    };
 
-                setFormValues({ ...formValues, [name]: $defaultValue });
-                //console.log("NEW FORM ? :", formValues);
-            }
+    // Cancel profile pic update
+    const cancelPicUpdate = (e) => {
+        setImage(null);
+        setPreview(null);
+    }
+
+    // Display file preview
+    useEffect(() => {
+
+        if (image) {
+            const file = document.querySelector("#updated-profile-pic").files[0];
+            console.log("Fichier en PREVIEW = ", file);
+
+            const reader = new FileReader(file);
+            reader.onloadend = () => {
+                setPreview(reader.result)
+            };
+            reader.readAsDataURL(file);
+        
+        } else {
+            setPreview(null);
         }
 
-        console.log("NEW FORM ? :", formValues);
-    };
+    }, [image]);
     
     return (
         <section id="profile">
@@ -134,20 +173,29 @@ export default function ProfileInfo() {
                     </div>
                 ) }
             </div>
-            /*<div className="settings-profile">
-                <button type="button" id="update-profile-btn" onClick={ (e) => setIsUpdated(true) }>Modifier profil</button>
-            </div>*/
             :
             <div className="profile-background"></div>
             }
             <div className="profile-info">
                 <div className="profile-pic-block">
-                    <img src={ profile.profileImageUrl } alt="" />
+                    { preview !== null
+                    ? <img src={ preview } alt={ profile.firstName + " " + profile.lastName } />
+                    : <img src={ profile.profileImageUrl } alt={ profile.firstName + " " + profile.lastName } />
+                    }
                     { profile.id === parseFloat(localStorage.getItem("userId"))
                     ?
-                    <div className="profile-pic-icon">
-                        <AddAPhotoIcon />
-                    </div>
+                    <form id="update-profile-pic" className="profile-pic-icon" method="post" encType="multipart/form-data">
+                        <label htmlFor="updated-profile-pic"><AddAPhotoIcon /></label>
+                        <input type="file" name="updated-profile-pic" id="updated-profile-pic" accept="image/*" onChange={ previewFile } />
+                    </form>
+                    : <></>
+                    }
+                    { preview !== null
+                    ? <div className="cancel-preview-btn" onClick={ cancelPicUpdate }><CancelIcon /></div>
+                    : <></>
+                    }
+                    { preview !== null
+                    ? <button type="button" className="save-new-pic">ENREGISTRER</button>
                     : <></>
                     }
                 </div>
@@ -156,19 +204,19 @@ export default function ProfileInfo() {
                 ? <div className="profile-job">{ profile.job }</div>
                 : <></>
                 }
-                { profile.department !== null
+                { profile.department !== null && profile.department !== ""
                 ? <div className="profile-department">- { profile.department } -</div>
                 : <></>
                 }
             </div>
             <div className="profile-bio">
                     <div className="bio-title">À propos de moi</div>
-                    { profile.bio !== null
+                    { profile.bio !== null && profile.bio !== ""
                     ? <div className="bio-content">{ profile.bio }</div>
                     :
                     <div className="bio-content bio-content-replacement">
                         { profile.id === parseFloat(localStorage.getItem("userId"))
-                        ? <>Dites-nous quelque chose à propos de vous...</>
+                        ? <>Dites quelque chose à propos de vous...</>
                         : <>Ce membre ne s'est pas encore présenté ! <span>&#128517;</span></>
                         }
                     </div>

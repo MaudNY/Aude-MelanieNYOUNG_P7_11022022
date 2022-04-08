@@ -56,6 +56,7 @@
     position: relative;
     img {
         width: 100%;
+        height: 100%;
         border-radius: 50%;
     }
     .profile-pic-icon {
@@ -70,6 +71,33 @@
         color: $neutral;
         background-color: $icon-img;
         border-radius: 18px;
+    }
+    .cancel-preview-btn {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        width: 24px;
+        height: 24px;
+        color: $primary-color;
+        background-color: $neutral;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+    .save-new-pic {
+        position: absolute;
+        top: 58px;
+        right: -118px;
+        font-weight: bold;
+        color: $neutral;
+        background-color: $primary-color;
+        border: none;
+        cursor: pointer;
+    }
+}
+
+#update-profile-pic {
+    input[type="file"] {
+        display: none;
     }
 }
 
