@@ -127,3 +127,14 @@
     border-style: none;
     cursor: pointer;
 }
+
+#update-profile-btn {
+    background: $tertiary-color;
+    @include profile-button;
+}
+
+#save-profile-btn {
+    color: $neutral;
+    background: $primary-color;
+    @include profile-button;
+}

@@ -88,25 +88,24 @@ export default function CreatePost() {
   };
 
   return (
-    <div className='create-post'>
-      <div className="post-author-pic">
-        <img src={ localStorage.getItem("profileImageUrl") } alt="utilisateur connecté" />
-      </div>
-      <form id="post-form" method="post" encType="multipart/form-data">
-        <textarea type="text" name="content" id="content" onChange={ setRequestBody } placeholder="Que souhaitez-vous partager aujourd'hui ?" autoComplete="off" minLength={ 1 } required />
-        <div className="post-splitter"></div>
-        { preview }
-        <div className="post-submit-bar">
-          { error === true && (
-            <div id="error-publish-post">Le contenu de votre post ne peut pas être vide <span>&#128519;</span></div>
-          )}
-          <input type="file" name="file" id="file" accept="image/*" onChange={ previewFile } />
-          <label htmlFor="file"><AddPhotoAlternateRoundedIcon className='post-img-icon' /></label>
-          <button type="submit" className="publish-button" onClick={ publishPost } >Publier</button>
+      <div className='create-post'>
+        <div className="post-author-pic">
+          <img src={ localStorage.getItem("profileImageUrl") } alt="utilisateur connecté" />
         </div>
-
-      </form>
-
-    </div>
-  )
+  
+        <form id="post-form" method="post" encType="multipart/form-data">
+          <textarea type="text" name="content" id="content" onChange={ setRequestBody } placeholder="Que souhaitez-vous partager aujourd'hui ?" autoComplete="off" minLength={ 1 } required />
+          <div className="post-splitter"></div>
+          { preview }
+          <div className="post-submit-bar">
+            { error === true && (
+              <div id="error-publish-post">Le contenu de votre post ne peut pas être vide <span>&#128519;</span></div>
+            )}
+            <input type="file" name="file" id="file" accept="image/*" onChange={ previewFile } />
+            <label htmlFor="file"><AddPhotoAlternateRoundedIcon className='post-img-icon' /></label>
+            <button type="submit" className="publish-button" onClick={ publishPost } >Publier</button>
+          </div>
+        </form>
+      </div>
+    )
 }

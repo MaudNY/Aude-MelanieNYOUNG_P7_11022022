@@ -1,0 +1,28 @@
+.profile-form-block {
+    display: flex;
+    flex-direction: column;
+    margin: 9px auto;
+    label {
+        font-size: 14px;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 2px;
+    }
+    input, textarea {
+        text-align: center;
+        padding: 5px;
+        border: none;
+        border-radius: 6.5px;
+        -webkit-box-shadow: 0px 1px 7px 0px rgba(0,0,0,0.37); 
+        box-shadow: 0px 1px 7px 0px rgba(0,0,0,0.37);
+    }
+    textarea {
+        min-height: 50px;
+    }
+}
+
+.form-block-bio {
+    width: 200%;
+    position: relative;
+    right: 50%;
+}
