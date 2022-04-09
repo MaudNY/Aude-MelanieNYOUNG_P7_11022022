@@ -351,7 +351,9 @@ export default function Posts() {
                 </div>
                 : <></>
                 }
-                { showComments === true && (<Comments post={ post } postId={ post.id } />)}
+                { showComments === true
+                ? <Comments post={ post } />
+                : <></>}
             </div>
           )}
       </div>

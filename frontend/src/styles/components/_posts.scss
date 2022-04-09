@@ -4,18 +4,13 @@
     @include post-design;
 }
 
-.comment {
-    position: relative;
-    margin: 15px 0 20px 0;
-}
-
-.post-line-one, .comment-line-one {
+.post-line-one {
     display: flex;
     flex-direction: row;
     align-items: center;
 }
 
-.post-picture, .comment-picture {
+.post-picture {
     width: 45px;
     height: 45px;
     margin-left: -1.5%;
@@ -28,7 +23,7 @@
     }
 }
 
-.post-details, .comments-details {
+.post-details {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -46,11 +41,9 @@
         flex-direction: row;
         font-size: 14px;
         margin-bottom: 1px;
+        font-weight: 600;
         .author-first-name {
             padding-right: 3.5px;
-        }
-        .author-first-name, .author-last-name {
-            font-weight: 600;
         }
     }
     .author-job {

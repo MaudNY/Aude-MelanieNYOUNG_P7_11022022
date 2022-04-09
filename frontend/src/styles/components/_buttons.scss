@@ -84,15 +84,17 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 24px;
-    height: 24px;
-    padding: 0;
-    border: none;
     background: $neutral;
     cursor: pointer;
+    @include options-btn-design;
     .post-actions-icon {
         padding: 0 10px;
     }
+}
+
+.comment-actions-btn {
+    background: $tertiary-color;
+    @include options-btn-design;
 }
 
 .comment-button {
