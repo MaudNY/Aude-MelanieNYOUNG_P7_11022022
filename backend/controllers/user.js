@@ -142,16 +142,20 @@ exports.updateProfilePicture = (req, res) => {
             res.status(500).json({ message: "Erreur serveur, veuillez réessayer dans quelques minutes." })
           })
 
-        return user;
+        return user.profileImageUrl;
 
       } else {
+        user.update({ profileImageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}` }, { where: { id: req.params.id } });
 
-        return user.update({ profileImageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}` }, { where: { id: req.params.id } });
+        return user.profileImageUrl;
       }
     })
-    .then(() => {
+    .then(newProfilePic => {
       
-      return res.status(200).json({ message: "Votre nouvelle photo de profil a bien été sauvegardée" });
+      return res.status(200).json({ 
+        message: "Votre nouvelle photo de profil a bien été sauvegardée",
+        profileImageUrl: newProfilePic
+     });
     })
     .catch(error => {
       console.error(error);

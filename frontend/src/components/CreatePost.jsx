@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { NavLink } from "react-router-dom";
 import authApi from "../api/auth";
 import AddPhotoAlternateRoundedIcon from '@mui/icons-material/AddPhotoAlternateRounded';
 import { IconButton } from '@mui/material';
@@ -89,10 +90,12 @@ export default function CreatePost() {
 
   return (
       <div className='create-post'>
-        <div className="post-author-pic">
-          <img src={ localStorage.getItem("profileImageUrl") } alt="utilisateur connecté" />
-        </div>
-  
+
+        <NavLink to={ `/profil/${ localStorage.getItem("userId") }` } className="nav-link">
+          <div className="post-author-pic">
+            <img src={ localStorage.getItem("profileImageUrl") } alt="utilisateur connecté" />
+          </div>
+        </NavLink>  
         <form id="post-form" method="post" encType="multipart/form-data">
           <textarea type="text" name="content" id="content" onChange={ setRequestBody } placeholder="Que souhaitez-vous partager aujourd'hui ?" autoComplete="off" minLength={ 1 } required />
           <div className="post-splitter"></div>

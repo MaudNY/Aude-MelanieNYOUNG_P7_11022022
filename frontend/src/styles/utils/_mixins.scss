@@ -40,11 +40,12 @@
 }
 
 @mixin submit-button {
-    color: white;
+    color: $neutral;
     background: $linear-gradient;
     font-weight: bold;
 	border-radius: 20px;
     border-style: none;
+    cursor: pointer;
 }
 
 @mixin submit-bar {

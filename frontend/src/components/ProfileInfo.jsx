@@ -4,7 +4,6 @@ import authApi from '../api/auth';
 
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 import CancelIcon from '@mui/icons-material/Cancel';
-import SaveIcon from '@mui/icons-material/Save';
 import SettingsIcon from '@mui/icons-material/Settings';
 
 export default function ProfileInfo() {
@@ -114,6 +113,27 @@ export default function ProfileInfo() {
         }
 
     }, [image]);
+
+    // Update and save profile picture
+
+    const updateProfilePic = (e) => {
+        e.preventDefault();
+        const newProfilePic = document.querySelector("#updated-profile-pic").files[0];
+        let formData = new FormData();
+        formData.append("image", newProfilePic);
+        console.log("HEEEEEY :", formData);
+
+        authApi.put(`/updateprofilepic/${ id }`, formData)
+            .then(response => {
+                localStorage.setItem("profileImageUrl", response.data.profileImageUrl);
+                
+                return window.location.reload(false);
+            })
+            .catch(error => {
+                
+                console.log(error);
+            })
+    };
     
     return (
         <section id="profile">
@@ -194,11 +214,11 @@ export default function ProfileInfo() {
                     ? <div className="cancel-preview-btn" onClick={ cancelPicUpdate }><CancelIcon /></div>
                     : <></>
                     }
-                    { preview !== null
-                    ? <button type="button" className="save-new-pic">ENREGISTRER</button>
-                    : <></>
-                    }
                 </div>
+                { preview !== null
+                ? <button type="button" className="save-new-pic-btn" onClick={ updateProfilePic }>Enregistrer cette photo ?</button>
+                : <></>
+                }
                 <div className="profile-name">{ profile.firstName + " " + profile.lastName }</div>
                 { profile.job !== null
                 ? <div className="profile-job">{ profile.job }</div>

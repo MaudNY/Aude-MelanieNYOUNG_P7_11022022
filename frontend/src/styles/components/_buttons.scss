@@ -35,7 +35,6 @@
     transform: scale(1);
     transition-property: transform;
     transition-duration: 350ms;
-    cursor: pointer;
     @include submit-button;
     &:hover {
         transform: scale(1.1);
@@ -62,7 +61,6 @@
 .publish-button {
     width: 20%;
     padding: 4.5px;
-    cursor: pointer;
     @include submit-button;
     @include tablet-only {
         width: 15%;
@@ -142,4 +140,10 @@
     color: $neutral;
     background: $primary-color;
     @include profile-button;
+}
+
+.save-new-pic-btn {
+    padding: 6px;
+    margin-top: 8px;
+    @include submit-button;
 }
