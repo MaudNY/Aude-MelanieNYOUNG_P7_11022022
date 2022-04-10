@@ -163,8 +163,9 @@
     font-size: 16px;
     font-weight: bold;
     color: $neutral;
-    background-color: $secondary-color;
-    border: none;
+    background-color: #c00000;
+    border: $tertiary-color solid;
+    border-radius: 0 0 6.5px 6.5px;
     margin: 0;
     @include dropdown-menu-options;
     .logout-btn-title {

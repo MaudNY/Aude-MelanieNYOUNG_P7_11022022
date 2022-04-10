@@ -7,10 +7,11 @@
     align-items: center;
     width: 155px;
     border-radius: 6.5px;
-    background: $neutral;
 	-webkit-box-shadow: 0px 1px 7px 0px rgba(0,0,0,0.37); 
     box-shadow: 0px 1px 7px 0px rgba(0,0,0,0.37);
     overflow: hidden;
+    transform-origin: 50% 0%;
+    animation: slow-show 100ms cubic-bezier(.4,.1,.6,.9) forwards;
 }
 
 #show-home-link, #show-profile-link {
@@ -27,4 +28,13 @@
 
 #show-profile-link {
     background-color: $neutral;
+}
+
+@keyframes slow-show {
+    0% {
+        transform: scaleY(0);
+    }
+    100% {
+        transform: scaleY(1);
+    }
 }

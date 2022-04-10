@@ -36,6 +36,9 @@ const SignupForm = () => {
                 localStorage.setItem("firstName", response.data.firstName);
                 localStorage.setItem("lastName", response.data.lastName);
                 
+            })
+            .then(() => {
+                
                 return window.location = "/home";
             })
             .catch(error => {
