@@ -4,7 +4,6 @@ import authApi from '../api/auth';
 
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 import CancelIcon from '@mui/icons-material/Cancel';
-import SettingsIcon from '@mui/icons-material/Settings';
 
 export default function ProfileInfo() {
 
@@ -27,6 +26,15 @@ export default function ProfileInfo() {
                 console.log(error);
             })
     }, [id]);
+
+    // RESET PROFILE OPTIONS
+    const resetProfileOptions = (e) => {
+        e.preventDefault();
+
+        if (!e.target.classList.contains("fa-cog")) {
+            setProfileOptions(false);
+        }
+    };
 
     // UPDATE PROFILE
     
@@ -118,7 +126,6 @@ export default function ProfileInfo() {
         const newProfilePic = document.querySelector("#updated-profile-pic").files[0];
         let formData = new FormData();
         formData.append("image", newProfilePic);
-        console.log("HEEEEEY :", formData);
 
         authApi.put(`/updateprofilepic/${ id }`, formData)
             .then(response => {
@@ -133,7 +140,7 @@ export default function ProfileInfo() {
     };
     
     return (
-        <section id="profile">
+        <section id="profile" onClick={ resetProfileOptions }>
             { isUpdated === true
             ?
             <>
@@ -180,13 +187,18 @@ export default function ProfileInfo() {
             ?
             <div className="profile-background">
                 <div id="settings-icon" className="settings-icon" onClick={ (e) => setProfileOptions(true) }>
-                    <SettingsIcon />
+                    <i className="fas fa-cog"></i>
                 </div>
                 { profileOptions === true && (
-                    <div className="settings-profile">
-                        <button type="button" id="update-profile-btn" onClick={ (e) => setIsUpdated(true) }>Modifier le profil</button>
-                        <div className="options-splitter"></div>
-                        <button type="button" id="delete-profile-btn">Supprimer le profil</button>
+                    <div id="profile-settings">
+                        <button type="button" id="update-profile-btn" onClick={ (e) => setIsUpdated(true) }>
+                            <div className="update-btn-content">Modifier le profil</div>
+                            <i className="fas fa-pencil-alt"></i>
+                        </button>
+                        <button type="button" id="delete-profile-btn">
+                            <div className="delete-btn-content">Supprimer le profil</div>
+                            <i className="fas fa-trash-alt"></i>
+                        </button>
                     </div>
                 ) }
             </div>

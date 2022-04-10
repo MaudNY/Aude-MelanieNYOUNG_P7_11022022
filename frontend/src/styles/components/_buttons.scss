@@ -137,13 +137,31 @@
 }
 
 #update-profile-btn, #delete-profile-btn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 10px;
     font-weight: bold;
     text-transform: uppercase;
+}
+
+#update-profile-btn {
     background-color: $neutral;
-    padding: 10px;
+    border-radius: 6.5 6.5px 0 0px;
     border: none;
-    border-radius: 6.5px;
-    z-index: 2;
+}
+
+#delete-profile-btn {
+    color: $tertiary-color;
+    background-color: $dark-red;
+    border-radius: 0 0 6.5px 6.5px;
+    border: $tertiary-color 5px solid;
+}
+
+.update-btn-content, .delete-btn-content {
+    margin-right: 10px;
 }
 
 #save-profile-btn {
@@ -163,7 +181,7 @@
     font-size: 16px;
     font-weight: bold;
     color: $neutral;
-    background-color: #c00000;
+    background-color: $dark-red;
     border: $tertiary-color solid;
     border-radius: 0 0 6.5px 6.5px;
     margin: 0;

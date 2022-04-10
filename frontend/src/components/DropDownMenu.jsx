@@ -16,7 +16,7 @@ export default function DropDownMenu() {
                 <div className="home-title"><NavLink to={ "/home" } className="nav-link">
                     Accueil
                 </NavLink></div>
-                <i class="fas fa-home"></i>
+                <i className="fas fa-home"></i>
             </div>
             <div className="comment-splitter"></div>
             <div id="show-profile-link">
