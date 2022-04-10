@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import authApi from '../api/auth';
 
@@ -13,6 +14,7 @@ import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 export default function Posts() {
 
     // Variables
+    const { id } = useParams();
     const userId = localStorage.getItem("userId");
     const $clicked = document.querySelector(".clicked");
     const $updating = document.querySelector(".updating");
@@ -22,17 +24,32 @@ export default function Posts() {
     const [ data, setData ] = useState([]);
 
     useEffect(() => {
-        authApi.get('/home')
-            .then((res) => {
-                console.log("LISTE DES POSTS :", res.data);
-                
-                return setData(res.data);
-            })
-            .catch(error => {
-                
-                console.log(error);
-            })
-    }, []);
+        const urlPathName = (new URL(document.location)).pathname;
+
+        if (urlPathName === "/home") {
+            authApi.get('/home')
+                .then((res) => {
+                    console.log("LISTE DES POSTS :", res.data);
+                    
+                    return setData(res.data);
+                })
+                .catch(error => {
+                    
+                    console.log(error);
+                })
+        } else {
+            authApi.get('/home')
+                .then((res) => {
+                    console.log("LISTE DES POSTS du profil :", res.data.filter(post => post.userId === parseFloat(id)));
+                    
+                    return setData(res.data.filter(post => post.userId === parseFloat(id)));
+                })
+                .catch(error => {
+                    
+                    console.log(error);
+                })
+        }
+    }, [id]);
 
     // SET POST ID in Local Storage
     const setPostId = (e) => {
