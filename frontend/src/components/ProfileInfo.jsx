@@ -19,10 +19,7 @@ export default function ProfileInfo() {
         authApi.get(`/profile/${ id }`)
             .then((res) => {
                 console.log("UTILISATEUR :", res.data);
-                localStorage.setItem("firstName", res.data.firstName);
-                localStorage.setItem("lastName", res.data.lastName);
-
-
+                
                 return setProfile(res.data);
             })
             .catch(error => {

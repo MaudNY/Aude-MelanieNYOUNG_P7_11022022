@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+import DropDownMenu from "../components/DropDownMenu";
+
 export default function Header() {
     const urlPathName = (new URL(document.location)).pathname;
 
@@ -23,7 +25,10 @@ export default function Header() {
                     </div>
                 </Link>
                 <div className="header-profile-link">
-                    <img src={ localStorage.getItem("profileImageUrl") } alt="utilisateur connecté" />
+                    <div className="header-profile-pic">
+                        <img src={ localStorage.getItem("profileImageUrl") } alt="utilisateur connecté" />
+                    </div>
+                    <DropDownMenu />
                 </div>
             </header>
             )

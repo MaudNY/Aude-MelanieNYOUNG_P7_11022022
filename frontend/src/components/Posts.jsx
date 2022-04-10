@@ -389,7 +389,7 @@ export default function Posts() {
                 </div>
                 : <></>
                 }
-                {showComments === true
+                {showComments === true && post.commentsCount !== 0
                 ? <Comments post={ post } />
                 : <></>
                 }

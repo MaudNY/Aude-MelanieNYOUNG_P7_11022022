@@ -49,6 +49,8 @@ exports.login = (req, res) => {
           res.status(200).json({
             message: "Connexion réussie",
             userId: user.id,
+            firstName: user.firstName,
+            lastName: user.lastName,
             profileImageUrl: user.profileImageUrl,
             role: user.role,
             token: jwt.sign(

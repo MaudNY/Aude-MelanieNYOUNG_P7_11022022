@@ -157,3 +157,17 @@
     margin-top: 8px;
     @include submit-button;
 }
+
+#logout-btn {
+    min-height: 21px;
+    font-size: 16px;
+    font-weight: bold;
+    color: $neutral;
+    background-color: $secondary-color;
+    border: none;
+    margin: 0;
+    @include dropdown-menu-options;
+    .logout-btn-title {
+        margin: 0 8px 0 0;
+    }
+}
