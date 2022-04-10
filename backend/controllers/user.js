@@ -128,7 +128,7 @@ exports.updateProfilePicture = (req, res) => {
 
   sequelize.models.User.findOne({ where: { id: req.params.id } })
     .then(user => {
-      if (user.profileImageUrl != null) {
+      if (user.profileImageUrl !== null && user.profileImageUrl !== "http://localhost:3000/images/default-profile-pic.jpg") {
         const picToBeDeleted = user.profileImageUrl.split('/images')[1];
         
         user.update({ profileImageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}` }, { where: { id: req.params.id } })
@@ -168,11 +168,10 @@ exports.updateProfilePicture = (req, res) => {
 
 // SUPPRIMER son profil
 exports.deleteAccount = (req, res) => {
-  console.log("req.body.id", req.body.id);
   console.log("req.params.id", req.params.id);
 
 
-  if (req.body.id !== req.params.id || req.body.id !== req.auth) {
+  if (req.params.id !== req.auth) {
 
     return res.status(403).json({message: "Requête non autorisée"});
   }
@@ -180,7 +179,7 @@ exports.deleteAccount = (req, res) => {
   sequelize.models.User.findOne({ where: { id: req.auth } })
     .then(user => {
 
-      if (user.profileImageUrl != null) {
+      if (user.profileImageUrl !== null) {
         const picToBeDeleted = user.profileImageUrl.split('/images')[1];
 
         fs.unlink(`images/${picToBeDeleted}`, (error) => {
@@ -191,7 +190,6 @@ exports.deleteAccount = (req, res) => {
       }
 
       return sequelize.models.User.destroy({ where: { 
-        id: req.auth,
         email: req.body.email 
         } 
       });
@@ -202,7 +200,7 @@ exports.deleteAccount = (req, res) => {
     })
     .catch(error => {
       console.log(error);
-      res.status(500).json({ message: "Erreur serveur, veuillez réessayer dans quelques minutes." })
+      res.status(400).json({ message: "L'addresse email est incorrecte." })
     })
 };
 

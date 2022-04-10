@@ -22,3 +22,21 @@
     bottom: -80px;
     z-index: 2;
 }
+
+#delete-profile-alert {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 200;
+}
+
+.cancel-profile-btn {
+    align-self: flex-end;
+    color: grey;
+}
+
+.deletion-profile-text {
+    text-align: justify;
+    margin-bottom: 15px;
+}
