@@ -93,8 +93,16 @@
 }
 
 .comment-actions-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background: $tertiary-color;
     @include options-btn-design;
+    .comment-actions-icon {
+        font-size: 14px;
+        padding: 5px 6px;
+        color: $secondary-color;
+    }
 }
 
 .comment-button {
@@ -116,7 +124,7 @@
     }
 }
 
-.deletion-button {
+.deletion-button, .deletion-comment-button {
     min-height: 25px;
     padding: 2px 8px;
     margin-top: 8px;

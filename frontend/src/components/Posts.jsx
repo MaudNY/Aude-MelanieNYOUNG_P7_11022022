@@ -20,12 +20,11 @@ export default function Posts() {
 
     // --- GET ALL POSTS --- //
     const [ data, setData ] = useState([]);
-    const [ showComments, setShowComments ] = useState(false);
 
     useEffect(() => {
         authApi.get('/home')
             .then((res) => {
-                console.log("Liste des posts :", res.data);
+                console.log("LISTE DES POSTS :", res.data);
                 
                 return setData(res.data);
             })
@@ -202,9 +201,8 @@ export default function Posts() {
     // DELETE A POST
     const [ deletionAlert, setDeletionAlert ] = useState(false);
 
-    const showDeletionAlert= (e) => {
+    const showDeletionAlert = (e) => {
         e.preventDefault();
-
         const $currentPostToBeDeleted = document.querySelector(".deleting");
 
         if ($currentPostToBeDeleted) {
@@ -244,6 +242,26 @@ export default function Posts() {
             })
     };
 
+    // SHOW COMMENTS UNDER THE POST
+    const [ showComments, setShowComments ] = useState(false);
+
+    const showCommentsList = (e) => {
+        const postId = e.target.parentElement.parentElement.parentElement.id;
+        const $targetedPost = document.getElementById(postId);
+        console.log("TARGET :", $targetedPost);
+
+        $targetedPost.classList.add("clicked-for-comments");
+        console.log("LES COMMENTAIRES DU POST CIBLE DONT L'ID EST ", postId, " SONT-IL CENSES APPARAITRE ? :", $targetedPost.classList.contains("clicked-for-comments"));
+        
+
+        if ($targetedPost.classList.contains("clicked-for-comments") === true) {
+            setShowComments(true)
+        } else {
+            setShowComments(false)
+        }
+
+        return console.log("C'EST FAIT ?");
+    };
 
     return (
         <div id="homefeed" onClick={ clearPostOptions }>
@@ -267,7 +285,7 @@ export default function Posts() {
                         </NavLink>
                         <div className="post-date">{ post.createdAt }</div>
                         { parseFloat(userId) === post.User.id || localStorage.getItem("role") === "moderator"
-                        ? <button id={ post.id } type="button" className="post-actions-btn" onClick={ showOptions }>
+                        ? <button type="button" className="post-actions-btn" onClick={ showOptions }>
                             <i className="fa-solid fa-ellipsis-vertical post-actions-icon"></i>
                         </button>
                         : <></>
@@ -310,14 +328,17 @@ export default function Posts() {
                 </div>
                 : <></>
                 }
-                <div className="post-line-reactions" onClick={ (e) => setShowComments(!showComments) }>
-                    <div className="comment-section">
+                <div id={ "commentaires-post-" + post.id } className="post-line-reactions">
+                    <div className="comment-section" onClick={ showCommentsList }>
                         <ChatBubbleOutlineIcon className="comment-icon"/>
                         { post.commentsCount < 2
                         ? <div className="comment-count">{ post.commentsCount } commentaire</div>
                         : <div className="comment-count">{ post.commentsCount } commentaires</div>
                         }
                     </div>
+                </div>
+                <div className="post-upper-bar">
+                    <div className="comment-splitter"></div>
                 </div>
                 <div className="post-last-line" onClick={ setPostId } >
                     <CreateComment />
@@ -340,7 +361,7 @@ export default function Posts() {
                 }
                 {deletionAlert === true && $deleting && parseFloat($deleting.id) === post.id
                 ?
-                <div id={ post.id } className="deletion-alert">
+                <div id={ "deletion-alert-post-" + post.id } className="deletion-alert">
                     <IconButton className="cancel-deletion-button" onClick={ clearDeletionAlert }>
                         <CancelIcon />
                     </IconButton>
@@ -351,9 +372,10 @@ export default function Posts() {
                 </div>
                 : <></>
                 }
-                { showComments === true
+                {showComments === true
                 ? <Comments post={ post } />
-                : <></>}
+                : <></>
+                }
             </div>
           )}
       </div>

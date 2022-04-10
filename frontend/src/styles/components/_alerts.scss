@@ -1,18 +1,24 @@
-.deletion-alert {
+.deletion-alert, .deletion-comment-alert {
     display: flex;
     flex-direction: column;
     align-items: center;
     position: absolute;
-    top: 18px;
-    right: 17px;
-    background-color: red;
     @include post-design;
-    .cancel-deletion-button {
+    .cancel-deletion-button, .cancel-deletion-comment-button {
         padding: 0;
         align-self: flex-end;
     }
-    .deletion-text {
+    .deletion-text, .deletion-comment-text {
         font-size: 14px;
         margin: 6px 0;
     }
+}
+
+.deletion-alert {
+    top: 30px;
+}
+
+.deletion-comment-alert {
+    bottom: -80px;
+    z-index: 2;
 }

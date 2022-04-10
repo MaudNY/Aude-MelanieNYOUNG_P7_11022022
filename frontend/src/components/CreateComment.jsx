@@ -43,9 +43,6 @@ export default function CreateComment() {
         <textarea type="text" name="content" id="content" onChange={ setRequestBody } placeholder="Partagez votre opinion ici..." required />
         <button type="submit" className="comment-button" onClick={ publishComment } ><SendIcon className="comment-icon" /></button>
       </div>
-      <div className="comment-lower-bar">
-        <div className="comment-splitter"></div>
-      </div>
     </div>
   )
 }
