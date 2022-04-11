@@ -32,9 +32,16 @@ export default function Header() {
                     </div>
                 </Link>
                 <div className="header-profile-link" onClick={ showDropdownMenu }>
+                    { localStorage.getItem("profileImageUrl") === null || localStorage.getItem("profileImageUrl") === "" || localStorage.getItem("profileImageUrl") === "null"
+                    ?
+                    <div className="header-profile-pic">
+                        <img src="../assets/default-profile-pic.jpg" alt="utilisateur connecté" />
+                    </div>
+                    :
                     <div className="header-profile-pic">
                         <img src={ localStorage.getItem("profileImageUrl") } alt="utilisateur connecté" />
                     </div>
+                    }
                     { dropdownMenu === true
                     ?
                     <DropDownMenu />

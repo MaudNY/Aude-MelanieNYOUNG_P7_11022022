@@ -92,9 +92,16 @@ export default function CreatePost() {
       <div className='create-post'>
 
         <NavLink to={ `/profil/${ localStorage.getItem("userId") }` } className="nav-link">
+          { localStorage.getItem("profileImageUrl") === null || localStorage.getItem("profileImageUrl") === "" || localStorage.getItem("profileImageUrl") === "null"
+          ?
+          <div className="post-author-pic">
+            <img src="../assets/default-profile-pic.jpg" alt="utilisateur connecté" />
+          </div>
+          :
           <div className="post-author-pic">
             <img src={ localStorage.getItem("profileImageUrl") } alt="utilisateur connecté" />
           </div>
+          }
         </NavLink>  
         <form id="post-form" method="post" encType="multipart/form-data">
           <textarea type="text" name="content" id="content" onChange={ setRequestBody } placeholder="Que souhaitez-vous partager aujourd'hui ?" autoComplete="off" minLength={ 1 } required />

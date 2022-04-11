@@ -14,7 +14,6 @@ exports.signup = (req, res) => {
         password: hash,
         firstName: req.body.firstName,
         lastName: req.body.lastName,
-        profileImageUrl: "http://localhost:3000/images/default-profile-pic.jpg",
         role: "user"
       })
       user.save()
@@ -128,7 +127,7 @@ exports.updateProfilePicture = (req, res) => {
 
   sequelize.models.User.findOne({ where: { id: req.params.id } })
     .then(user => {
-      if (user.profileImageUrl !== null && user.profileImageUrl !== "http://localhost:3000/images/default-profile-pic.jpg") {
+      if (user.profileImageUrl !== null) {
         const picToBeDeleted = user.profileImageUrl.split('/images')[1];
         
         user.update({ profileImageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}` }, { where: { id: req.params.id } })

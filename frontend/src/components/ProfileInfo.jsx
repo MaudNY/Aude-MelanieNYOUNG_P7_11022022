@@ -19,6 +19,11 @@ export default function ProfileInfo() {
         authApi.get(`/profile/${ id }`)
             .then((res) => {
                 console.log("UTILISATEUR :", res.data);
+                localStorage.setItem("firstName", res.data.firstName);
+                localStorage.setItem("lastName", res.data.lastName);
+                localStorage.setItem("job", res.data.job);
+                localStorage.setItem("department", res.data.department);
+                localStorage.setItem("bio", res.data.bio);
                 
                 return setProfile(res.data);
             })
@@ -42,9 +47,9 @@ export default function ProfileInfo() {
     const inputValues = { 
         firstName: localStorage.getItem("firstName"),
         lastName: localStorage.getItem("lastName"),
-        job: "",
-        department: "",
-        bio: ""
+        job: localStorage.getItem("job"),
+        department: localStorage.getItem("department"),
+        bio: localStorage.getItem("bio")
     };
     const [formValues, setFormValues] = useState(inputValues);
 
@@ -193,9 +198,16 @@ export default function ProfileInfo() {
                 <button type="button" id="save-profile-btn" onClick={ saveUpdates }>Enregistrer modifications</button>
             </div>
             <div className="profile-info">
+                { profile.profileImageUrl === null || profile.profileImageUrl === "" || profile.profileImageUrl === "null"
+                ?
                 <div className="profile-pic-block">
-                    <img src={ profile.profileImageUrl } alt="" />
+                    <img src="../assets/default-profile-pic.jpg" alt={ profile.firstName + " " + profile.lastName } />
                 </div>
+                :
+                <div className="profile-pic-block">
+                    <img src={ profile.profileImageUrl } alt={ profile.firstName + " " + profile.lastName } />
+                </div>
+                }
                 <form id="update-profile-form" method="post">
                     <div className="profile-form-block">
                         <label htmlFor="firstName">Mon prénom*</label>
@@ -272,8 +284,14 @@ export default function ProfileInfo() {
             <div className="profile-info">
                 <div className="profile-pic-block">
                     { preview !== null
-                    ? <img src={ preview } alt={ profile.firstName + " " + profile.lastName } />
+                    ? <img src={ preview } alt={ profile.firstName + " " + profile.lastName } /> 
+                    :
+                    <>
+                    { profile.profileImageUrl === null || profile.profileImageUrl === "" || profile.profileImageUrl === "null"
+                    ? <img src="../assets/default-profile-pic.jpg" alt={ profile.firstName + " " + profile.lastName } />
                     : <img src={ profile.profileImageUrl } alt={ profile.firstName + " " + profile.lastName } />
+                    }
+                    </>
                     }
                     { profile.id === parseFloat(localStorage.getItem("userId"))
                     ?

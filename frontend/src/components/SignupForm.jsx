@@ -31,7 +31,7 @@ const SignupForm = () => {
             .then(response => {
                 localStorage.setItem("userId", response.data.userId);
                 localStorage.setItem("token", response.data.token);
-                localStorage.setItem("profileImageUrl", response.data.profileImageUrl);
+                localStorage.setItem("profileImageUrl", "");
                 localStorage.setItem("role", response.data.role);
                 localStorage.setItem("firstName", response.data.firstName);
                 localStorage.setItem("lastName", response.data.lastName);
@@ -56,7 +56,7 @@ const SignupForm = () => {
                 const errorClassList = document.querySelectorAll(".error");
                 const errorClassTable = Array.from(errorClassList);
 
-                if (errorClassTable.length !== 0) {
+                if (errorClassTable && errorClassTable.length !== 0) {
 
                     for (let $formBlock of errorClassTable) {
                         $formBlock.classList.remove("error");

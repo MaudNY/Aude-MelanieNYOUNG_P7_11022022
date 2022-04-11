@@ -62,9 +62,16 @@ export default function Comments({ post }) {
                 return (
                     <div id={ "commentaire " + comment.id } key={ comment.id } className="comment-block">
                         <NavLink to={ `/profil/${ comment.User.id }` } className="nav-link">
+                            { comment.User.profileImageUrl === null || comment.User.profileImageUrl === "" || comment.User.profileImageUrl === "null"
+                            ?
+                            <div className="comment-picture">
+                                <img src="../assets/default-profile-pic.jpg" alt={ comment.User.firstName + " " + comment.User.lastName } />
+                            </div>
+                            :
                             <div className="comment-picture">
                                 <img src={ comment.User.profileImageUrl } alt={ comment.User.firstName + " " + comment.User.lastName } />
                             </div>
+                            }
                         </NavLink>
                         <div className="comment-info">
                             <div className="comment-details">

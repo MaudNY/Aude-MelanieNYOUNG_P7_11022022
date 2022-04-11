@@ -37,9 +37,16 @@ export default function CreateComment() {
   return (
     <div className="create-comment">
       <div className="comment-upper-bar">
+        { localStorage.getItem("profileImageUrl") === null || localStorage.getItem("profileImageUrl") === "" || localStorage.getItem("profileImageUrl") === "null"
+        ?
+        <div className="comment-picture">
+            <img src="../assets/default-profile-pic.jpg" alt="utilisateur connecté" />
+        </div>
+        :
         <div className="comment-picture">
             <img src={ localStorage.getItem("profileImageUrl") } alt="utilisateur connecté" />
         </div>
+        }
         <textarea type="text" name="content" id="content" onChange={ setRequestBody } placeholder="Partagez votre opinion ici..." required />
         <button type="submit" className="comment-button" onClick={ publishComment } ><SendIcon className="comment-icon" /></button>
       </div>

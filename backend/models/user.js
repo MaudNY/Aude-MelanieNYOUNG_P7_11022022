@@ -35,8 +35,7 @@ function UserModelCreation(sequelize) {
           }
         },
         profileImageUrl: {
-          type: DataTypes.STRING,
-          allowNull: false
+          type: DataTypes.STRING
         },
         department: {
           type: DataTypes.STRING

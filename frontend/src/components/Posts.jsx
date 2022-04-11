@@ -286,9 +286,16 @@ export default function Posts() {
               <div id={ post.id } key={ post.id } className="post">
                 <div className="post-line-one">
                     <NavLink to={ `/profil/${ post.User.id }` } className="nav-link">
+                        { post.User.profileImageUrl === null || post.User.profileImageUrl === "" || post.User.profileImageUrl === "null"
+                        ?
+                        <div className="post-picture">
+                            <img src="../assets/default-profile-pic.jpg" alt={ post.User.firstName + " " + post.User.lastName } />
+                        </div>
+                        :
                         <div className="post-picture">
                             <img src={ post.User.profileImageUrl } alt={ post.User.firstName + " " + post.User.lastName } />
                         </div>
+                        }
                     </NavLink>
                     <div className="post-details">
                         <NavLink to={ `/profil/${ post.User.id }` } className="nav-link">
