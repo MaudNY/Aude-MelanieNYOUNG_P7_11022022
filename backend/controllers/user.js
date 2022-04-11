@@ -191,17 +191,3 @@ exports.deleteAccount = (req, res) => {
       res.status(400).json({ message: "L'addresse email est incorrecte." })
     })
 };
-
-// OBTENIR LA LISTE DE TOUS LES UTILISATEURS
-exports.getAllUsers = (req, res) => {
-  sequelize.models.User.findAll()
-    .then(users => {
-
-      return res.status(200).json(users);
-    })
-    .catch(error => {
-        console.error(error);
-
-        return res.status(500).json({ message: "Erreur serveur, veuillez réessayer dans quelques minutes." });
-    })
-};

@@ -12,6 +12,5 @@ router.get('/profile/:id', auth, userCtrl.getOneProfile);
 router.put('/updateprofile/:id', auth, userCtrl.updateProfile);
 router.put('/updateprofilepic/:id', auth, multer, userCtrl.updateProfilePicture);
 router.delete('/deleteaccount/:id', auth, userCtrl.deleteAccount);
-router.get('/users', auth, userCtrl.getAllUsers);
 
 module.exports = router;
