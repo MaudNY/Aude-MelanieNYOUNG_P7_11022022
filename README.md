@@ -45,4 +45,4 @@ Open the **API-documentation** folder, then open the file API-documentation.html
 
 <h2>Author</h2>
 
-Aude-Mélanie NYOUNG
+Aude-Mélanie NYOUNG - 2022.
