@@ -30,8 +30,6 @@ const LoginForm = () => {
                 localStorage.setItem("token", response.data.token);
                 localStorage.setItem("profileImageUrl", response.data.profileImageUrl);
                 localStorage.setItem("role", response.data.role);
-                localStorage.setItem("firstName", response.data.firstName);
-                localStorage.setItem("lastName", response.data.lastName);
 
             })
             .then(() => {

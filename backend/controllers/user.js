@@ -96,17 +96,9 @@ exports.updateProfile = (req, res) => {
   const userObject = { ...req.body };
   console.log(userObject);
 
-  sequelize.models.User.findOne({ where: { id: req.params.id } })
-    .then(user => {
-    
-      return user.update({ ...userObject }, { where: { id: req.params.id } });
-    })
-    .then(user => {
-
-      return user.save();
-    })
+  sequelize.models.User.update({ ...userObject }, { where: { id: req.params.id } })
     .then(() => {
-      
+        
       return res.status(200).json({ message: "Votre profil a bien été mis à jour" });
     })
     .catch(error => {

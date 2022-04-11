@@ -19,11 +19,6 @@ export default function ProfileInfo() {
         authApi.get(`/profile/${ id }`)
             .then((res) => {
                 console.log("UTILISATEUR :", res.data);
-                localStorage.setItem("firstName", res.data.firstName);
-                localStorage.setItem("lastName", res.data.lastName);
-                localStorage.setItem("job", res.data.job);
-                localStorage.setItem("department", res.data.department);
-                localStorage.setItem("bio", res.data.bio);
                 
                 return setProfile(res.data);
             })
@@ -45,11 +40,11 @@ export default function ProfileInfo() {
     
     // Get input values
     const inputValues = { 
-        firstName: localStorage.getItem("firstName"),
-        lastName: localStorage.getItem("lastName"),
-        job: localStorage.getItem("job"),
-        department: localStorage.getItem("department"),
-        bio: localStorage.getItem("bio")
+        firstName: profile.firstName,
+        lastName: profile.lastName,
+        job: profile.job,
+        department: profile.department,
+        bio: profile.bio
     };
     const [formValues, setFormValues] = useState(inputValues);
 
@@ -57,8 +52,6 @@ export default function ProfileInfo() {
     const setRequestBody = (e) => {
         const {name, value} = e.target;
         setFormValues({ ...formValues, [name]: value });
-
-        console.log("FORM VALUES :", { ...formValues });
 
         return {...formValues};
     };
