@@ -2,11 +2,11 @@
     margin: 0 auto;
     padding: 2.5% 0 2.5% 0;
     border-radius: 8px;
-    max-width: 395px;
+    max-width: 360px;
     @include tablet-only {
-        max-width: 608px;
+        max-width: 520px;
     }
     @include desktop-only {
-        max-width: 680px;
+        max-width: 560px;
     }
 }

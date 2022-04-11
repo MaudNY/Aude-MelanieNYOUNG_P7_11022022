@@ -264,8 +264,6 @@ export default function Posts() {
 
     const showCommentsList = (e, post) => {
         const $targetedPost = document.getElementById(post.id);
-        console.log("TARGET :", $targetedPost);
-
         $targetedPost.classList.add("clicked-for-comments");
         
 

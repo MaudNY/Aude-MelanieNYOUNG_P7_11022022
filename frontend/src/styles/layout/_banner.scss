@@ -9,6 +9,12 @@
         height: 100%;
         object-fit: cover;
     }
+    @include tablet-only {
+        height: 130px;
+    }
+    @include desktop-only {
+        height: 150px;
+    }
 }
 
 .banner-loggedoff {

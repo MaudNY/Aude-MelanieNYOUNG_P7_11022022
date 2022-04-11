@@ -16,6 +16,10 @@
 
 .deletion-alert {
     top: 30px;
+    right: 2px;
+    @include tablet-only {
+        right: 75px;
+    }
 }
 
 .deletion-comment-alert {
