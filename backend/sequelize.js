@@ -68,7 +68,7 @@ async function connectDatabase () {
       }
     });
 
-    await sequelize.sync({ force: true });
+    await sequelize.sync({});
 
 };
 

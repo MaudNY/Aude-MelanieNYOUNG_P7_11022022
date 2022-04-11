@@ -188,10 +188,7 @@ exports.deleteAccount = (req, res) => {
         })
       }
 
-      return sequelize.models.User.destroy({ where: { 
-        email: req.body.email 
-        } 
-      });
+      return user.destroy();
 
     })
     .then(() => {

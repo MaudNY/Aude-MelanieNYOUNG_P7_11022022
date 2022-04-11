@@ -260,9 +260,9 @@ export default function Posts() {
     };
 
     // SHOW COMMENTS UNDER THE POST
-    const [ showComments, setShowComments ] = useState(false);
+    const [ showComments, setShowComments ] = useState(-1);
 
-    const showCommentsList = (e) => {
+    const showCommentsList = (e, post) => {
         const postId = e.target.parentElement.parentElement.parentElement.id;
         const $targetedPost = document.getElementById(postId);
         console.log("TARGET :", $targetedPost);
@@ -272,9 +272,9 @@ export default function Posts() {
         
 
         if ($targetedPost.classList.contains("clicked-for-comments") === true) {
-            setShowComments(true)
+            setShowComments(post.id)
         } else {
-            setShowComments(false)
+            setShowComments(-1)
         }
 
         return console.log("C'EST FAIT ?");
@@ -353,7 +353,9 @@ export default function Posts() {
                 : <></>
                 }
                 <div id={ "commentaires-post-" + post.id } className="post-line-reactions">
-                    <div className="comment-section" onClick={ showCommentsList }>
+                    <div className="comment-section" onClick={ (e) => {
+                        showCommentsList(e, post)
+                    } }>
                         <ChatBubbleOutlineIcon className="comment-icon"/>
                         { post.commentsCount < 2
                         ? <div className="comment-count">{ post.commentsCount } commentaire</div>
@@ -396,7 +398,7 @@ export default function Posts() {
                 </div>
                 : <></>
                 }
-                {showComments === true && post.commentsCount !== 0
+                { post.id === showComments && post.commentsCount !== 0
                 ? <Comments post={ post } />
                 : <></>
                 }

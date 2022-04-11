@@ -14,6 +14,13 @@ function PostModelCreation(sequelize) {
       type: DataTypes.INTEGER,
       allowNull: false,
       default: 0
+    },
+    createdAt: {
+      type: DataTypes.DATE,
+      get: function() { // or use get(){ }
+        return this.getDataValue('createdAt')
+          .toLocaleString('fr-FR', { timeZone: 'UTC' });
+      }
     }
 
   });
