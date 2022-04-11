@@ -48,18 +48,43 @@ a, ul {
   font-family: "Triomphe-light";
   src: url(../font/triomphe-font/triomphe-light-autoinstr.ttf);
 }
+.block-responses {
+  margin: 10px 0 30px 0;
+}
+.block-responses .response {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 5px 0 5px 0;
+}
+.block-responses .response p {
+  font-size: 15px;
+  margin: 8px 0 8px 10px;
+}
+.block-responses .response--ok {
+  color: #35BD4A;
+  background-color: #EBF8EC;
+}
+.block-responses .response--error {
+  color: #EC6E6B;
+  background-color: #FDF3F3;
+}
+.block-responses .response--end {
+  margin-bottom: 50px;
+}
+
 .main-container {
   margin: 0 auto;
   max-width: 335px;
 }
 @media screen and (min-width: 768px) {
   .main-container {
-    max-width: 708px;
+    max-width: 568px;
   }
 }
 @media screen and (min-width: 1140px) {
   .main-container {
-    max-width: 1080px;
+    max-width: 680px;
   }
 }
 
@@ -84,20 +109,6 @@ header #page-title img {
 }
 header #page-title h1 {
   margin: 0;
-}
-
-nav {
-  width: 100%;
-  background-color: white;
-  position: -webkit-sticky;
-  position: sticky;
-  top: 53px;
-}
-
-nav ul {
-  margin: 0;
-  padding: 0;
-  list-style-type: none;
 }
 
 #api-presentation-section, #authentification-section, #authorizations-section {
@@ -134,31 +145,6 @@ nav ul {
 }
 .route-title .route-function {
   padding: 5px;
-}
-
-.block-responses {
-  margin: 10px 0 30px 0;
-}
-.block-responses .response {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin: 5px 0 5px 0;
-}
-.block-responses .response p {
-  font-size: 15px;
-  margin: 8px 0 8px 10px;
-}
-.block-responses .response--ok {
-  color: #35BD4A;
-  background-color: #EBF8EC;
-}
-.block-responses .response--error {
-  color: #EC6E6B;
-  background-color: #FDF3F3;
-}
-.block-responses .response--end {
-  margin-bottom: 50px;
 }
 
 footer {

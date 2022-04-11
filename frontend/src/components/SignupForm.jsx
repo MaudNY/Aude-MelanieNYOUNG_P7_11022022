@@ -47,8 +47,6 @@ const SignupForm = () => {
                 // VARIABLES
                 const $emailError = document.querySelector("#email-error");
                 const $formBlockEmail = $emailError.parentElement;
-                const $passwordError = document.querySelector("#password-error");
-                const $formBlockPassword = $passwordError.parentElement;
 
                 // Reset all error classes from the document
                 const errorClassList = document.querySelectorAll(".error");
@@ -82,9 +80,6 @@ const SignupForm = () => {
                         $formBlockEmail.classList.add("error");
                         $emailError.innerHTML = "Veuillez renseigner une adresse email valide";
                         
-                    } else if ($wrongInput.id === "password") {
-                        $formBlockPassword.classList.add("error");
-                        $passwordError.innerHTML = "Veuillez renseigner un mot de passe"
                     }
                 }
                 

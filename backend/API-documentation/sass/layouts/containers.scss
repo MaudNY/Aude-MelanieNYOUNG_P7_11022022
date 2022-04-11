@@ -3,9 +3,9 @@
 	margin: 0 auto;
 	max-width: 335px;
 	@include tablet-only {
-		max-width: 708px;
+		max-width: 568px;
 	}
 	@include desktop-only {
-		max-width: 1080px;
+		max-width: 680px;
 	}
 }

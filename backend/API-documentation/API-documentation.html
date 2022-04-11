@@ -22,32 +22,14 @@
             <h1>InBetween.</h1>
         </div>       
     </header>
-    <nav>
-        <ul>
-            <li class="scroll">
-                <ul class="subchapters">
-                  <li><a href="#api-presentation-section">Présentation de l'API</a></li>
-                  <li><a href="#authentification-section">Authentification</a></li>
-                  <li><a href="#authorizations-section">Autorisations</a></li>
-                  <li><a href="#endpoints-section">ENDPOINTS</a>
-                    <ul>
-                        <li><a href="#endpoint-users">Users</a></li>
-                        <li><a href="#endpoint-posts">Posts</a></li>
-                        <li><a href="#endpoint-comments">Comments</a></li>
-                    </ul>
-                    </li>
-                </ul>
-            </li>
-        </ul>
-    </nav>
     <main class="main-container">
 
         <section id="api-presentation-section">
             <h2>Présentation de l'API</h2>
             <p>
+                Le réseau social <strong>InBetween</strong> est le tout premier réseau social du groupe <strong>GROUPOMANIA</strong>.<br /><br />
                 Cette documentation comporte tous les appels API permettant d'obtenir les données relatives aux utilisateurs, aux publications et commentaires créés sur l'application InBetween</br></br>
                 Tous ces appels sont réalisables via des requêtes HTTP.</br></br>
-                La barre de navigation se situe en haut de la page (version mobile) ou à gauche de la page (version pour ordinateur).</br></br>
 
                 La présentation des endpoints de chaque type de ressource sera constituée :</br>
                 <ul>
@@ -61,7 +43,7 @@
 
         <section id="authentification-section">
             <h2>Authentification</h2>
-            <p>Seuls les collaborateurs du département IT du groupe Groupomania ainsi que les tiers sous-traitants autorisés, disposant d'un token d'authentification valide, peuvent accéder à l'API, effectuer des requêtes et modifier l'API.</p>
+            <p>Seuls les collaborateurs du département IT du groupe Groupomania ainsi que les tiers sous-traitants autorisés, peuvent accéder à l'API, effectuer des requêtes et modifier l'API.</p>
             <p>Seuls les collaborateurs authentifiés du groupe Groupomania peuvent utiliser l'application InBetween.</p>
         </section>
 
@@ -69,13 +51,13 @@
             <h2>Autorisations</h2>
             <p>
                 Le ou la responsable Développement du pôle IT Groupomania ainsi que son homologue CONNECT-E (agence sous-traitante), en charge de la création du réseau social InBetween, disposent des droits d'administrateur de la plateforme (role "admin").</br></br>
-                Le ou la chargé(e) de communication Groupomania dispose de droits de modération des intéractions entre les salariés utilisateurs de la plateforme et notamment la suppression de posts et / ou de commentaires (role "moderator").</br></br>
+                Le ou la chargé(e) de communication Groupomania dispose de droits de modération des interactions entre les salariés utilisateurs de la plateforme et notamment la suppression de posts et / ou de commentaires (role "moderator").</br></br>
                 Tout salarié Groupomania dispose, au moment où il finalise son inscription, de droits utilisateurs (role "user") et notamment des permissions suivantes :</br>
                 <ul>
                     <li>création de son profil, de publications ou de commentaires ;</li>
                     <li>consultation de son profil, du profil des autres salariés, de ses propres publications ou de celles des autres salariés ;</li>
-                    <li>modification de son profil ou de ses publications ;</li>
-                    <li>suppression de son profil, de ses publications ou de ses commentaires.</li>
+                    <li>modification de son profil et / ou de ses publications ;</li>
+                    <li>suppression de son profil, de ses publications et / ou de ses commentaires.</li>
                 </ul>
             </p>
         </section>
@@ -95,7 +77,9 @@
                 <h4>Réponses</h4>
                 <div class="block-responses">
                     <div class="response response--ok"><i class="fas fa-check"></i><p class="status-message">201 - "Félicitations ! Votre compte a été créé."</p></div>
+                    <div class="response response--error"><i class="fas fa-exclamation-circle"></i><p class="status-message">400 - "Veuillez correctement renseigner ce champ"</p></div>
                     <div class="response response--error"><i class="fas fa-exclamation-circle"></i><p class="status-message">400 - "Cette adresse mail est déjà utilisée."</p></div>
+                    <div class="response response--error"><i class="fas fa-exclamation-circle"></i><p class="status-message">400 - "Veuillez renseigner une adresse email valide"</p></div>
                     <div class="response response--error"><i class="fas fa-exclamation-circle"></i><p class="status-message">500 - "Erreur serveur"</p></div>
                 </div>
             </div>
@@ -103,7 +87,7 @@
             <div class="route">
                 <div class="route-title">
                     <div class="route-verb route-verb--post">POST</div>
-                    <h4 class="route-function">/login</h4>
+                    <h4 class="route-function">/</h4>
                 </div>
                 <p>Connecte l'utilisateur à son compte.</p>
     
@@ -121,7 +105,7 @@
                     <div class="route-verb route-verb--get">GET</div>
                     <h4 class="route-function">/profile/:id</h4>
                 </div>
-                <p>Affiche le profil d'un utilisateur en fonction d'un id utilisateur en paramètre.</p>
+                <p>Permet à un utilisateur authentifié d'afficher le profil d'un utilisateur en fonction d'un id utilisateur en paramètre d'URL.</p>
     
                 <h4>Réponses</h4>
                 <div class="block-responses">
@@ -136,7 +120,7 @@
                     <div class="route-verb route-verb--update">PUT</div>
                     <h4 class="route-function">/updateprofile/:id</h4>
                 </div>
-                <p>Permet à un utilisateur authentifié de modifier son profil en fonction de son propre id utilisateur en paramètre.</p>
+                <p>Permet à un utilisateur authentifié de modifier son propre profil en fonction de son id utilisateur en paramètre d'URL.</p>
     
                 <h4>Réponses</h4>
                 <div class="block-responses">
@@ -151,7 +135,7 @@
                     <div class="route-verb route-verb--update">PUT</div>
                     <h4 class="route-function">/updateprofilepic/:id</h4>
                 </div>
-                <p>Permet à un utilisateur authentifié de modifier sa photo de profil en fonction de son propre id utilisateur en paramètre.</p>
+                <p>Permet à un utilisateur authentifié de modifier sa photo de profil en fonction de son id utilisateur en paramètre d'URL.</p>
     
                 <h4>Réponses</h4>
                 <div class="block-responses">
@@ -166,7 +150,7 @@
                     <div class="route-verb route-verb--delete">DELETE</div>
                     <h4 class="route-function">/deleteaccount/:id</h4>
                 </div>
-                <p>Permet à un utilisateur authentifié de supprimer son compte en fonction de son propre id utilisateur en paramètre.</p>
+                <p>Permet à un utilisateur authentifié de supprimer son propre compte en fonction de son id utilisateur en paramètre d'URL.</p>
     
                 <h4>Réponses</h4>
                 <div class="block-responses">
@@ -176,6 +160,8 @@
                 </div>
             </div>
 
+
+
             <div id="endpoint-posts"><h3>POSTS</h3></div>
 
             <div class="route">
@@ -183,7 +169,7 @@
                     <div class="route-verb route-verb--post">POST</div>
                     <h4 class="route-function">/createpost</h4>
                 </div>
-                <p>Permet à un utilisateur authentifié de créer une publication, contenant une image ou non.</p>
+                <p>Permet à un utilisateur authentifié de créer une publication contenant une image ou non, mais devant obligatoirement contenir du texte s'il n'y a pas d'image.</p>
     
                 <h4>Réponses</h4>
                 <div class="block-responses">
@@ -195,11 +181,27 @@
 
             <div class="route">
                 <div class="route-title">
+                    <div class="route-verb route-verb--update">PUT</div>
+                    <h4 class="route-function">/updatepost/:postId</h4>
+                </div>
+                <p>Permet à un utilisateur authentifié de modifier l'une de ses publications en fonction de l'id de la publication en paramètre d'URL.</p>
+    
+                <h4>Réponses</h4>
+                <div class="block-responses">
+                    <div class="response response--ok"><i class="fas fa-check"></i><p class="status-message">200 - "Votre post a bien été mis à jour"</p></div>
+                    <div class="response response--error"><i class="fas fa-exclamation-circle"></i><p class="status-message">403 - "Requête non autorisée !"</p></div>
+                    <div class="response response--error"><i class="fas fa-exclamation-circle"></i><p class="status-message">404 - Erreur de traitement"</p></div>
+                    <div class="response response--error"><i class="fas fa-exclamation-circle"></i><p class="status-message">500 - "Erreur serveur, veuillez réessayer dans quelques minutes."</p></div>
+                </div>
+            </div>
+
+            <div class="route">
+                <div class="route-title">
                     <div class="route-verb route-verb--delete">DELETE</div>
                     <h4 class="route-function">/deletepost/:postId</h4>
                 </div>
-                <p>Permet à un utilisateur authentifié de supprimer l'une de ses publications en fonction de l'id de la publication en paramètre.<br/><br/>
-                Les utilisateurs authentifiés disposant d'un role "admin" ou "moderator" peuvent également supprimer la publication.</p>
+                <p>Permet à un utilisateur authentifié de supprimer l'une de ses publications en fonction de l'id de la publication en paramètre d'URL.<br/><br/>
+                Les utilisateurs authentifiés disposant d'un role "moderator" peuvent également supprimer la publication.</p>
     
                 <h4>Réponses</h4>
                 <div class="block-responses">
@@ -213,33 +215,20 @@
             <div class="route">
                 <div class="route-title">
                     <div class="route-verb route-verb--get">GET</div>
-                    <h4 class="route-function">/posts</h4>
+                    <h4 class="route-function">/home</h4>
                 </div>
-                <p>Permet à un utilisateur authentifié de consulter toutes les publications existantes de la plus récente à la plus ancienne.</p>
+                <p>Permet à un utilisateur authentifié de consulter toutes les publications existantes sur la plateforme de la plus récente à la plus ancienne.</p>
     
                 <h4>Réponses</h4>
                 <div class="block-responses">
-                    <div class="response response--ok"><i class="fas fa-check"></i><p class="status-message">200 - Retourne toutes les publications</p></div>
-                    <div class="response response--error"><i class="fas fa-exclamation-circle"></i><p class="status-message">403 - "Requête non autorisée !"</p></div>
-                    <div class="response response--error"><i class="fas fa-exclamation-circle"></i><p class="status-message">500 - "Erreur serveur"</p></div>
-                </div>
-            </div>
-
-            <div class="route">
-                <div class="route-title">
-                    <div class="route-verb route-verb--get">GET</div>
-                    <h4 class="route-function">/myposts</h4>
-                </div>
-                <p>Permet à un utilisateur authentifié de consulter toutes ses publications de la plus récente à la plus ancienne.</p>
-    
-                <h4>Réponses</h4>
-                <div class="block-responses">
-                    <div class="response response--ok"><i class="fas fa-check"></i><p class="status-message">200 - Retourne les publications de l'utilisateur</p></div>
+                    <div class="response response--ok"><i class="fas fa-check"></i><p class="status-message">200 - Retourne toutes les publications existantes</p></div>
                     <div class="response response--error"><i class="fas fa-exclamation-circle"></i><p class="status-message">403 - "Requête non autorisée !"</p></div>
                     <div class="response response--error"><i class="fas fa-exclamation-circle"></i><p class="status-message">500 - "Erreur serveur"</p></div>
                 </div>
             </div>
             
+
+
             <div id="endpoint-comments"><h3>COMMENTS</h3></div>
 
             <div class="route">
@@ -247,13 +236,13 @@
                     <div class="route-verb route-verb--post">POST</div>
                     <h4 class="route-function">/comment/:postId</h4>
                 </div>
-                <p>Permet à un utilisateur authentifié de commenter une publication en fonction de l'id de la publication en paramètre.</p>
+                <p>Permet à un utilisateur authentifié de commenter une publication en fonction de l'id de la publication en paramètre d'URL.</p>
     
                 <h4>Réponses</h4>
                 <div class="block-responses">
-                    <div class="response response--ok"><i class="fas fa-check"></i><p class="status-message">200 - Retourne le commentaire de l'utilisateur</p></div>
+                    <div class="response response--ok"><i class="fas fa-check"></i><p class="status-message">201 - "Commentaire publié"</p></div>
                     <div class="response response--error"><i class="fas fa-exclamation-circle"></i><p class="status-message">403 - "Requête non autorisée !"</p></div>
-                    <div class="response response--error"><i class="fas fa-exclamation-circle"></i><p class="status-message">500 - "Problème lié aux données serveur"</p></div>
+                    <div class="response response--error"><i class="fas fa-exclamation-circle"></i><p class="status-message">500 - "Problème lié aux données serveur, veuillez réessayer ultérieurement."</p></div>
                 </div>
             </div>
 
@@ -262,8 +251,8 @@
                     <div class="route-verb route-verb--delete">DELETE</div>
                     <h4 class="route-function">/deletecomment/:id</h4>
                 </div>
-                <p>Permet à un utilisateur authentifié de supprimer l'un de ses commentaires en fonction de l'id du commentaire en paramètre.<br/><br/>
-                Les utilisateurs authentifiés disposant d'un role "admin" ou "moderator" peuvent également supprimer le commentaire.</p>
+                <p>Permet à un utilisateur authentifié de supprimer l'un de ses commentaires en fonction de l'id du commentaire en paramètre d'URL.<br/><br/>
+                Les utilisateurs authentifiés disposant d'un role "moderator" peuvent également supprimer le commentaire.</p>
     
                 <h4>Réponses</h4>
                 <div class="block-responses">
