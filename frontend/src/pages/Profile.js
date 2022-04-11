@@ -12,11 +12,13 @@ const ProfilePage = () => {
         <div>
             <Header />
             <ProfileInfo />
-            { id === localStorage.getItem("userId")
-            ? <CreatePost />
-            : <></>
-            }
-            <Posts />
+            <main className="main-container">
+                { id === localStorage.getItem("userId")
+                ? <CreatePost />
+                : <></>
+                }
+                <Posts />
+            </main>
             <Footer />
         </div>
     )

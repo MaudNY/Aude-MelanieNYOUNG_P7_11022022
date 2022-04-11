@@ -20,6 +20,9 @@
     @include tablet-only {
         right: 75px;
     }
+    @include desktop-only {
+        right: 100px;
+    }
 }
 
 .deletion-comment-alert {
@@ -32,7 +35,16 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 320px;
     z-index: 200;
+    position: absolute;
+    right: 15px;
+    @include tablet-only {
+        right: 200px;
+    }
+    @include desktop-only {
+        right: 380px;
+    }
 }
 
 .cancel-profile-btn {
