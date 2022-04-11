@@ -18,7 +18,7 @@ export default function ProfileInfo() {
         
         authApi.get(`/profile/${ id }`)
             .then((res) => {
-                console.log("UTILISATEUR :", res.data);
+                console.log("PROFIL VISITÉ :", res.data);
                 
                 return setProfile(res.data);
             })
@@ -138,47 +138,22 @@ export default function ProfileInfo() {
     };
 
     // DELETE PROFILE - ACCOUNT
-    const [ email, setEmail ] = useState({ email: "" });
-
-    const getDataFromEmailInput = (e) => {
-        e.preventDefault()
-        const $classError = document.querySelector(".error-deletion-profile");
-        const $emailErrorMessage = document.querySelector("#email-error");
-
-        if ($classError) {
-            $classError.classList.remove("error-deletion-profile");
-            $emailErrorMessage.innerHTML = "";
-        }
-
-        return setEmail(e.target.value);
-    }
-
     const deleteAccount = (e) => {
         e.preventDefault(); 
-        const requiredEmail = email;
-        const $emailError = document.querySelector("#email-error");
-        const $formBlockEmail = $emailError.parentElement;
-        console.log(requiredEmail);
 
-        authApi.delete(`/deleteaccount/${ id }`, requiredEmail)
+        authApi.delete(`/deleteaccount/${ id }`)
             .then((res) => {
                 console.log(res);
 
-                return localStorage.clear()
+                return localStorage.clear();
             })
             .then(() => {
 
                 return window.location.reload(false);
             })
             .catch((error) => {
-                const errorData = error.response.data;
-
-                if (errorData.message === "L'addresse email est incorrecte.") {
-                    $formBlockEmail.classList.add("error-deletion-profile");
-                    $emailError.innerHTML = errorData.message;
-                }
-            
-                return console.log(errorData);
+                
+                return console.log(error);
             })
     }
     
@@ -257,14 +232,10 @@ export default function ProfileInfo() {
                         <div className="deletion-profile-text">
                             Souhaitez-vous vraiment supprimer votre profil ?<br /><br />
                             Conformément aux directives RGPD, votre profil ainsi que toutes les données personnelles associées, incluant vos publications et vos commentaires, seront définitivement supprimées de la base de données du Groupe GROUPOMANIA.<br /><br />
-                            Pour confirmer votre choix, veuillez renseigner votre adresse e-mail :<br /><br />
                         </div>
-                        <form method="post" id="deletion-profile-form">
-                            <label htmlFor="email">Mon adresse email Groupomania* :</label>
-                            <input type="text" name="email" id="email" className="form-inputs" onChange={ getDataFromEmailInput } autoComplete="off" required/>
-                            <i className="fas fa-exclamation-circle"></i>
-                            <p id="email-error" className="error-message"></p>
-                        </form>
+                        <div className="deletion-profile-confirmation">
+                            Confirmez-vous votre choix ?
+                        </div>
                         <div>
                             <button type="button" className="deletion-profile-button" onClick={ deleteAccount }>Oui, SUPPRIMER mon compte définitivement</button>
                         </div>
