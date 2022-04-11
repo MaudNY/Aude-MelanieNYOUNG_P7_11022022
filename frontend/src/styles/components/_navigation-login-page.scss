@@ -3,8 +3,8 @@
     justify-content: center;
     background-color: $primary-color;
     #buttons-row {
-        width: 350px;
-        margin-top: 6.3em;
+        width: 311px;
+        margin-top: 30px;
         padding: 5px 0;
         border-radius: 20px 20px 0 0;
         color: white;
@@ -13,12 +13,12 @@
         justify-content: space-around;
         background-color: $secondary-color;
         @include tablet-only {
-            width: 658px;
-            margin-top: 6em;
+            width: 598px;
+            margin-top: 100px;
         }
         @include desktop-only {
-            width: 780px;
-            margin-top: 8.5em;
+            width: 670px;
+            margin-top: 100px;
         }
         &--login-page {
             margin-top: 1000px;

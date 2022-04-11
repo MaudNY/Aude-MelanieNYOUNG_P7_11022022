@@ -5,18 +5,21 @@
     form {
         display: flex;
         flex-direction: column;
-        width: 330px;
-        margin-bottom: 6.3em;
+        width: 291px;
+        margin-bottom: 30px;
         border: $secondary-color 10px solid;
         border-radius: 0 0 15px 15px;
         background-color: white;
         @include tablet-only {
-            width: 638px;
-            margin-bottom: 6em;
+            width: 578px;
+            margin-bottom: 100px;
         }
         @include desktop-only {
-            width: 760px;
-            margin-bottom: 8.5em;
+            width: 650px;
+            margin-bottom: 130px;
+        }
+        label {
+            font-size: 14px;
         }
         .required-mention {
             font-size: 11px;
