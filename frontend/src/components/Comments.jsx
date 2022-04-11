@@ -81,7 +81,10 @@ export default function Comments({ post }) {
                                             <div className="comment-author-first-name">{ comment.User.firstName }</div>
                                             <div className="comment-author-last-name">{ comment.User.lastName }</div>
                                         </div>
-                                        <div className="comment-author-job">{ comment.User.job }</div>
+                                        { comment.User.job === null || comment.User.job === "null" || comment.User.job === ""
+                                        ? <div className="author-job"></div>
+                                        : <div className="author-job">{ post.User.job }</div>
+                                        }
                                     </NavLink>
                                 </div>
                                 <div className="comment-date-options">

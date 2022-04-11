@@ -6,7 +6,14 @@ function CommentModelCreation(sequelize) {
     content: {
       type: DataTypes.TEXT,
       allowNull: false
-    }
+    },
+    createdAt: {
+      type: DataTypes.DATE,
+      get: function() {
+        return this.getDataValue('createdAt')
+          .toLocaleString('fr-FR', { timeZone: 'UTC' });
+      }
+    },
 
   });
 

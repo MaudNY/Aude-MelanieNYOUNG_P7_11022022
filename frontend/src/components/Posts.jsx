@@ -263,21 +263,20 @@ export default function Posts() {
     const [ showComments, setShowComments ] = useState(-1);
 
     const showCommentsList = (e, post) => {
-        const postId = e.target.parentElement.parentElement.parentElement.id;
-        const $targetedPost = document.getElementById(postId);
+        const $targetedPost = document.getElementById(post.id);
         console.log("TARGET :", $targetedPost);
 
         $targetedPost.classList.add("clicked-for-comments");
-        console.log("LES COMMENTAIRES DU POST CIBLE DONT L'ID EST ", postId, " SONT-IL CENSES APPARAITRE ? :", $targetedPost.classList.contains("clicked-for-comments"));
         
 
         if ($targetedPost.classList.contains("clicked-for-comments") === true) {
-            setShowComments(post.id)
+            
+            return setShowComments(post.id);
         } else {
-            setShowComments(-1)
+            
+            return setShowComments(-1);
         }
 
-        return console.log("C'EST FAIT ?");
     };
 
     return (
@@ -304,7 +303,10 @@ export default function Posts() {
                                     <div className="author-first-name">{ post.User.firstName }</div>
                                     <div className="author-last-name">{ post.User.lastName }</div>
                                 </div>
-                                <div className="author-job">{ post.User.job }</div>
+                                { post.User.job === null || post.User.job === "null" || post.User.job === ""
+                                ? <div className="author-job"></div>
+                                : <div className="author-job">{ post.User.job }</div>
+                                }
                             </div>
                         </NavLink>
                         <div className="post-date">{ post.createdAt }</div>

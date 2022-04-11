@@ -17,7 +17,14 @@ function PostModelCreation(sequelize) {
     },
     createdAt: {
       type: DataTypes.DATE,
-      get: function() { // or use get(){ }
+      get: function() {
+        return this.getDataValue('createdAt')
+          .toLocaleString('fr-FR', { timeZone: 'UTC' });
+      }
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      get: function() {
         return this.getDataValue('createdAt')
           .toLocaleString('fr-FR', { timeZone: 'UTC' });
       }
