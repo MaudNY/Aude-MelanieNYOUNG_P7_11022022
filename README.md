@@ -8,17 +8,17 @@ Cloning and using this project requires to follow the next steps.
 
 Please check you've installed the following softwares **before** (**NB:** *VS Code really nice*):
 
-> Git
-
 > Node.js
 
+> Express
+
 > MySQL
+
+> Git
 
 > React.js
 
 Other information:
-
-> Express
 
 > Sequelize
 
