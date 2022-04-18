@@ -37,7 +37,7 @@ Other information:
 
 <h2>API & Documentation</h2>
 
-If you're french spoken (🇫🇷), you'll find a short documentation for the REST API of this project.
+If you're french speaking (🇫🇷), you'll find a short documentation for the REST API of this project.
 
 Open the **backend** folder
 
