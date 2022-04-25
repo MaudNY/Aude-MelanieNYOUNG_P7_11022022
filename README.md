@@ -8,19 +8,21 @@ Cloning and using this project requires to follow the next steps.
 
 Please check you've installed the following softwares **before** (**NB:** *VS Code really nice*):
 
+> Git
+
 > Node.js
 
 > Express
 
-> MySQL
+Database:
 
-> Git
+> MySQL (ORM: Sequelize)
 
-> React.js
+Framework:
 
-Other information:
+> Frontend: React.js
 
-> Sequelize
+CSS Preprocessor:
 
 > Sass
 
