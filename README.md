@@ -1,5 +1,7 @@
 # Corporate Social Media - An OpenClassrooms Project
 
+![Image d'illustration - Réseau social InBetween](https://github.com/MaudNY/P7_11022022_InBetween/blob/main/InBetween-photo.jpg "InBetween presentation image")
+
 <h1>Getting started</h1>
 
 Cloning and using this project requires to follow the next steps.
