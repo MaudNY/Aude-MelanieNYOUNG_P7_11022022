@@ -29,7 +29,8 @@ FRONTEND:
 1. Create a local dedicated folder in your computer and open your code editor
 2. Open the created folder and open a new terminal
 3. Run ` git clone https://github.com/MaudNY/P7_11022022_InBetween.git ` to clone the code
-4. Open the ` backend ` folder and create your own database
+4. Run ` npm install `
+5. Open the ` backend ` folder and create your own database
     1. Create a MySQL database (e.g., "inbetween-personal_database")
     2. Open the ` sequelize.js ` file
     3. Line 6, set the following code with your own data
