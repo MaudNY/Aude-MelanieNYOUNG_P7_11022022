@@ -42,6 +42,7 @@ FRONTEND:
 8. If your browser didn't automatically reached the homepage, open your browser and copy / paste http://localhost:3080
 9. Make sure to open another terminal before either staging, commiting or pushing your potential updates ;)
 
+*This digital project is mobile, tablet and laptop friendly* 🤩
 
 <h2>API & Documentation</h2>
 
