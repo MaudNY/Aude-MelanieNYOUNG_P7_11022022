@@ -8,7 +8,7 @@ Cloning and using this project requires to follow the next steps.
 
 <h2>Prerequisites</h2>
 
-Please check you've installed the following softwares **before** (**NB:** *VS Code really nice*):
+This digital project is running with:
 
 BACKEND:
 
