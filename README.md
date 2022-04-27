@@ -1,6 +1,6 @@
 # Corporate Social Media "InBetween" / Frontend & Backend (*fictitious company*)
 
-![Corporate Social Media "InBetween" - Presentation image](https://github.com/MaudNY/P7_11022022_InBetween/blob/main/InBetween-photo.jpg "InBetween presentation image")
+![Corporate Social Media "InBetween" - Presentation image](https://github.com/MaudNY/P7_11022022_InBetween/blob/main/InBetween-photo2.jpg "InBetween presentation image")
 
 <h1>Getting started</h1>
 
