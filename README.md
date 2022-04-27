@@ -1,4 +1,4 @@
-# Corporate Social Media - An OpenClassrooms Project
+# Corporate Social Media "InBetween" / Frontend & Backend (*fictitious company*)
 
 ![Corporate Social Media "InBetween" - Presentation image](https://github.com/MaudNY/P7_11022022_InBetween/blob/main/InBetween-photo.jpg "InBetween presentation image")
 
