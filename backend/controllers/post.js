@@ -13,9 +13,9 @@ exports.createPost = (req, res) => {
             commentsCount: 0,
             userId : req.token.userId
         })
-            .then(post => {
+            .then(() => {
 
-                return res.status(201).json(post);
+                return res.status(201).json({ message: "Votre post a bien été publié" });
             })
             .catch(error => {
                 console.error(error);
@@ -34,9 +34,9 @@ exports.createPost = (req, res) => {
                 commentsCount: 0,
                 userId : req.token.userId
             })
-                .then(post => {
+                .then(() => {
     
-                    return res.status(201).json(post);
+                    return res.status(201).json({ message: "Votre post a bien été publié" });
                 })
                 .catch(error => {
                     console.error(error);

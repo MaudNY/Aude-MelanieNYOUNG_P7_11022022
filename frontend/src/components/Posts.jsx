@@ -21,6 +21,7 @@ export default function Posts() {
     const { id } = useParams();
     const dispatch = useDispatch();
     const postsData = useSelector((state) => state.posts.posts);
+    //const lastPost = postsData[postsData.length - 1];
     const userId = localStorage.getItem("userId");
     const $clicked = document.querySelector(".clicked");
     const $updating = document.querySelector(".updating");
@@ -34,7 +35,6 @@ export default function Posts() {
         if (urlPathName === "/home") {
             authApi.get('/home')
                 .then((res) => {
-                    console.log("LISTE DES POSTS :", res.data);
                     
                     return dispatch(setPostsData(res.data));
                 })
@@ -54,7 +54,7 @@ export default function Posts() {
                     console.log(error);
                 })
         }
-    }, [id, dispatch]);
+    }, [id, dispatch, postsData]);
 
     // SET POST ID in Local Storage
     const setPostId = (e) => {

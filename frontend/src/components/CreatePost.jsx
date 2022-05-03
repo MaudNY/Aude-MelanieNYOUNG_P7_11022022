@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 
 import { useDispatch } from "react-redux";
-import { addPost, setPostsData } from "../feature/posts.slice";
+import { setPostsData } from "../feature/posts.slice";
 
 import authApi from "../api/auth";
 
@@ -86,16 +86,10 @@ export default function CreatePost() {
     formData.append("image", file);
 
     authApi.post('/createpost', formData)
-      .then(() => {
-        console.log("A refresh ?");
+      .then(res => {
+        dispatch(setPostsData());
           
-        //return window.location.reload(false);
-      })
-      .then(() => {
-        setPostsData();
-      })
-      .then(() => {
-        console.log("Fait")
+        return console.log(res.data);
       })
       .catch(error => {
         setError(true);
