@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { NavLink } from "react-router-dom";
 
 import { useDispatch } from "react-redux";
@@ -12,19 +12,9 @@ import CancelIcon from '@mui/icons-material/Cancel';
 
 export default function CreatePost() {
   // Variables
+  const formRef = useRef();
+  const inputText = useRef();
   const dispatch = useDispatch();
-
-  // Get input values
-  const inputValues = { content: "", imageUrl: "" };
-  const [formValues, setFormValues] = useState(inputValues);
-
-  // Get JSON object from input values
-  const setRequestBody = (e) => {
-      const {name, value} = e.target;
-      setFormValues({ ...formValues, [name]: value });
-
-      return {...formValues};
-  };
 
   // --- SET FILE PREVIEW --- //
 
@@ -34,7 +24,6 @@ export default function CreatePost() {
 
   // Get post file details
   const previewFile = (e) => {
-    setRequestBody(e);
     const file = e.target.files[0];
     
 
@@ -78,16 +67,20 @@ export default function CreatePost() {
   const publishPost = (e) => {
     e.preventDefault();
 
-    const postDetails = { ...formValues };
+    const postDetails = inputText.current.value;
     const file = document.querySelector('input[type="file"]').files[0];
 
     let formData = new FormData();
-    formData.append("content", postDetails.content);
+    formData.append("content", postDetails);
     formData.append("image", file);
 
     authApi.post('/createpost', formData)
       .then(res => {
         dispatch(setPostsData());
+        setPreview(null);
+        setImage(null);
+        setError(false);
+        formRef.current.reset();
           
         return console.log(res.data);
       })
@@ -112,8 +105,8 @@ export default function CreatePost() {
           </div>
           }
         </NavLink>  
-        <form id="post-form" method="post" encType="multipart/form-data">
-          <textarea type="text" name="content" id="content" onChange={ setRequestBody } placeholder="Que souhaitez-vous partager aujourd'hui ?" autoComplete="off" minLength={ 1 } required />
+        <form id="post-form" method="post" encType="multipart/form-data" ref={ formRef }>
+          <textarea type="text" name="content" id="content" ref={ inputText } placeholder="Que souhaitez-vous partager aujourd'hui ?" autoComplete="off" minLength={ 1 } required />
           <div className="post-splitter"></div>
           { preview }
           <div className="post-submit-bar">
