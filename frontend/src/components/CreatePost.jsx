@@ -1,11 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
+
+import { useDispatch } from "react-redux";
+import { addPost, setPostsData } from "../feature/posts.slice";
+
 import authApi from "../api/auth";
+
 import AddPhotoAlternateRoundedIcon from '@mui/icons-material/AddPhotoAlternateRounded';
 import { IconButton } from '@mui/material';
 import CancelIcon from '@mui/icons-material/Cancel';
 
 export default function CreatePost() {
+  // Variables
+  const dispatch = useDispatch();
+
   // Get input values
   const inputValues = { content: "", imageUrl: "" };
   const [formValues, setFormValues] = useState(inputValues);
@@ -78,14 +86,21 @@ export default function CreatePost() {
     formData.append("image", file);
 
     authApi.post('/createpost', formData)
-        .then(() => {
-
-            return window.location.reload(false);
-        })
-        .catch(error => {
-            setError(true);
-            console.log(error.response.data);
-        })
+      .then(() => {
+        console.log("A refresh ?");
+          
+        //return window.location.reload(false);
+      })
+      .then(() => {
+        setPostsData();
+      })
+      .then(() => {
+        console.log("Fait")
+      })
+      .catch(error => {
+        setError(true);
+        console.log(error.response.data);
+      })
   };
 
   return (

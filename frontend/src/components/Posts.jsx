@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { NavLink } from "react-router-dom";
+
+import { useDispatch, useSelector } from "react-redux";
+import { setPostsData } from "../feature/posts.slice";
+
 import authApi from '../api/auth';
 
 import CreateComment from './CreateComment';
@@ -15,13 +19,14 @@ export default function Posts() {
 
     // Variables
     const { id } = useParams();
+    const dispatch = useDispatch();
+    const postsData = useSelector((state) => state.posts.posts);
     const userId = localStorage.getItem("userId");
     const $clicked = document.querySelector(".clicked");
     const $updating = document.querySelector(".updating");
     const $deleting = document.querySelector(".deleting");
 
     // --- GET ALL POSTS --- //
-    const [ data, setData ] = useState([]);
 
     useEffect(() => {
         const urlPathName = (new URL(document.location)).pathname;
@@ -31,7 +36,7 @@ export default function Posts() {
                 .then((res) => {
                     console.log("LISTE DES POSTS :", res.data);
                     
-                    return setData(res.data);
+                    return dispatch(setPostsData(res.data));
                 })
                 .catch(error => {
                     
@@ -42,14 +47,14 @@ export default function Posts() {
                 .then((res) => {
                     console.log("LISTE DES POSTS du profil :", res.data.filter(post => post.userId === parseFloat(id)));
                     
-                    return setData(res.data.filter(post => post.userId === parseFloat(id)));
+                    return dispatch(setPostsData(res.data.filter(post => post.userId === parseFloat(id))));
                 })
                 .catch(error => {
                     
                     console.log(error);
                 })
         }
-    }, [id]);
+    }, [id, dispatch]);
 
     // SET POST ID in Local Storage
     const setPostId = (e) => {
@@ -279,7 +284,7 @@ export default function Posts() {
 
     return (
         <div id="homefeed" onClick={ clearPostOptions }>
-            {data.map((post) =>
+            {postsData?.map((post) =>
               <div id={ post.id } key={ post.id } className="post">
                 <div className="post-line-one">
                     <NavLink to={ `/profil/${ post.User.id }` } className="nav-link">

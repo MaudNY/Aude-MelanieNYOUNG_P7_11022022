@@ -1,15 +1,12 @@
 import NotFoundMessage from "../components/NotFoundMessage";
+import Header from "../components/Header";
 import Footer from "../components/Footer";
 
 
 const NotFoundPage = () => {
     return (
         <div>
-            <header>
-                <div className="header-logo">
-                    <img src="./assets/logo-inbetween.png" alt="logo" />
-                </div>
-            </header>
+            <Header />
             <NotFoundMessage />
             <Footer />
         </div>
