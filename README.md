@@ -20,7 +20,7 @@ BACKEND:
 
 FRONTEND:
 
-> Framework: React.js
+> Framework: React.js / Redux
 
 > CSS Preprocessor: Sass
 
