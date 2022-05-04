@@ -75,16 +75,12 @@ export default function CreatePost() {
     formData.append("image", file);
 
     authApi.post('/createpost', formData)
-      .then(res => {
+      .then(() => {
         setPreview(null);
         setImage(null);
         setError(false);
         formRef.current.reset();
           
-        return console.log(res.data);
-      })
-      .then(() => {
-        
         return authApi.get('/home');
       })
       .then (response => {

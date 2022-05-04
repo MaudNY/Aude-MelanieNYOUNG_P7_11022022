@@ -1,8 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
+
+import { useDispatch } from "react-redux";
+import { setPostsData } from "../feature/posts.slice";
+
 import authApi from "../api/auth";
+
 import SendIcon from '@mui/icons-material/Send';
 
 export default function CreateComment() {
+  // Variable
+  const dispatch = useDispatch();
+  const commentFormRef = useRef();
+
   // Get input value
   const inputValues = { content: "" };
   const [formValues, setFormValues] = useState(inputValues);
@@ -25,8 +34,13 @@ export default function CreateComment() {
 
     authApi.post(`/comment/${postId}`, commentContent)
         .then(() => {
+          commentFormRef.current.reset();
 
-          return window.location.reload(false);
+          return authApi.get('/home');
+        })
+        .then(response => {
+
+            return dispatch(setPostsData(response.data));
         })
         .catch(error => {
             
@@ -35,7 +49,7 @@ export default function CreateComment() {
   };
 
   return (
-    <div className="create-comment">
+    <form method="post" className="create-comment" ref={ commentFormRef }>
       <div className="comment-upper-bar">
         { localStorage.getItem("profileImageUrl") === null || localStorage.getItem("profileImageUrl") === "" || localStorage.getItem("profileImageUrl") === "null"
         ?
@@ -50,6 +64,6 @@ export default function CreateComment() {
         <textarea type="text" name="content" id="content" onChange={ setRequestBody } placeholder="Partagez votre opinion ici..." required />
         <button type="submit" className="comment-button" onClick={ publishComment } ><SendIcon className="comment-icon" /></button>
       </div>
-    </div>
+    </form>
   )
 }

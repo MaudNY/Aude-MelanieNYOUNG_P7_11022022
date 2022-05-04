@@ -1,5 +1,9 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
+
+import { useDispatch } from "react-redux";
+import { setPostsData } from "../feature/posts.slice";
+
 import authApi from '../api/auth';
 
 import { IconButton } from '@mui/material';
@@ -7,6 +11,7 @@ import CancelIcon from '@mui/icons-material/Cancel';
 
 export default function Comments({ post }) {
     // Variables
+    const dispatch = useDispatch();
     const $deletingComment = document.querySelector(".deleting-comment");
 
     // DELETE A COMMENT
@@ -23,7 +28,6 @@ export default function Comments({ post }) {
         const commentId = e.target.parentElement.parentElement.parentElement.parentElement.parentElement.id;
         const $targetedComment = document.getElementById(commentId);
         $targetedComment.classList.add("deleting-comment");
-        console.log("comment à supprimer :", $targetedComment);
 
         return setCommentDeletionAlert(true);
     };
@@ -45,8 +49,13 @@ export default function Comments({ post }) {
 
         authApi.delete(`/deletecomment/${commentIdForBackend}`)
             .then(() => {
+                setCommentDeletionAlert(false);
                 
-                return window.location.reload(false);
+                return authApi.get('/home');
+            })
+            .then(response => {
+
+                return dispatch(setPostsData(response.data));
             })
             .catch(error => {
             

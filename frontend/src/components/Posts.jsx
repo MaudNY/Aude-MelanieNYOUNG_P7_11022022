@@ -210,8 +210,13 @@ export default function Posts() {
 
         return authApi.put(`updatepost/${postId}`, formData)
             .then(() => {
+                setIsUpdated(false);
 
-                return window.location.reload(false);
+                return authApi.get('/home');
+            })
+            .then(response => {
+
+                return dispatch(setPostsData(response.data));
             })
             .catch(error => {
                 
@@ -254,8 +259,13 @@ export default function Posts() {
 
         authApi.delete(`/deletepost/${postId}`)
             .then(() => {
+                setDeletionAlert(false);
 
-                return window.location.reload(false);
+                return authApi.get('/home');
+            })
+            .then(response => {
+
+                return dispatch(setPostsData(response.data));
             })
             .catch(error => {
             
