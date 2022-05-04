@@ -76,13 +76,20 @@ export default function CreatePost() {
 
     authApi.post('/createpost', formData)
       .then(res => {
-        dispatch(setPostsData());
         setPreview(null);
         setImage(null);
         setError(false);
         formRef.current.reset();
           
         return console.log(res.data);
+      })
+      .then(() => {
+        
+        return authApi.get('/home');
+      })
+      .then (response => {
+
+        return dispatch(setPostsData(response.data));
       })
       .catch(error => {
         setError(true);

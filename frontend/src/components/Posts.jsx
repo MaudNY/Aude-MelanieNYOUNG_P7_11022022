@@ -21,7 +21,6 @@ export default function Posts() {
     const { id } = useParams();
     const dispatch = useDispatch();
     const postsData = useSelector((state) => state.posts.posts);
-    //const lastPost = postsData[postsData.length - 1];
     const userId = localStorage.getItem("userId");
     const $clicked = document.querySelector(".clicked");
     const $updating = document.querySelector(".updating");
@@ -54,7 +53,7 @@ export default function Posts() {
                     console.log(error);
                 })
         }
-    }, [id, dispatch, postsData]);
+    }, [id, dispatch]);
 
     // SET POST ID in Local Storage
     const setPostId = (e) => {

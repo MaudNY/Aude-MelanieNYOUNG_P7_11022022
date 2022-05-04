@@ -9,10 +9,6 @@ export const postsSlice = createSlice({
         // Function that seeks data
         setPostsData: (state, { payload }) => {
             state.posts = payload;
-        },
-        // Function that adds a post
-        addPost: (state, { payload }) => {
-            state.posts.push(payload);
         }
     }
 })
