@@ -19,6 +19,7 @@ export default function Posts() {
 
     // Variables
     const { id } = useParams();
+    const urlPathName = (new URL(document.location)).pathname;
     const dispatch = useDispatch();
     const postsData = useSelector((state) => state.posts.posts);
     const userId = localStorage.getItem("userId");
@@ -29,31 +30,23 @@ export default function Posts() {
     // --- GET ALL POSTS --- //
 
     useEffect(() => {
-        const urlPathName = (new URL(document.location)).pathname;
 
-        if (urlPathName === "/home") {
-            authApi.get('/home')
-                .then((res) => {
+        authApi.get('/home')
+            .then(res => {
+                if (urlPathName === `/profil/${id}`) {
+
+                    return dispatch(setPostsData(res.data.filter(post => post.userId === parseFloat(id))));
+                } else {
                     
                     return dispatch(setPostsData(res.data));
-                })
-                .catch(error => {
+                }
+            })
+            .catch(error => {
                     
-                    console.log(error);
-                })
-        } else {
-            authApi.get('/home')
-                .then((res) => {
-                    console.log("LISTE DES POSTS du profil :", res.data.filter(post => post.userId === parseFloat(id)));
-                    
-                    return dispatch(setPostsData(res.data.filter(post => post.userId === parseFloat(id))));
-                })
-                .catch(error => {
-                    
-                    console.log(error);
-                })
-        }
-    }, [id, dispatch]);
+                console.log(error);
+            })
+
+    }, [id, dispatch, urlPathName]);
 
     // SET POST ID in Local Storage
     const setPostId = (e) => {
@@ -215,8 +208,13 @@ export default function Posts() {
                 return authApi.get('/home');
             })
             .then(response => {
+                if (urlPathName === `/profil/${id}`) {
+                    
+                    return dispatch(setPostsData(response.data.filter(post => post.userId === parseFloat(id))));
+                } else {
 
-                return dispatch(setPostsData(response.data));
+                    return dispatch(setPostsData(response.data));
+                }
             })
             .catch(error => {
                 
@@ -264,8 +262,13 @@ export default function Posts() {
                 return authApi.get('/home');
             })
             .then(response => {
+                if (urlPathName === `/profil/${id}`) {
+                    
+                    return dispatch(setPostsData(response.data.filter(post => post.userId === parseFloat(id))));
+                } else {
 
-                return dispatch(setPostsData(response.data));
+                    return dispatch(setPostsData(response.data));
+                }
             })
             .catch(error => {
             

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 
 import { useDispatch } from "react-redux";
 import { setPostsData } from "../feature/posts.slice";
@@ -14,6 +14,8 @@ export default function CreatePost() {
   // Variables
   const formRef = useRef();
   const inputText = useRef();
+  const { id } = useParams();
+  const urlPathName = (new URL(document.location)).pathname;
   const dispatch = useDispatch();
 
   // --- SET FILE PREVIEW --- //
@@ -84,8 +86,14 @@ export default function CreatePost() {
         return authApi.get('/home');
       })
       .then (response => {
+        if (urlPathName === `/profil/${id}`) {
 
-        return dispatch(setPostsData(response.data));
+          return dispatch(setPostsData(response.data.filter(post => post.userId === parseFloat(id))));
+        } else {
+
+          return dispatch(setPostsData(response.data));
+        }
+
       })
       .catch(error => {
         setError(true);

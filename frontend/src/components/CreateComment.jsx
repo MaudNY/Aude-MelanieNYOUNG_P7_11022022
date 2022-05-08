@@ -1,4 +1,5 @@
 import React, { useState, useRef } from "react";
+import { useParams } from "react-router-dom";
 
 import { useDispatch } from "react-redux";
 import { setPostsData } from "../feature/posts.slice";
@@ -9,6 +10,8 @@ import SendIcon from '@mui/icons-material/Send';
 
 export default function CreateComment() {
   // Variable
+  const { id } = useParams;
+  const urlPathName = (new URL(document.location)).pathname;
   const dispatch = useDispatch();
   const commentFormRef = useRef();
 
@@ -39,12 +42,21 @@ export default function CreateComment() {
           return authApi.get('/home');
         })
         .then(response => {
+          console.log("urlpathname", urlPathName);
+          console.log("response.data :", response.data);
+          console.log("post.userId", response.data.userId);
+          console.log("id params :", id);
+          if (urlPathName === `/profil/${id}`) {
 
+            return dispatch(setPostsData(response.data.filter(post => post.userId === id)));
+          } else {
+  
             return dispatch(setPostsData(response.data));
+          }
+
         })
         .catch(error => {
-            
-            console.log(error);
+          console.log(error);
         })
   };
 
