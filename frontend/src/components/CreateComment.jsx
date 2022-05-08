@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useRef } from "react";
 import { useParams } from "react-router-dom";
 
 import { useDispatch } from "react-redux";
@@ -9,31 +9,22 @@ import authApi from "../api/auth";
 import SendIcon from '@mui/icons-material/Send';
 
 export default function CreateComment() {
-  // Variable
-  const { id } = useParams;
+  // Variables
+  const id = useParams().id;
   const urlPathName = (new URL(document.location)).pathname;
   const dispatch = useDispatch();
   const commentFormRef = useRef();
+  const inputComment = useRef();
 
-  // Get input value
-  const inputValues = { content: "" };
-  const [formValues, setFormValues] = useState(inputValues);
-
-  // Get JSON object from input value
-  const setRequestBody = (e) => {
-      const {name, value} = e.target;
-      setFormValues({ ...formValues, [name]: value });
-
-      return {...formValues};
-  };
-
-  // --- PUBLISH POST --- //
+  // --- PUBLISH COMMENT --- //
 
   const publishComment = (e) => {
     e.preventDefault();
 
     const postId = localStorage.getItem("postId");
-    const commentContent = { ...formValues };
+    const commentContent = {
+      content: inputComment.current.value
+    };
 
     authApi.post(`/comment/${postId}`, commentContent)
         .then(() => {
@@ -42,13 +33,10 @@ export default function CreateComment() {
           return authApi.get('/home');
         })
         .then(response => {
-          console.log("urlpathname", urlPathName);
-          console.log("response.data :", response.data);
-          console.log("post.userId", response.data.userId);
-          console.log("id params :", id);
+          
           if (urlPathName === `/profil/${id}`) {
 
-            return dispatch(setPostsData(response.data.filter(post => post.userId === id)));
+            return dispatch(setPostsData(response.data.filter(post => post.userId === parseFloat(id))));
           } else {
   
             return dispatch(setPostsData(response.data));
@@ -73,7 +61,7 @@ export default function CreateComment() {
             <img src={ localStorage.getItem("profileImageUrl") } alt="utilisateur connecté" />
         </div>
         }
-        <textarea type="text" name="content" id="content" onChange={ setRequestBody } placeholder="Partagez votre opinion ici..." required />
+        <textarea type="text" name="content" id="content" ref={ inputComment } placeholder="Partagez votre opinion ici..." required />
         <button type="submit" className="comment-button" onClick={ publishComment } ><SendIcon className="comment-icon" /></button>
       </div>
     </form>

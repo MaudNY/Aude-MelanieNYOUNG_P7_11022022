@@ -18,7 +18,6 @@ export default function ProfileInfo() {
         
         authApi.get(`/profile/${ id }`)
             .then((res) => {
-                console.log("PROFIL VISITÉ :", res.data);
                 
                 return setProfile(res.data);
             })
