@@ -12,19 +12,18 @@ export default function DropDownMenu() {
 
     return (
         <div id="dropdown-menu">
-            <div id="show-home-link">
-                <div className="home-title"><NavLink to={ "/home" } className="nav-link">
+            <NavLink to={ "/home" } id="show-home-link" className="nav-link">
+                <div className="home-title">
                     Accueil
-                </NavLink></div>
+                </div>
                 <i className="fas fa-home"></i>
-            </div>
-            <div className="comment-splitter"></div>
-            <div id="show-profile-link">
-                <div className="profile-title"><NavLink to={ `/profil/${ localStorage.getItem("userId") }` } className="nav-link">
+            </NavLink>
+            <NavLink to={ `/profil/${ localStorage.getItem("userId") }` } id="show-profile-link" className="nav-link">
+                <div className="profile-title">
                     Mon profil
-                </NavLink></div>
+                </div>
                 <i className="far fa-user"></i>
-            </div>
+            </NavLink>
             <button type="button" id="logout-btn" onClick={ logOut }>
                 <div className="logout-btn-title">Déconnexion</div>
                 <i className="fas fa-power-off"></i>

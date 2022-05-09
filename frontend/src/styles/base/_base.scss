@@ -27,5 +27,9 @@ input, textarea {
 	font-family: Arial, sans-serif;
 }
 
+.nav-link {
+    @include weblink-rules(black);
+}
+
 // RESPONSIVE
 $breakpoints: (tablet: 768px, desktop: 1140px);
