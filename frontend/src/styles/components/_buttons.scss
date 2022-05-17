@@ -124,16 +124,23 @@
     }
 }
 
-.deletion-button, .deletion-comment-button {
+.deletion-button, .deletion-comment-button, .refresh-button {
     min-height: 25px;
     padding: 2px 8px;
     margin-top: 8px;
     color: white;
-    background-color: $secondary-color;
     font-weight: bold;
 	border-radius: 20px;
     border-style: none;
     cursor: pointer;
+}
+
+.deletion-button, .deletion-comment-button {
+    background-color: $secondary-color;
+}
+
+.refresh-button {
+    background-color: $alt-color;
 }
 
 #update-profile-btn, #delete-profile-btn {

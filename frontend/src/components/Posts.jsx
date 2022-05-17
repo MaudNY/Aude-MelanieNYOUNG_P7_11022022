@@ -271,9 +271,26 @@ export default function Posts() {
                 }
             })
             .catch(error => {
-            
-                console.log(error);
+                
+                if (error.response.status === 404) {
+                    console.log(error.response);
+                    setDeletionAlert(false);
+
+                    return setPostDeletionErrorAlert(true);
+                } else {
+                    console.log(error.response);
+                }
             })
+    };
+
+    // HANDLE DELETION OF NON-EXISTING POST
+    const [ postDeletionErrorAlert, setPostDeletionErrorAlert ] = useState(false);
+
+    const refreshPage = (e) => {
+        e.preventDefault();
+        setPostDeletionErrorAlert(false);
+
+        return window.location.reload(false);
     };
 
     // SHOW COMMENTS UNDER THE POST
@@ -411,6 +428,18 @@ export default function Posts() {
                     <div className="deletion-text">Souhaitez-vous vraiment supprimer cette publication ?</div>
                     <div>
                         <button type="button" className="deletion-button" onClick={ deletePost }>Supprimer</button>
+                    </div>
+                </div>
+                : <></>
+                }
+                {postDeletionErrorAlert === true && $deleting && parseFloat($deleting.id) === post.id
+                ?
+                <div id={ "error-deletion-alert-post-" + post.id } className="deletion-alert">
+                    <div className="error-deletion-text">
+                        Oups !<br />
+                        Il semblerait que ce post n'existe déjà plus... <span>&#128517;</span></div>
+                    <div>
+                        <button type="button" className="refresh-button" onClick={ refreshPage }>C'est noté !</button>
                     </div>
                 </div>
                 : <></>

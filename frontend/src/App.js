@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import SignUp from "./pages/SignUp";
 import LogIn from "./pages/LogIn";
@@ -10,6 +10,7 @@ import PrivateRoute from "./PrivateRoute";
 
 
 const App = () => {
+
   return (
     <Router>
       <Routes>
